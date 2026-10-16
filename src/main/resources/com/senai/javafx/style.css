@@ -1,0 +1,167 @@
+/* ==========================================================================
+   CONFIGURAÇÃO GLOBAL E PALETA DE CORES (Válido para todas as janelas)
+   ========================================================================== */
+.root {
+    /* Cores principais */
+    -cor-fundo: #f0f2f5;
+    -cor-superficie: #ffffff;
+    -cor-superficie-alt: #f1f1f1;
+    -cor-primaria: #2b7cf6;
+    -cor-primaria-hover: #1a6be8;
+    -cor-primaria-pressed: #1255be;
+    -cor-secundaria: #e4e6eb;
+    -cor-secundaria-hover: #d8dadf;
+    -cor-perigo: #e53935;
+    -cor-perigo-hover: #d32f2f;
+
+    /* Cores de texto */
+    -cor-texto-principal: #111111;
+    -cor-texto-secundario: #555555;
+    -cor-texto-claro: #ffffff;
+
+    /* Campos de entrada */
+    -cor-campo: #e4e6eb;
+    -cor-campo-foco: #cecece;
+
+    /* Aplicação padrão */
+    -fx-background-color: -cor-fundo;
+    -fx-font-family: "Inter", system-ui, -apple-system, sans-serif;
+}
+
+/* ==========================================================================
+   CONTAINERS E PAINÉIS
+   ========================================================================== */
+/* Cartão padrão (usado em painéis de login, cards de dashboard, etc.) */
+.painel-principal,
+.card {
+    -fx-background-color: -cor-superficie-alt;
+    -fx-background-radius: 12px;
+    -fx-border-radius: 12px;
+    -fx-padding: 20px;
+}
+
+/* Barra lateral ou de topo (comum em telas internas) */
+.barra-navegacao {
+    -fx-background-color: -cor-superficie;
+    -fx-border-color: #e0e0e0;
+    -fx-border-width: 0 0 1px 0;
+}
+
+/* ==========================================================================
+   TIPOGRAFIA REUTILIZÁVEL
+   ========================================================================== */
+/* Título de tela (substitui o antigo .titulo-login) */
+.titulo-tela,
+.titulo-login {
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-text-fill: -cor-texto-principal;
+}
+
+/* Subtítulos ou cabeçalhos de seções */
+.subtitulo {
+    -fx-font-size: 16px;
+    -fx-font-weight: 600;
+    -fx-text-fill: -cor-texto-principal;
+}
+
+/* Labels e textos de formulário */
+.label-campo {
+    -fx-font-size: 13px;
+    -fx-text-fill: -cor-texto-principal;
+}
+
+/* Textos secundários / legendas */
+.texto-ajuda,
+.texto-mutado {
+    -fx-font-size: 12px;
+    -fx-text-fill: -cor-texto-secundario;
+}
+
+/* ==========================================================================
+   ENTRADAS DE DADOS (TextField, PasswordField, TextArea, ComboBox)
+   ========================================================================== */
+.campo-texto,
+.text-field,
+.password-field {
+    -fx-background-color: -cor-campo;
+    -fx-background-radius: 6px;
+    -fx-border-radius: 6px;
+    -fx-border-color: transparent;
+    -fx-border-width: 1px;
+    -fx-font-size: 13px;
+    -fx-text-fill: -cor-texto-principal;
+    -fx-pref-height: 36px;
+    -fx-padding: 0 12px;
+}
+
+.campo-texto:focus,
+.text-field:focus,
+.password-field:focus {
+    -fx-background-color: -cor-campo-foco;
+    -fx-border-color: -cor-primaria;
+}
+
+/* Área de texto multilinhas */
+.text-area {
+    -fx-background-color: transparent;
+}
+
+.text-area .content {
+    -fx-background-color: -cor-campo;
+    -fx-background-radius: 6px;
+    -fx-border-radius: 6px;
+    -fx-border-color: transparent;
+}
+
+.text-area:focus .content {
+    -fx-border-color: -cor-primaria;
+}
+
+/* ==========================================================================
+   BOTÕES
+   ========================================================================== */
+/* Estilo base comum a todos os botões */
+.button {
+    -fx-background-radius: 6px;
+    -fx-border-radius: 6px;
+    -fx-font-size: 13px;
+    -fx-font-weight: 600;
+    -fx-cursor: hand;
+    -fx-pref-height: 36px;
+    -fx-padding: 0 16px;
+}
+
+/* Botão Primário (Ação principal: Entrar, Salvar, Confirmar) */
+.botao-primario {
+    -fx-background-color: -cor-primaria;
+    -fx-text-fill: -cor-texto-claro;
+}
+
+.botao-primario:hover {
+    -fx-background-color: -cor-primaria-hover;
+}
+
+.botao-primario:active {
+    -fx-background-color: -cor-primaria-pressed;
+}
+
+/* Botão Secundário (Cancelar, Voltar, Limpar) */
+.botao-secundario {
+    -fx-background-color: -cor-secundaria;
+    -fx-text-fill: -cor-texto-principal;
+}
+
+.botao-secundario:hover {
+    -fx-background-color: -cor-secundaria-hover;
+}
+
+/* Botão de Perigo/Alerta (Excluir, Remover) */
+.botao-perigo {
+    -fx-background-color: -cor-perigo;
+    -fx-text-fill: -cor-texto-claro;
+}
+
+.botao-perigo:hover {
+    -fx-background-color: -cor-perigo-hover;
+}

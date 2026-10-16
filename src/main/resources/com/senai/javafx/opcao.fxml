@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="435.0" prefWidth="276.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.senai.javafx.controllers.Tela2Controller">
+   <children>
+      <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="21.0" prefWidth="258.0" styleClass="subtitulo" text="Olá! Selecione uma opção abaixo:">
+         <font>
+            <Font name="Inter Semi Bold" size="11.0" />
+         </font></Label>
+      <AnchorPane prefHeight="317.0" prefWidth="276.0">
+         <children>
+            <Button layoutX="58.0" layoutY="14.0" mnemonicParsing="false" onAction="#cadastroClientes" prefHeight="25.0" prefWidth="164.0" styleClass="botao-secundario" stylesheets="@style.css" text="Cadastrar clientes">
+               <font>
+                  <Font name="Inter Regular" size="12.0" />
+               </font></Button>
+            <Button layoutX="57.0" layoutY="60.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="164.0" styleClass="botao-secundario" stylesheets="@style.css" text="Cadastrar categorias">
+               <font>
+                  <Font name="Inter Regular" size="12.0" />
+               </font></Button>
+            <Button layoutX="57.0" layoutY="111.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="164.0" styleClass="botao-secundario" stylesheets="@style.css" text="Cadastrar jogos">
+               <font>
+                  <Font name="Inter Regular" size="12.0" />
+               </font></Button>
+            <Button layoutX="57.0" layoutY="159.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="164.0" styleClass="botao-secundario" stylesheets="@style.css" text="Consultar jogos">
+               <font>
+                  <Font name="Inter Regular" size="12.0" />
+               </font></Button>
+            <Button layoutX="58.0" layoutY="210.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="164.0" styleClass="botao-secundario" stylesheets="@style.css" text="Gerenciar estoque">
+               <font>
+                  <Font name="Inter Regular" size="12.0" />
+               </font></Button>
+            <Button layoutX="57.0" layoutY="260.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="164.0" styleClass="botao-secundario" text="Realizar uma compra">
+               <font>
+                  <Font name="Inter Regular" size="12.0" />
+               </font>
+            </Button>
+         </children>
+      </AnchorPane>
+   </children>
+</VBox>

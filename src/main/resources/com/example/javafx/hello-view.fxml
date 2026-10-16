@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox alignment="CENTER" onAction="#onHelloButtonClick" spacing="20.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javafx.HelloController">
+    <padding>
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+    </padding>
+   <Button fx:id="tenhobrenrot" mnemonicParsing="false" onAction="#tenhobrenrot" text="Sim" />
+
+    <Label fx:id="tenhobrenrot" onAction="#tenhobrenrot" prefHeight="52.0" prefWidth="132.0" text="Você tem um brainrot?" />
+   <Button fx:id="simbrainrot" mnemonicParsing="false" text="Não" />
+</VBox>

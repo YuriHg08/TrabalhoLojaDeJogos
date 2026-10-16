@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox alignment="TOP_LEFT" prefHeight="440.0" prefWidth="340.0" spacing="18.0" styleClass="painel-principal" stylesheets="@style.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.senai.javafx.controllers.HelloController">
+    <padding>
+        <Insets bottom="32.0" left="28.0" right="28.0" top="36.0" />
+    </padding>
+
+    <!-- Título Principal -->
+    <Label styleClass="titulo-login" text="Fazer login">
+        <VBox.margin>
+            <Insets bottom="16.0" />
+        </VBox.margin></Label>
+
+    <!-- Grupo E-mail -->
+    <VBox spacing="6.0">
+        <Label styleClass="label-campo" text="E-mail/nome de usuário" />
+        <TextField fx:id="nomeTextField" prefHeight="38.0" styleClass="campo-texto" />
+    </VBox>
+
+    <!-- Grupo Senha -->
+    <VBox spacing="6.0">
+        <Label styleClass="label-campo" text="Senha" />
+        <PasswordField fx:id="senhaTextField" prefHeight="38.0" styleClass="campo-texto" />
+    </VBox>
+
+    <Label fx:id="welcomeText" alignment="CENTER" prefHeight="15.0" prefWidth="297.0" />
+
+    <!-- Botão Centralizado -->
+    <VBox alignment="CENTER">
+        <VBox.margin>
+            <Insets top="12.0" />
+        </VBox.margin>
+        <Button fx:id="botaoEntrar" mnemonicParsing="false" onAction="#prosseguirCadastro" prefHeight="38.0" prefWidth="150.0" styleClass="botao-primario" text="Entrar" />
+    </VBox>
+</VBox>
