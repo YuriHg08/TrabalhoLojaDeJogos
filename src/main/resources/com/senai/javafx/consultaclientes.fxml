@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="500.0"
+            xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.senai.javafx.controllers.ConsultarclienteController">
+    <children>
+        <TableView fx:id="tabela" layoutX="20.0" layoutY="20.0" prefHeight="360.0" prefWidth="460.0">
+            <columns>
+                <TableColumn fx:id="colCpf" prefWidth="140.0" text="CPF" />
+                <TableColumn fx:id="colNome" prefWidth="180.0" text="Nome" />
+                <TableColumn fx:id="colTelefone" prefWidth="140.0" text="Telefone" />
+            </columns>
+        </TableView>
+    </children>
+</AnchorPane>
