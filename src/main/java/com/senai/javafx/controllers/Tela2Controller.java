@@ -42,4 +42,17 @@ public class Tela2Controller {
         Stage telaAtual = (Stage) ((Node) event.getSource()).getScene().getWindow();
         telaAtual.close();
     }
+    @FXML
+    private void consultarClientes(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(
+                getClass().getResource("/com/senai/javafx/consultaclientes.fxml")
+        );
+
+        Parent root = loader.load();
+
+        Stage stage = new Stage();
+        stage.setTitle("Consultar clientes");
+        stage.setScene(new Scene(root));
+        stage.show();
+    }
 }

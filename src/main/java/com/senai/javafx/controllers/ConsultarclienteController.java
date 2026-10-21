@@ -7,6 +7,12 @@ import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+import java.io.IOException;
 
 public class ConsultarclienteController {
 
@@ -22,6 +28,8 @@ public class ConsultarclienteController {
         colTelefone.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getTelefone()));
 
         tabela.setItems(FXCollections.observableArrayList(Clientecadastro.listar()));
+
     }
+
 }
 
