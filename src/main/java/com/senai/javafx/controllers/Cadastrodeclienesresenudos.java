@@ -4,6 +4,9 @@ import com.senai.javafx.entidades.Clientecadastro;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import com.senai.javafx.entidades.HelloApplication;
+import javafx.stage.Stage;
+
 public class Cadastrodeclienesresenudos {
 
     @FXML private TextField nomeField;
@@ -36,9 +39,11 @@ public class Cadastrodeclienesresenudos {
         Clientecadastro.cadastrar(new Cliente(nome, cpf, telefone));
         mensagem.setText("Cliente cadastrado!");
 
-        nomeField.clear();
-        cpfField.clear();
-        telefoneField.clear();
+
+        HelloApplication.WindowManager.abrirJanela("/com/senai/javafx/opcao.fxml", "Menu");
+
+        Stage telaAtual = (Stage) nomeField.getScene().getWindow();
+        telaAtual.close();
     }
 
 

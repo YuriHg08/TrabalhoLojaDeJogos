@@ -16,10 +16,10 @@ import java.io.IOException;
 
 public class ConsultarclienteController {
 
-    @FXML private TableView<Cliente> tabela;
-    @FXML private TableColumn<Cliente, String> colCpf;
-    @FXML private TableColumn<Cliente, String> colNome;
-    @FXML private TableColumn<Cliente, String> colTelefone;
+        @FXML private TableView<Cliente> tabela;
+        @FXML private TableColumn<Cliente, String> colCpf;
+        @FXML private TableColumn<Cliente, String> colNome;
+        @FXML private TableColumn<Cliente, String> colTelefone;
 
     @FXML
     private void initialize() {
