@@ -21,6 +21,18 @@ public class Cadastrodeclienesresenudos {
             mensagem.setText("Preencha todos os textos");
             return;
         }
+        if (telefone.length() != 11 && cpf.length() != 11) {
+            mensagem.setText("Preencha os dois campos com 11 digitos");
+            return;
+        }
+        if (cpf.length() != 11) {
+            mensagem.setText("Preencha o cpf com 11 digitos");
+            return;
+        }
+        if (telefone.length() != 11) {
+            mensagem.setText("Preencha o telefone com 11 digitos");
+            return;
+        }
         Clientecadastro.cadastrar(new Cliente(nome, cpf, telefone));
         mensagem.setText("Cliente cadastrado!");
 
