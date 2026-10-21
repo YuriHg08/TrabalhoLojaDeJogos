@@ -13,13 +13,21 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import java.io.IOException;
+import java.util.Objects;
+
+import javafx.scene.Node;
+
 
 public class ConsultarclienteController {
 
-        @FXML private TableView<Cliente> tabela;
-        @FXML private TableColumn<Cliente, String> colCpf;
-        @FXML private TableColumn<Cliente, String> colNome;
-        @FXML private TableColumn<Cliente, String> colTelefone;
+    @FXML
+    private TableView<Cliente> tabela;
+    @FXML
+    private TableColumn<Cliente, String> colCpf;
+    @FXML
+    private TableColumn<Cliente, String> colNome;
+    @FXML
+    private TableColumn<Cliente, String> colTelefone;
 
     @FXML
     private void initialize() {
@@ -31,5 +39,21 @@ public class ConsultarclienteController {
 
     }
 
-}
+    @FXML
+    private void voltarTela(ActionEvent event) {
+        try {
 
+            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/com/senai/javafx/opcao.fxml")));
+
+
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+            stage.setScene(new Scene(root));
+            stage.setTitle("Menu Principal");
+            stage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}

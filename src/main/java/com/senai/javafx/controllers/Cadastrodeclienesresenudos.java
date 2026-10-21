@@ -1,4 +1,5 @@
 package com.senai.javafx.controllers;
+
 import com.senai.javafx.entidades.Cliente;
 import com.senai.javafx.entidades.Clientecadastro;
 import javafx.fxml.FXML;
@@ -6,6 +7,13 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import com.senai.javafx.entidades.HelloApplication;
 import javafx.stage.Stage;
+import javafx.event.ActionEvent;
+import javafx.scene.Node;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import java.io.IOException;
+import java.util.Objects;
 
 public class Cadastrodeclienesresenudos {
 
@@ -39,12 +47,27 @@ public class Cadastrodeclienesresenudos {
         Clientecadastro.cadastrar(new Cliente(nome, cpf, telefone));
         mensagem.setText("Cliente cadastrado!");
 
-
-        HelloApplication.WindowManager.abrirJanela("/com/senai/javafx/opcao.fxml", "Menu");
-
-        Stage telaAtual = (Stage) nomeField.getScene().getWindow();
-        telaAtual.close();
+        nomeField.clear();
+        cpfField.clear();
+        telefoneField.clear();
     }
 
+    @FXML
+    private void voltarTela(ActionEvent event) {
+        try {
 
+            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/com/senai/javafx/opcao.fxml")));
+
+
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+
+            stage.setScene(new Scene(root));
+            stage.setTitle("Menu Principal");
+            stage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }

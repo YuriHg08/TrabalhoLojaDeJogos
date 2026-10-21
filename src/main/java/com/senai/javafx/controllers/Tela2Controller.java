@@ -54,5 +54,7 @@ public class Tela2Controller {
         stage.setTitle("Consultar clientes");
         stage.setScene(new Scene(root));
         stage.show();
+        Stage telaAtual = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        telaAtual.close();
     }
 }

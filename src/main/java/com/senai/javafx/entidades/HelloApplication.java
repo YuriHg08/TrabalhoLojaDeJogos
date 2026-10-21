@@ -27,24 +27,24 @@ public class HelloApplication extends Application {
 
 
     }
-    // Função auxiliar para abrir uma nova janela
+
     public static class WindowManager {
 
         public static void abrirJanela(String fxmlPath, String titulo) {
 
             try {
-                // Carrega o arquivo FXML
+
                 FXMLLoader loader = new FXMLLoader(WindowManager.class.getResource(fxmlPath));
                 Parent root = loader.load();
 
-                // Cria a cena
+
                 Scene scene = new Scene(root);
 
-                // ADICIONA O CSS GLOBALMENTE EM QUALQUER CENA CRIADA AQUI
+
                 String css = Objects.requireNonNull(WindowManager.class.getResource("/com/senai/javafx/style.css")).toExternalForm();
                 scene.getStylesheets().add(css);
 
-                // Configura e mostra o Stage (Janela)
+
                 Stage stage = new Stage();
                 stage.setTitle(titulo);
                 stage.setScene(scene);
