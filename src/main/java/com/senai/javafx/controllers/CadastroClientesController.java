@@ -1,11 +1,10 @@
 package com.senai.javafx.controllers;
 
 import com.senai.javafx.entidades.Cliente;
-import com.senai.javafx.entidades.Clientecadastro;
+import com.senai.javafx.entidades.ClienteCadastro;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import com.senai.javafx.entidades.HelloApplication;
 import javafx.stage.Stage;
 import javafx.event.ActionEvent;
 import javafx.scene.Node;
@@ -15,7 +14,7 @@ import javafx.scene.Scene;
 import java.io.IOException;
 import java.util.Objects;
 
-public class Cadastrodeclienesresenudos {
+public class CadastroClientesController {
 
     @FXML private TextField nomeField;
     @FXML private TextField cpfField;
@@ -29,22 +28,22 @@ public class Cadastrodeclienesresenudos {
         String telefone = telefoneField.getText();
 
         if (nome.isEmpty() || cpf.isEmpty() || telefone.isEmpty()) {
-            mensagem.setText("Preencha todos os textos");
+            mensagem.setText("Preencha todos os campos!");
             return;
         }
         if (telefone.length() != 11 && cpf.length() != 11) {
-            mensagem.setText("Preencha os dois campos com 11 digitos");
+            mensagem.setText("Preencha os dois campos com 11 dígitos!");
             return;
         }
         if (cpf.length() != 11) {
-            mensagem.setText("Preencha o cpf com 11 digitos");
+            mensagem.setText("Preencha o CPF com 11 dígitos!");
             return;
         }
         if (telefone.length() != 11) {
-            mensagem.setText("Preencha o telefone com 11 digitos");
+            mensagem.setText("Preencha o telefone com 11 dígitos!");
             return;
         }
-        Clientecadastro.cadastrar(new Cliente(nome, cpf, telefone));
+        ClienteCadastro.cadastrar(new Cliente(nome, cpf, telefone));
         mensagem.setText("Cliente cadastrado!");
 
         nomeField.clear();

@@ -1,4 +1,4 @@
 package com.senai.javafx.controllers;
 
-public class cadastroJogosController {
+public class CadastroJogosController {
 }

@@ -1,7 +1,7 @@
 package com.senai.javafx.controllers;
 
 import com.senai.javafx.entidades.Cliente;
-import com.senai.javafx.entidades.Clientecadastro;
+import com.senai.javafx.entidades.ClienteCadastro;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
@@ -18,7 +18,7 @@ import java.util.Objects;
 import javafx.scene.Node;
 
 
-public class ConsultarclienteController {
+public class ConsultarClienteController {
 
     @FXML
     private TableView<Cliente> tabela;
@@ -35,7 +35,7 @@ public class ConsultarclienteController {
         colNome.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getNomecliente()));
         colTelefone.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getTelefone()));
 
-        tabela.setItems(FXCollections.observableArrayList(Clientecadastro.listar()));
+        tabela.setItems(FXCollections.observableArrayList(ClienteCadastro.listar()));
 
     }
 

@@ -25,9 +25,6 @@ public class    HelloController {
 
         if (!nome.equals("admin") || !senha.equals("admin")) {
             welcomeText.setText("E-mail/nome de usuário ou senha inválidos.");
-        }
-        else if (nome.isEmpty() || senha.isEmpty()) {
-            welcomeText.setText("E-mail/nome de usuário ou senha inválidos.");
         } else {
             HelloApplication.WindowManager.abrirJanela("/com/senai/javafx/opcao.fxml", "Janela foda");
             Stage janelaAtual = (Stage) nomeTextField.getScene().getWindow();
