@@ -31,6 +31,7 @@ public class MenuController {
         Stage telaAtual = (Stage) ((Node) event.getSource()).getScene().getWindow();
         telaAtual.close();
     }
+
     @FXML
     private void consultarClientes(ActionEvent event) throws IOException {
 
@@ -39,4 +40,11 @@ public class MenuController {
         Stage telaAtual = (Stage) ((Node) event.getSource()).getScene().getWindow();
         telaAtual.close();
     }
+
+
+    @FXML
+    private void cadastroJogos(ActionEvent event) throws IOException {
+        HelloApplication.WindowManager.abrirJanela("/com/senai/javafx/cadastroJogos.fxml", "Cadastrar um jogo");
+    }
+
 }
