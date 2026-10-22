@@ -165,3 +165,52 @@
 .botao-perigo:hover {
     -fx-background-color: -cor-perigo-hover;
 }
+
+/* ==========================================================================
+   TABELAS (TableView e Componentes)
+   ========================================================================== */
+.table-view {
+    -fx-background-color: -cor-superficie;
+    -fx-background-radius: 8px;
+    -fx-border-radius: 8px;
+    -fx-border-color: -cor-secundaria;
+    -fx-border-width: 1px;
+}
+
+.table-view .column-header-background {
+    -fx-background-color: -cor-secundaria;
+    -fx-background-radius: 8px 8px 0 0;
+}
+
+.table-view .column-header,
+.table-view .filler {
+    -fx-background-color: transparent;
+    -fx-size: 35px;
+}
+
+.table-view .column-header .label {
+    -fx-text-fill: -cor-texto-principal;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+}
+
+.table-row-cell {
+    -fx-background-color: -cor-superficie;
+    -fx-cell-size: 32px;
+}
+
+.table-row-cell:odd {
+    -fx-background-color: -cor-superficie-alt;
+}
+
+.table-row-cell:hover {
+    -fx-background-color: -cor-secundaria-hover;
+}
+
+.table-row-cell:selected {
+    -fx-background-color: -cor-primaria;
+}
+
+.table-row-cell:selected .text {
+    -fx-fill: -cor-texto-claro;
+}

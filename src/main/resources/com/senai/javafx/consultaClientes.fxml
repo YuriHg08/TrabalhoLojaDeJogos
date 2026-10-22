@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="500.0"
+            styleClass="painel-principal"
+            stylesheets="@style.css"
+            xmlns="http://javafx.com/javafx/17.0.12"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.senai.javafx.controllers.ConsultarClienteController">
+    <children>
+        <TableView fx:id="tabela" layoutX="20.0" layoutY="20.0" prefHeight="320.0" prefWidth="460.0">
+            <columns>
+                <TableColumn fx:id="colNome" prefWidth="140.0" text="Nome" />
+                <TableColumn fx:id="colCpf" prefWidth="180.0" text="Cpf" />
+                <TableColumn fx:id="colTelefone" prefWidth="140.0" text="Telefone" />
+            </columns>
+        </TableView>
+
+        <Button layoutX="185.0" layoutY="350.0" mnemonicParsing="false" onAction="#voltarTela" prefHeight="36.0" prefWidth="130.0" styleClass="botao-secundario" text="Voltar" />
+    </children>
+</AnchorPane>

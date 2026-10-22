@@ -1,7 +1,7 @@
 package com.senai.javafx.entidades;
 import java.util.ArrayList;
 import java.util.List;
-public class Clientecadastro {
+public class ClienteCadastro {
     private static final List<Cliente> clientes = new ArrayList<>();
 
     public static void cadastrar(Cliente cliente) {

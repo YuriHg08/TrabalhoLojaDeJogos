@@ -1,10 +1,7 @@
 package com.senai.javafx.entidades;
 
 import javafx.application.Application;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.event.ActionEvent;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.scene.Parent;
@@ -17,7 +14,7 @@ public class HelloApplication extends Application {
     @Override
     // Janela inicial (Login com nome e senha)
     public void start(Stage primeiraTela) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("/com/senai/javafx/hello-view.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("/com/senai/javafx/telaLogin.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 320, 500);
 
         primeiraTela.setTitle("Cadastre-se na Loja");
@@ -27,24 +24,24 @@ public class HelloApplication extends Application {
 
 
     }
-    // Função auxiliar para abrir uma nova janela
+
     public static class WindowManager {
 
         public static void abrirJanela(String fxmlPath, String titulo) {
 
             try {
-                // Carrega o arquivo FXML
+
                 FXMLLoader loader = new FXMLLoader(WindowManager.class.getResource(fxmlPath));
                 Parent root = loader.load();
 
-                // Cria a cena
+
                 Scene scene = new Scene(root);
 
-                // ADICIONA O CSS GLOBALMENTE EM QUALQUER CENA CRIADA AQUI
+
                 String css = Objects.requireNonNull(WindowManager.class.getResource("/com/senai/javafx/style.css")).toExternalForm();
                 scene.getStylesheets().add(css);
 
-                // Configura e mostra o Stage (Janela)
+
                 Stage stage = new Stage();
                 stage.setTitle(titulo);
                 stage.setScene(scene);
