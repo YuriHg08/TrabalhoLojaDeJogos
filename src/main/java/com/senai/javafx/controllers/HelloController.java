@@ -29,7 +29,7 @@ public class    HelloController {
         else if (nome.isEmpty() || senha.isEmpty()) {
             welcomeText.setText("E-mail/nome de usuário ou senha inválidos.");
         } else {
-            HelloApplication.WindowManager.abrirJanela("/com/senai/javafx/opcao.fxml", "Janela foda");
+            HelloApplication.WindowManager.abrirJanela("/com/senai/javafx/opcao.fxml", "Menu de ações");
             Stage janelaAtual = (Stage) nomeTextField.getScene().getWindow();
             janelaAtual.close();
 
