@@ -15,18 +15,8 @@ public class MenuController {
 
     @FXML
     private void cadastroClientes(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(
-                getClass().getResource("/com/senai/javafx/cadastroClientes.fxml")
-        );
 
-        Parent root = loader.load();
-
-        Stage stage = new Stage();
-        Scene scene = new Scene(root);
-
-        stage.setTitle("Cadastrar um cliente");
-        stage.setScene(scene);
-        stage.show();
+        HelloApplication.WindowManager.abrirJanela("/com/senai/javafx/cadastroClientes.fxml", "Consultar clientes");
 
         Stage telaAtual = (Stage) ((Node) event.getSource()).getScene().getWindow();
         telaAtual.close();
@@ -35,7 +25,15 @@ public class MenuController {
     @FXML
     private void consultarClientes(ActionEvent event) throws IOException {
 
-        HelloApplication.WindowManager.abrirJanela("/com/senai/javafx/consultaClientes.fxml", "Consultar clientes");
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("/com/senai/javafx/consultaClientes.fxml"));
+
+        Stage stage = new Stage();
+        Scene scene = new Scene(fxmlLoader.load());
+
+        stage.setTitle("Cadastre-se na Loja");
+        stage.setScene(scene);
+        stage.show();
+        stage.setResizable(false);
 
         Stage telaAtual = (Stage) ((Node) event.getSource()).getScene().getWindow();
         telaAtual.close();
@@ -45,6 +43,16 @@ public class MenuController {
     @FXML
     private void cadastroJogos(ActionEvent event) throws IOException {
         HelloApplication.WindowManager.abrirJanela("/com/senai/javafx/cadastroJogos.fxml", "Cadastrar um jogo");
+
+        Stage telaAtual = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        telaAtual.close();
     }
 
+    @FXML
+    private void cadastroCategoria(ActionEvent event) throws IOException {
+        HelloApplication.WindowManager.abrirJanela("/com/senai/javafx/cadastroCategoria.fxml", "Cadastrar um jogo");
+
+        Stage telaAtual = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        telaAtual.close();
+    }
 }

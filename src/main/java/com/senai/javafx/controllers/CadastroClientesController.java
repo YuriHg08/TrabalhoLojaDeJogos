@@ -2,6 +2,7 @@ package com.senai.javafx.controllers;
 
 import com.senai.javafx.entidades.Cliente;
 import com.senai.javafx.entidades.ClienteCadastro;
+import com.senai.javafx.entidades.HelloApplication;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -16,10 +17,14 @@ import java.util.Objects;
 
 public class CadastroClientesController {
 
-    @FXML private TextField nomeField;
-    @FXML private TextField cpfField;
-    @FXML private TextField telefoneField;
-    @FXML private Label mensagem;
+    @FXML
+    private TextField nomeField;
+    @FXML
+    private TextField cpfField;
+    @FXML
+    private TextField telefoneField;
+    @FXML
+    private Label mensagem;
 
     @FXML
     private void salvar() {
@@ -52,21 +57,8 @@ public class CadastroClientesController {
     }
 
     @FXML
-    private void voltarTela(ActionEvent event) {
-        try {
+    public void voltarTela(ActionEvent event) {
+        HelloApplication.WindowManager.voltarTela("/com/senai/javafx/opcao.fxml", event);
 
-            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/com/senai/javafx/opcao.fxml")));
-
-
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-
-
-            stage.setScene(new Scene(root));
-            stage.setTitle("Menu Principal");
-            stage.show();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 }
