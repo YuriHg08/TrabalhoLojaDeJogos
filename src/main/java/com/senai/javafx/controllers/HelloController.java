@@ -7,7 +7,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import java.io.IOException;
 
-public class    HelloController {
+public class HelloController {
     @FXML
     private Label welcomeText;
 

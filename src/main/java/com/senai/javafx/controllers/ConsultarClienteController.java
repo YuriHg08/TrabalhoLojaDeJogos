@@ -2,6 +2,7 @@ package com.senai.javafx.controllers;
 
 import com.senai.javafx.entidades.Cliente;
 import com.senai.javafx.entidades.ClienteCadastro;
+import com.senai.javafx.entidades.HelloApplication;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
@@ -40,20 +41,8 @@ public class ConsultarClienteController {
     }
 
     @FXML
-    private void voltarTela(ActionEvent event) {
-        try {
+    public void voltarTela(ActionEvent event) {
+        HelloApplication.WindowManager.voltarTela("/com/senai/javafx/opcao.fxml", event);
 
-            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/com/senai/javafx/opcao.fxml")));
-
-
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-
-            stage.setScene(new Scene(root));
-            stage.setTitle("Menu Principal");
-            stage.show();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 }
