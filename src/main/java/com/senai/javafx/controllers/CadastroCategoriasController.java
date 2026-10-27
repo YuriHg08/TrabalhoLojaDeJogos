@@ -8,7 +8,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
-
 import javafx.event.ActionEvent;
 
 public class CadastroCategoriasController {
@@ -32,7 +31,7 @@ public class CadastroCategoriasController {
 
     @FXML
     // Cria lista fixa para armazenar as categorias
-    private static final ObservableList<String> categoriasSalvas = FXCollections.observableArrayList(
+    public static final ObservableList<String> categoriasSalvas = FXCollections.observableArrayList(
             "Ação", "Aventura", "RPG"
     );
 

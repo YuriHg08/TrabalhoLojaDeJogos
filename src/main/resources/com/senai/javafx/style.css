@@ -233,3 +233,41 @@
     -fx-text-fill: -cor-texto-secundario;
     -fx-font-size: 13px;
 }
+
+
+/* MenuButton */
+.menu-button {
+    -fx-background-color: -cor-primaria;
+    -fx-background-radius: 6px;
+    -fx-border-radius: 6px;
+    -fx-border-color: transparent;
+    -fx-font-family: "Inter", sans-serif;
+    -fx-font-size: 13px;
+    -fx-font-weight: 600;
+    -fx-text-fill: -cor-texto-claro;
+    -fx-pref-height: 36px;
+    -fx-padding: 0 16px;
+}
+
+/* Menu suspenso */
+.context-menu {
+    -fx-background-color: -cor-superficie;
+    -fx-background-radius: 6px;
+    -fx-border-color: -cor-secundaria;
+    -fx-border-radius: 6px;
+    -fx-padding: 4px;
+    -fx-effect: none;
+}
+
+/* Opções do menu */
+.menu-item {
+    -fx-background-color: transparent;
+    -fx-padding: 8px 12px;
+}
+
+.menu-item .label {
+    -fx-text-fill: -cor-texto-principal;
+    -fx-font-family: "Inter", sans-serif;
+    -fx-font-size: 13px;
+    -fx-font-weight: 600;
+}

@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.VBox?>
 
-<VBox alignment="TOP_LEFT" prefHeight="440.0" prefWidth="340.0" spacing="18.0" styleClass="painel-principal" stylesheets="@style.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.senai.javafx.controllers.HelloController">
+<VBox alignment="TOP_LEFT" prefHeight="440.0" prefWidth="340.0" spacing="18.0" styleClass="painel-principal" stylesheets="@style.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.senai.javafx.controllers.HelloController">
     <padding>
         <Insets bottom="32.0" left="28.0" right="28.0" top="36.0" />
     </padding>
@@ -14,17 +18,21 @@
         <VBox.margin>
             <Insets bottom="16.0" />
         </VBox.margin></Label>
+   <TextField fx:id="nomeJogo1" prefHeight="38.0" promptText="Nome do jogo" styleClass="campo-texto" />
+     <TextField fx:id="nomeJogo" prefHeight="38.0" promptText="preço do jogo" styleClass="campo-texto" />
+   <MenuButton fx:id="menuCategoria" mnemonicParsing="false" prefHeight="25.0" prefWidth="308.0" text="Categoria do jogo">
+     <items>
+       <MenuItem mnemonicParsing="false" text="RPG" />
+       <MenuItem mnemonicParsing="false" text="Aventura" />
+         <MenuItem mnemonicParsing="false" text="Açao" />
+     </items>
+   </MenuButton>
 
     <!-- Grupo E-mail -->
-    <VBox spacing="6.0">
-        <TextField fx:id="nomeJogo" prefHeight="38.0" promptText="Nome do jogo" styleClass="campo-texto" />
-    </VBox>
+    <VBox spacing="6.0" />
 
     <!-- Grupo Senha -->
-    <VBox spacing="6.0">
-        <PasswordField fx:id="precoJogo" prefHeight="38.0" promptText="Preço do jogo" styleClass="campo-texto" />
-    </VBox>
-    <Label fx:id="welcomeText" alignment="CENTER" prefHeight="15.0" prefWidth="297.0" />
+    <VBox spacing="6.0" />
 
     <!-- Botão Centralizado -->
     <VBox alignment="CENTER">
