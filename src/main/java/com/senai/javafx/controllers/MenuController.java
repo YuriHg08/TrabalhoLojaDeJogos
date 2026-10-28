@@ -55,4 +55,21 @@ public class MenuController {
         Stage telaAtual = (Stage) ((Node) event.getSource()).getScene().getWindow();
         telaAtual.close();
     }
+
+    @FXML
+    private void consultarJogos(ActionEvent event) throws IOException {
+
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("/com/senai/javafx/consultarJogos.fxml"));
+
+        Stage stage = new Stage();
+        Scene scene = new Scene(fxmlLoader.load(), 603, 475);
+
+        stage.setTitle("Consultar jogos");
+        stage.setScene(scene);
+        stage.show();
+        stage.setResizable(false);
+
+        Stage telaAtual = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        telaAtual.close();
+    }
 }

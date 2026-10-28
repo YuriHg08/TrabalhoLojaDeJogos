@@ -5,9 +5,13 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox alignment="TOP_LEFT" prefHeight="440.0" prefWidth="340.0" spacing="18.0" styleClass="painel-principal" stylesheets="@style.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.senai.javafx.controllers.CadastroJogosController">
+<VBox alignment="TOP_LEFT" prefHeight="560.0" prefWidth="340.0" spacing="18.0" styleClass="painel-principal" stylesheets="@style.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.senai.javafx.controllers.CadastroJogosController">
     <padding>
         <Insets bottom="32.0" left="28.0" right="28.0" top="36.0" />
     </padding>
@@ -15,24 +19,31 @@
     <!-- Título Principal -->
     <Label styleClass="titulo-login" text="Cadastrar um jogo">
         <VBox.margin>
-            <Insets bottom="16.0" />
-        </VBox.margin></Label>
-   <TextField fx:id="nomeJogo1" prefHeight="38.0" promptText="Nome do jogo" styleClass="campo-texto" />
-     <TextField fx:id="nomeJogo" prefHeight="38.0" promptText="Preço (Ex: 5.00)" styleClass="campo-texto" />
-   <ComboBox fx:id="menuCategoria" prefHeight="33.0" prefWidth="300.0" promptText="Selecione uma categoria" styleClass="combo-box" stylesheets="@style.css" />
-
-    <!-- Grupo E-mail -->
-    <VBox spacing="6.0" />
-
-    <!-- Grupo Senha -->
-    <VBox spacing="6.0" />
-
-    <!-- Botão Centralizado -->
-    <VBox alignment="CENTER">
-        <VBox.margin>
-            <Insets top="12.0" />
+            <Insets bottom="10.0" />
         </VBox.margin>
-    </VBox>
-    <Button fx:id="botaoEntrar" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="38.0" prefWidth="150.0" styleClass="botao-primario" text="Entrar" />
-    <Label prefHeight="14.0" prefWidth="56.0" styleClass="label-campo" />
+    </Label>
+
+    <!-- Campos de Entrada -->
+    <TextField fx:id="txtNomeJogo" prefHeight="38.0" promptText="Nome do jogo" styleClass="campo-texto" />
+    <TextField fx:id="txtPrecoJogo" prefHeight="38.0" promptText="Preço (Ex: 59.90)" styleClass="campo-texto" />
+    <ComboBox fx:id="menuCategoria" prefHeight="38.0" prefWidth="300.0" promptText="Selecione uma categoria" styleClass="combo-box" stylesheets="@style.css" />
+   <AnchorPane>
+      <children>
+           <ImageView fx:id="imgPreview" fitHeight="84.0" fitWidth="130.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+               <Image url="@../../../../../../../../Pictures/imagem.png" />
+            </image>
+         </ImageView>
+           <Button fx:id="btnEscolherImagem" layoutX="142.0" layoutY="21.0" mnemonicParsing="false" onAction="#selecionarImagem" prefHeight="81.0" prefWidth="144.0" styleClass="botao-secundario" text="Escolher Capa..." />
+      </children>
+   </AnchorPane>
+
+    <!-- Mensagem de Feedback -->
+    <Label fx:id="respostaJogo" alignment="CENTER" prefHeight="20.0" prefWidth="284.0" styleClass="label-campo" />
+   <HBox>
+      <children>
+           <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#cadastrarJogo" prefHeight="38.0" prefWidth="319.0" styleClass="botao-primario" text="Cadastrar" />
+      </children>
+   </HBox>
+     <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#voltarTela" prefHeight="38.0" prefWidth="306.0" styleClass="botao-secundario" text="Voltar" />
 </VBox>

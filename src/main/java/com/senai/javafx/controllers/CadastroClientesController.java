@@ -6,14 +6,7 @@ import com.senai.javafx.entidades.HelloApplication;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
 import javafx.event.ActionEvent;
-import javafx.scene.Node;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import java.io.IOException;
-import java.util.Objects;
 
 public class CadastroClientesController {
 

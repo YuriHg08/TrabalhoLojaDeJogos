@@ -21,7 +21,7 @@
     -cor-texto-prompt: #888888; /* <-- ADICIONADO: Cor padrão para o texto de prompt */
 
     /* Campos de entrada */
-    -cor-campo: #d1d1d1;
+    -cor-campo: #e3e3e3;
     -cor-campo-foco: #cecece;
 
     /* Aplicação padrão */
@@ -239,7 +239,7 @@
 
 /* ComboBox */
 .combo-box {
-    -fx-background-color: -cor-secundaria;
+    -fx-background-color: -cor-campo;
     -fx-text-fill: -cor-texto-principal;
     -fx-prompt-text-fill: -cor-texto-prompt; /* <-- ADICIONADO: Cor do prompt na ComboBox */
 }

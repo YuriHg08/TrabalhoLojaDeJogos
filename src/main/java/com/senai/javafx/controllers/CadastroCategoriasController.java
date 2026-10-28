@@ -32,7 +32,7 @@ public class CadastroCategoriasController {
     @FXML
     // Cria lista fixa para armazenar as categorias
     public static final ObservableList<String> categoriasSalvas = FXCollections.observableArrayList(
-            "Ação", "Aventura", "RPG"
+        "Ação", "Aventura", "RPG"
     );
 
     @FXML
