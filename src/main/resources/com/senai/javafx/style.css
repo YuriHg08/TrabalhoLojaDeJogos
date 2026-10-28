@@ -9,8 +9,8 @@
     -cor-primaria: #2b7cf6;
     -cor-primaria-hover: #1a6be8;
     -cor-primaria-pressed: #1255be;
-    -cor-secundaria: #e4e6eb;
-    -cor-secundaria-hover: #d8dadf;
+    -cor-secundaria: #c8c8c8;
+    -cor-secundaria-hover: #bdbdbd;
     -cor-perigo: #e53935;
     -cor-perigo-hover: #d32f2f;
 
@@ -18,9 +18,10 @@
     -cor-texto-principal: #111111;
     -cor-texto-secundario: #555555;
     -cor-texto-claro: #ffffff;
+    -cor-texto-prompt: #888888; /* <-- ADICIONADO: Cor padrão para o texto de prompt */
 
     /* Campos de entrada */
-    -cor-campo: #e4e6eb;
+    -cor-campo: #d1d1d1;
     -cor-campo-foco: #cecece;
 
     /* Aplicação padrão */
@@ -93,11 +94,12 @@
     -fx-text-fill: -cor-texto-principal;
     -fx-pref-height: 36px;
     -fx-padding: 0 12px;
+    -fx-prompt-text-fill: -cor-texto-prompt; /* <-- ADICIONADO: Cor do prompt nos campos de texto */
 }
 
-.campo-texto:focus,
-.text-field:focus,
-.password-field:focus {
+.campo-texto:focused,
+.text-field:focused,
+.password-field:focused {
     -fx-background-color: -cor-campo-foco;
     -fx-border-color: -cor-primaria;
 }
@@ -112,9 +114,10 @@
     -fx-background-radius: 6px;
     -fx-border-radius: 6px;
     -fx-border-color: transparent;
+    -fx-prompt-text-fill: -cor-texto-prompt; /* <-- ADICIONADO: Cor do prompt na TextArea */
 }
 
-.text-area:focus .content {
+.text-area:focused .content {
     -fx-border-color: -cor-primaria;
 }
 
@@ -142,7 +145,7 @@
     -fx-background-color: -cor-primaria-hover;
 }
 
-.botao-primario:active {
+.botao-primario:pressed {
     -fx-background-color: -cor-primaria-pressed;
 }
 
@@ -234,40 +237,20 @@
     -fx-font-size: 13px;
 }
 
-
-/* MenuButton */
-.menu-button {
-    -fx-background-color: -cor-primaria;
-    -fx-background-radius: 6px;
-    -fx-border-radius: 6px;
-    -fx-border-color: transparent;
-    -fx-font-family: "Inter", sans-serif;
-    -fx-font-size: 13px;
-    -fx-font-weight: 600;
-    -fx-text-fill: -cor-texto-claro;
-    -fx-pref-height: 36px;
-    -fx-padding: 0 16px;
-}
-
-/* Menu suspenso */
-.context-menu {
-    -fx-background-color: -cor-superficie;
-    -fx-background-radius: 6px;
-    -fx-border-color: -cor-secundaria;
-    -fx-border-radius: 6px;
-    -fx-padding: 4px;
-    -fx-effect: none;
-}
-
-/* Opções do menu */
-.menu-item {
-    -fx-background-color: transparent;
-    -fx-padding: 8px 12px;
-}
-
-.menu-item .label {
+/* ComboBox */
+.combo-box {
+    -fx-background-color: -cor-secundaria;
     -fx-text-fill: -cor-texto-principal;
-    -fx-font-family: "Inter", sans-serif;
-    -fx-font-size: 13px;
-    -fx-font-weight: 600;
+    -fx-prompt-text-fill: -cor-texto-prompt; /* <-- ADICIONADO: Cor do prompt na ComboBox */
+}
+
+/* Texto da caixa principal */
+.combo-box .list-cell {
+    -fx-text-fill: -cor-texto-principal;
+}
+
+/* Itens dentro da lista suspensa */
+.combo-box-popup .list-cell {
+    -fx-background-color: -cor-secundaria;
+    -fx-text-fill: -cor-texto-principal;
 }

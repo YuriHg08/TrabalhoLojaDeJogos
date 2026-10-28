@@ -37,15 +37,15 @@ public class CadastroClientesController {
             return;
         }
         if (telefone.length() != 11 && cpf.length() != 11) {
-            mensagem.setText("Preencha os dois campos com 11 dígitos!");
+            mensagem.setText("O telefone e o CPF devem ter 11 dígitos!");
             return;
         }
         if (cpf.length() != 11) {
-            mensagem.setText("Preencha o CPF com 11 dígitos!");
+            mensagem.setText("O CPF deve ter 11 dígitos!");
             return;
         }
         if (telefone.length() != 11) {
-            mensagem.setText("Preencha o telefone com 11 dígitos!");
+            mensagem.setText("O telefone deve ter 11 dígitos!");
             return;
         }
         ClienteCadastro.cadastrar(new Cliente(nome, cpf, telefone));

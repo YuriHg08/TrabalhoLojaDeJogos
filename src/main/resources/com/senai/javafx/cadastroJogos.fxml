@@ -2,13 +2,12 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.MenuButton?>
-<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox alignment="TOP_LEFT" prefHeight="440.0" prefWidth="340.0" spacing="18.0" styleClass="painel-principal" stylesheets="@style.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.senai.javafx.controllers.HelloController">
+<VBox alignment="TOP_LEFT" prefHeight="440.0" prefWidth="340.0" spacing="18.0" styleClass="painel-principal" stylesheets="@style.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.senai.javafx.controllers.CadastroJogosController">
     <padding>
         <Insets bottom="32.0" left="28.0" right="28.0" top="36.0" />
     </padding>
@@ -19,14 +18,8 @@
             <Insets bottom="16.0" />
         </VBox.margin></Label>
    <TextField fx:id="nomeJogo1" prefHeight="38.0" promptText="Nome do jogo" styleClass="campo-texto" />
-     <TextField fx:id="nomeJogo" prefHeight="38.0" promptText="preço do jogo" styleClass="campo-texto" />
-   <MenuButton fx:id="menuCategoria" mnemonicParsing="false" prefHeight="25.0" prefWidth="308.0" text="Categoria do jogo">
-     <items>
-       <MenuItem mnemonicParsing="false" text="RPG" />
-       <MenuItem mnemonicParsing="false" text="Aventura" />
-         <MenuItem mnemonicParsing="false" text="Açao" />
-     </items>
-   </MenuButton>
+     <TextField fx:id="nomeJogo" prefHeight="38.0" promptText="Preço (Ex: 5.00)" styleClass="campo-texto" />
+   <ComboBox fx:id="menuCategoria" prefHeight="33.0" prefWidth="300.0" promptText="Selecione uma categoria" styleClass="combo-box" stylesheets="@style.css" />
 
     <!-- Grupo E-mail -->
     <VBox spacing="6.0" />
@@ -40,6 +33,6 @@
             <Insets top="12.0" />
         </VBox.margin>
     </VBox>
-    <Button fx:id="botaoEntrar" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#prosseguirCadastro" prefHeight="38.0" prefWidth="150.0" styleClass="botao-primario" text="Entrar" />
+    <Button fx:id="botaoEntrar" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="38.0" prefWidth="150.0" styleClass="botao-primario" text="Entrar" />
     <Label prefHeight="14.0" prefWidth="56.0" styleClass="label-campo" />
 </VBox>
