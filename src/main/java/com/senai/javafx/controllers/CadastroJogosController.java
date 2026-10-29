@@ -48,6 +48,7 @@ public class CadastroJogosController {
         }
     }
 
+
     @FXML
     private void selecionarImagem(ActionEvent event) {
         FileChooser fileChooser = new FileChooser();
