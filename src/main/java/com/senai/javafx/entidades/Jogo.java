@@ -53,5 +53,8 @@
         public void setPrecoJogo(double precoJogo) {
             this.precoJogo = precoJogo;
         }
+
+        public int getEstoqueJogo() {
+        }
     }
 

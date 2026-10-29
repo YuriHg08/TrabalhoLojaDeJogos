@@ -1,35 +1,40 @@
 package com.senai.javafx.controllers;
 
-import com.senai.javafx.entidades.CadastroJogo;
-import com.senai.javafx.entidades.HelloApplication;
+import com.senai.javafx.entidades.GerenciamentoJanela;
 import com.senai.javafx.entidades.Jogo;
 import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
-import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
-import javafx.scene.control.Label;
-import javafx.geometry.Pos;
 
 public class ConsultarJogosController {
 
     @FXML
     private TableView<Jogo> tabelaJogos;
     @FXML
-    private TableColumn<Jogo, Double> colPrecoJogo;
+    private TableColumn<Jogo, Integer> colEstoqueJogo;
     @FXML
     private TableColumn<Jogo, String> colNomeJogo;
     @FXML
     private TableColumn<Jogo, String> colCategoriaJogo;
+    @FXML
+    private TableColumn<Jogo, Double> colPrecoJogo;
 
     @FXML
     private void initialize() {
+        // Vinculação da coluna de Estoque
+        colEstoqueJogo.setCellValueFactory(c ->
+                new SimpleIntegerProperty(c.getValue().getEstoqueJogo()).asObject()
+        );
 
         colPrecoJogo.setCellValueFactory(c ->
                 new SimpleDoubleProperty(c.getValue().getPrecoJogo()).asObject()
@@ -37,7 +42,7 @@ public class ConsultarJogosController {
         colNomeJogo.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getNomeJogo()));
         colCategoriaJogo.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getCategoriaJogo()));
 
-        // Função para adicionar imagem na coluna
+        // Mantém a miniatura ao lado do nome do jogo
         adicionarImagemETextoNaColuna(colNomeJogo);
 
         tabelaJogos.setItems(CadastroJogosController.jogosSalvos);
@@ -50,11 +55,11 @@ public class ConsultarJogosController {
         coluna.setCellFactory(param -> new TableCell<Jogo, String>() {
             private final ImageView imageView = new ImageView();
             private final Label label = new Label();
-            private final HBox container = new HBox(8); // Espaçamento de 8px entre imagem e texto
+            private final HBox container = new HBox(8);
 
             {
-                imageView.setFitWidth(32);  // Largura da imagem
-                imageView.setFitHeight(32); // Altura da imagem
+                imageView.setFitWidth(32);
+                imageView.setFitHeight(32);
                 imageView.setPreserveRatio(true);
                 container.setAlignment(Pos.CENTER_LEFT);
                 container.getChildren().addAll(imageView, label);
@@ -69,11 +74,6 @@ public class ConsultarJogosController {
                 } else {
                     Jogo jogo = getTableView().getItems().get(getIndex());
 
-                    // Supondo que a classe Jogo tenha o método getCaminhoImagem() ou getUrlImagem()
-                    // Exemplo 1: Carregando dos recursos da aplicação (/imagens/nome.png)
-                    // Image img = new Image(getClass().getResourceAsStream(jogo.getCaminhoImagem()));
-
-                    // Exemplo 2: URL ou caminho relativo simples
                     if (jogo.getCaminhoImagem() != null && !jogo.getCaminhoImagem().isEmpty()) {
                         Image img = new Image(jogo.getCaminhoImagem(), true);
                         imageView.setImage(img);
@@ -86,13 +86,10 @@ public class ConsultarJogosController {
                 }
             }
         });
-
-
     }
 
     @FXML
     public void voltarTela(ActionEvent event) {
-        HelloApplication.WindowManager.voltarTela("/com/senai/javafx/opcao.fxml", event);
-
+        GerenciamentoJanela.voltarTela();
     }
 }

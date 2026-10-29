@@ -1,6 +1,6 @@
 package com.senai.javafx.controllers;
 
-import com.senai.javafx.entidades.HelloApplication;
+import com.senai.javafx.entidades.GerenciamentoJanela;
 import com.senai.javafx.entidades.Jogo;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -41,13 +41,11 @@ public class CadastroJogosController {
 
     private String caminhoImagemSelecionada;
 
+
     @FXML
     public void initialize() {
-        if (categoriasSalvas != null) {
             menuCategoria.setItems(categoriasSalvas);
-        }
     }
-
 
     @FXML
     private void selecionarImagem(ActionEvent event) {
@@ -125,6 +123,7 @@ public class CadastroJogosController {
 
     @FXML
     public void voltarTela(ActionEvent event) {
-        HelloApplication.WindowManager.voltarTela("/com/senai/javafx/opcao.fxml", event);
+        GerenciamentoJanela.voltarTela();
+
     }
 }

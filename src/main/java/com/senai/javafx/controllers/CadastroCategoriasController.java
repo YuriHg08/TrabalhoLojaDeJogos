@@ -1,6 +1,6 @@
 package com.senai.javafx.controllers;
 
-import com.senai.javafx.entidades.HelloApplication;
+import com.senai.javafx.entidades.GerenciamentoJanela;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -55,10 +55,10 @@ public class CadastroCategoriasController {
     }
 
     @FXML
-        public void voltarTela(ActionEvent event) {
-        HelloApplication.WindowManager.voltarTela("/com/senai/javafx/opcao.fxml", event);
+    public void voltarTela(ActionEvent event) {
+        GerenciamentoJanela.voltarTela();
 
-        }
+    }
 
 }
 
