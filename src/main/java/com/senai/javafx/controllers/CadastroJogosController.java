@@ -41,6 +41,7 @@ public class CadastroJogosController {
 
     private String caminhoImagemSelecionada;
 
+
     @FXML
     public void initialize() {
         if (categoriasSalvas != null) {
