@@ -1,0 +1,236 @@
+/* ==========================================================================
+   PALETA DE CORES & VARIÁVEIS (Inspiração Steam + Neon Game Point)
+   ========================================================================== */
+.root {
+    /* Cores de Fundo (Estilo Steam Dark) */
+    -cor-fundo: #0d121d;
+    -cor-superficie: #171d2a;
+    -cor-superficie-alt: #1e2638;
+
+    /* Cores Neon (Game Point) */
+    -cor-neon-rosa: #ff007a;
+    -cor-neon-ciano: #00f0ff;
+    -cor-neon-amarelo: #ffc700;
+    -cor-neon-verde: #00ff88;
+
+    /* Cores Primárias de Ação */
+    -cor-primaria: #00f0ff;
+    -cor-primaria-hover: #33f3ff;
+    -cor-primaria-pressed: #00c4d1;
+
+    /* Cores de Texto */
+    -cor-texto-principal: #ffffff;
+    -cor-texto-secundario: #8f98a0;
+    -cor-texto-prompt: #535c66;
+
+    /* Entradas e Campos */
+    -cor-campo: #101622;
+    -cor-campo-foco: #182234;
+
+    -fx-background-color: -cor-fundo;
+    -fx-font-family: "Segoe UI", Arial, sans-serif;
+}
+
+/* ==========================================================================
+   MENU LATERAL (SIDEBAR DE CATEGORIAS E CONSOLES)
+   ========================================================================== */
+.sidebar-cliente {
+    -fx-background-color: -cor-superficie;
+    -fx-border-color: #212b3d;
+    -fx-border-width: 0 1px 0 0;
+}
+
+/* Título Principal GAME POINT */
+.titulo-tela {
+    -fx-font-size: 22px;
+    -fx-font-weight: bold;
+    -fx-text-fill: -cor-neon-rosa;
+    -fx-effect: dropshadow(three-pass-box, rgba(255, 0, 122, 0.6), 12, 0, 0, 0);
+}
+
+/* Títulos de Secção (CATEGORIAS e CONSOLES) */
+.subtitulo-sidebar {
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-text-fill: -cor-neon-amarelo;
+    -fx-padding: 14px 0 4px 0;
+    -fx-effect: dropshadow(one-pass-box, rgba(255, 199, 0, 0.3), 5, 0, 0, 0);
+}
+
+/* Botões da Sidebar */
+.botao-categoria {
+    -fx-background-color: transparent;
+    -fx-text-fill: -cor-texto-secundario;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-alignment: CENTER_LEFT;
+    -fx-padding: 8px 12px;
+    -fx-cursor: hand;
+    -fx-background-radius: 6px;
+}
+
+.botao-categoria:hover {
+    -fx-background-color: -cor-superficie-alt;
+    -fx-text-fill: -cor-texto-principal;
+    -fx-border-color: transparent transparent transparent -cor-neon-ciano;
+    -fx-border-width: 0 0 0 3px;
+}
+
+.botao-categoria-ativo {
+    -fx-background-color: rgba(0, 240, 255, 0.1);
+    -fx-text-fill: -cor-neon-ciano;
+    -fx-border-color: transparent transparent transparent -cor-neon-ciano;
+    -fx-border-width: 0 0 0 3px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 240, 255, 0.3), 8, 0, 0, 0);
+}
+
+/* ==========================================================================
+   ÁREA CENTRAL (CATÁLOGO E BANNER)
+   ========================================================================== */
+.custom-scroll-pane {
+    -fx-background-color: transparent;
+    -fx-background: -cor-fundo;
+    -fx-border-color: transparent;
+}
+
+.custom-scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+
+.conteudo-loja {
+    -fx-background-color: -cor-fundo;
+}
+
+/* Banner Hero Central */
+.banner-hero {
+    -fx-background-color: linear-gradient(to right, #12091f, #0d1a2d);
+    -fx-border-color: -cor-neon-rosa;
+    -fx-border-width: 1.5px;
+    -fx-border-radius: 12px;
+    -fx-background-radius: 12px;
+    -fx-alignment: CENTER;
+    -fx-effect: dropshadow(three-pass-box, rgba(255, 0, 122, 0.25), 15, 0, 0, 0);
+}
+
+.titulo-banner {
+    -fx-font-size: 28px;
+    -fx-font-weight: bold;
+    -fx-text-fill: -cor-neon-amarelo;
+    -fx-effect: dropshadow(three-pass-box, rgba(255, 199, 0, 0.5), 10, 0, 0, 0);
+}
+
+.subtitulo {
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+    -fx-text-fill: -cor-texto-principal;
+}
+
+/* ==========================================================================
+   CARTÕES DE JOGOS (ESTILO STEAM + NEON)
+   ========================================================================== */
+.card-jogo {
+    -fx-background-color: -cor-superficie;
+    -fx-background-radius: 10px;
+    -fx-border-color: #212b3d;
+    -fx-border-radius: 10px;
+    -fx-padding: 12px;
+    -fx-cursor: hand;
+}
+
+.card-jogo:hover {
+    -fx-border-color: -cor-neon-ciano;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 240, 255, 0.35), 12, 0, 0, 0);
+    -fx-translate-y: -2px;
+}
+
+.imagem-placeholder {
+    -fx-background-color: -cor-campo;
+    -fx-min-height: 130px;
+    -fx-background-radius: 8px;
+    -fx-alignment: CENTER;
+    -fx-border-color: #1e283a;
+    -fx-border-radius: 8px;
+}
+
+.label-preco {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: -cor-neon-verde;
+    -fx-effect: dropshadow(one-pass-box, rgba(0, 255, 136, 0.3), 5, 0, 0, 0);
+}
+
+/* ==========================================================================
+   CAMPOS DE TEXTO E PAINEL DE LOGIN (DIREITA)
+   ========================================================================== */
+.painel-login-direita {
+    -fx-background-color: -cor-superficie;
+    -fx-border-color: #212b3d;
+    -fx-border-width: 0 0 0 1px;
+}
+
+.campo-texto,
+.text-field,
+.password-field {
+    -fx-background-color: -cor-campo;
+    -fx-text-fill: -cor-texto-principal;
+    -fx-prompt-text-fill: -cor-texto-prompt;
+    -fx-background-radius: 6px;
+    -fx-border-color: #212b3d;
+    -fx-border-radius: 6px;
+    -fx-padding: 8px 12px;
+    -fx-font-size: 13px;
+}
+
+.campo-texto:focused,
+.text-field:focused,
+.password-field:focused {
+    -fx-background-color: -cor-campo-foco;
+    -fx-border-color: -cor-neon-rosa;
+    -fx-effect: dropshadow(three-pass-box, rgba(255, 0, 122, 0.3), 8, 0, 0, 0);
+}
+
+.label-campo {
+    -fx-font-size: 12px;
+    -fx-text-fill: -cor-texto-secundario;
+}
+
+.texto-mutado {
+    -fx-font-size: 12px;
+    -fx-text-fill: -cor-texto-secundario;
+}
+
+/* ==========================================================================
+   BOTÕES DE AÇÃO
+   ========================================================================== */
+.button {
+    -fx-background-radius: 6px;
+    -fx-border-radius: 6px;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+    -fx-pref-height: 36px;
+}
+
+/* Botão Primário (Estilo Ciano Steam/Neon) */
+.botao-primario {
+    -fx-background-color: -cor-neon-rosa;
+    -fx-text-fill: #ffffff;
+    -fx-effect: dropshadow(three-pass-box, rgba(255, 0, 122, 0.3), 8, 0, 0, 0);
+}
+
+.botao-primario:hover {
+    -fx-background-color: #ff2a8e;
+    -fx-effect: dropshadow(three-pass-box, rgba(255, 0, 122, 0.5), 12, 0, 0, 0);
+}
+
+/* Botão Secundário */
+.botao-secundario {
+    -fx-background-color: transparent;
+    -fx-text-fill: -cor-texto-secundario;
+    -fx-border-color: #2d384e;
+}
+
+.botao-secundario:hover {
+    -fx-border-color: -cor-neon-ciano;
+    -fx-text-fill: -cor-neon-ciano;
+}

@@ -1,11 +1,10 @@
-module com.example.javafx {
+module com.senai.javafx {
     requires javafx.controls;
     requires javafx.fxml;
-    requires java.desktop;
 
-    opens com.senai.javafx.entidades to javafx.fxml;
-    exports com.senai.javafx.entidades;
-
+    opens com.senai.javafx to javafx.graphics, javafx.fxml;
     opens com.senai.javafx.controllers to javafx.fxml;
+
+    exports com.senai.javafx;
     exports com.senai.javafx.controllers;
 }

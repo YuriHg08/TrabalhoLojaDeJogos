@@ -1,22 +1,27 @@
 package com.senai.javafx;
 
-import com.senai.javafx.entidades.HelloApplication;
 import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 
-public class   Launcher {
+public class Launcher extends Application {
+
+    @Override
+    public void start(Stage stage) throws Exception {
+        FXMLLoader fxmlLoader = new FXMLLoader(Launcher.class.getResource("telaInicial.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), 1200, 700);
+
+        scene.getStylesheets().add(getClass().getResource("styleMenu.css").toExternalForm());
+
+
+
+        stage.setTitle("GAME POINT - Loja de Jogos e Consoles");
+        stage.setScene(scene);
+        stage.show();
+    }
+
     public static void main(String[] args) {
-        Application.launch(HelloApplication.class, args);
+        launch(args);
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
