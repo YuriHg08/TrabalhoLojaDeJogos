@@ -9,7 +9,7 @@ public class Launcher extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        FXMLLoader fxmlLoader = new FXMLLoader(Launcher.class.getResource("telaInicial.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(Launcher.class.getResource("opcaoUser.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 1200, 700);
 
         scene.getStylesheets().add(getClass().getResource("styleMenu.css").toExternalForm());

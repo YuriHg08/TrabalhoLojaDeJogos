@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<StackPane alignment="CENTER" prefHeight="700.0" prefWidth="1200.0" styleClass="root" stylesheets="@styleMenu.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.senai.javafx.controllers.opcaoUserController">
+    <children>
+        <VBox alignment="CENTER" maxWidth="450.0" spacing="22.0" styleClass="card">
+            <padding>
+                <Insets bottom="35.0" left="35.0" right="35.0" top="35.0" />
+            </padding>
+            <children>
+            <ImageView fitHeight="110.0" fitWidth="313.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@nexusLogo.png" />
+               </image>
+            </ImageView>
+
+                <!-- Mensagem de Boas-Vindas -->
+                <Label styleClass="subtitulo" text="Olá, seja bem-vindo(a)!" />
+
+                <!-- Bloco 1: Já possui conta -->
+                <VBox alignment="CENTER" spacing="8.0">
+                    <children>
+                        <Label styleClass="label-campo" text="Já possui uma conta?" />
+                        <Button fx:id="btnIniciarSessao" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleIniciarSessao" styleClass="button, botao-primario" text="Iniciar sessão" />
+                    </children>
+                </VBox>
+
+                <!-- Bloco 2: Não possui conta -->
+                <VBox alignment="CENTER" spacing="8.0">
+                    <children>
+                        <Label styleClass="label-campo" text="Não possui uma conta ainda?" />
+                        <Button fx:id="btnCadastreSe" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleCadastreSe" styleClass="botao-primario" text="Cadastre-se" />
+                    </children>
+                </VBox>
+
+            </children>
+        </VBox>
+    </children>
+</StackPane>
