@@ -9,14 +9,15 @@ public class Launcher extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        FXMLLoader fxmlLoader = new FXMLLoader(Launcher.class.getResource("opcaoUser.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(Launcher.class.getResource("telaLogin.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 1200, 700);
+
 
         scene.getStylesheets().add(getClass().getResource("styleMenu.css").toExternalForm());
 
 
 
-        stage.setTitle("GAME POINT - Loja de Jogos e Consoles");
+        stage.setTitle("Nexus - Loja de Jogos e Consoles");
         stage.setScene(scene);
         stage.show();
     }

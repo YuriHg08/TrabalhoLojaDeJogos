@@ -7,9 +7,9 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane prefHeight="700.0" prefWidth="1000.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.senai.javafx.controllers.ConsultarJogosController">
+<BorderPane prefHeight="700.0" prefWidth="1000.0" stylesheets="@styleMenu.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.senai.javafx.controllers.ConsultarJogosController">
     <left>
-        <fx:include source="Sidebar.fxml" />
+        <fx:include source="sideBar.fxml" />
     </left>
     <center>
         <VBox spacing="16.0" style="-fx-background-color: -cor-fundo;">
@@ -21,7 +21,6 @@
 
                 <TableView fx:id="tabelaJogos" VBox.vgrow="ALWAYS">
                     <columns>
-                        <!-- Coluna Estoque no lugar de Capa -->
                         <TableColumn fx:id="colEstoqueJogo" prefWidth="120.0" text="Estoque" />
                         <TableColumn fx:id="colNomeJogo" prefWidth="280.0" text="Nome" />
                         <TableColumn fx:id="colCategoriaJogo" prefWidth="220.0" text="Categoria" />

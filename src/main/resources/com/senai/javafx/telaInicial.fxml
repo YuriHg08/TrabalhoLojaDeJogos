@@ -1,39 +1,75 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.StackPane?>
 
-<BorderPane prefHeight="700.0" prefWidth="1200.0" styleClass="root" stylesheets="@styleMenu.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.senai.javafx.controllers.telaInicialController">
+<BorderPane prefHeight="700.0" prefWidth="1200.0" styleClass="root" stylesheets="@styleMenu.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.senai.javafx.controllers.telaInicialController">
 
-<!-- MENU ESQUERDO: CATEGORIAS E CONSOLES -->
-<left>
-    <VBox prefWidth="220.0" spacing="10.0" styleClass="sidebar-cliente" BorderPane.alignment="CENTER">
-        <padding>
-            <Insets bottom="20.0" left="15.0" right="15.0" top="20.0" />
-        </padding>
-        <children>
-            <Label styleClass="titulo-tela" text="🎮 GAME POINT" />
-            <TextField fx:id="txtPesquisa" promptText="Pesquisar..." styleClass="campo-texto" />
+    <!-- MENU ESQUERDO: SIDEBAR -->
+    <left>
+        <AnchorPane prefHeight="700.0" prefWidth="205.0" BorderPane.alignment="CENTER">
+            <children>
+                <ImageView fitHeight="27.0" fitWidth="153.0" layoutX="15.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@nexus.png" />
+                    </image>
+                </ImageView>
+                <TextField fx:id="txtPesquisa" layoutX="15.0" layoutY="57.0" promptText="Buscar" styleClass="campo-texto" />
 
-            <Label styleClass="subtitulo-sidebar" text="CATEGORIAS" />
-            <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" styleClass="button, botao-categoria" text="⚔ RPG" />
-            <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" styleClass="button, botao-categoria" text="🏹 AVENTURA" />
-            <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" styleClass="button, botao-categoria, botao-categoria-ativo" text="🔥 AÇÃO" />
-            <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" styleClass="button, botao-categoria" text="👻 TERROR" />
+                <!-- CATEGORIAS -->
+                <Label layoutX="15.0" layoutY="102.0" prefHeight="35.0" prefWidth="176.0" styleClass="subtitulo-sidebar" text="Categorias" textFill="#4a4a4a" />
+                <Button layoutX="17.0" layoutY="155.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="21.0" prefWidth="171.0" styleClass="button, botao-categoria" text="RPG" />
+                <Button layoutX="14.0" layoutY="203.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefWidth="175.0" styleClass="button, botao-categoria" text="Aventura" />
+                <Button layoutX="13.0" layoutY="254.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefWidth="175.0" styleClass="button, botao-categoria, botao-categoria-ativo" text="Ação" />
+                <Button layoutX="15.0" layoutY="309.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefWidth="175.0" styleClass="button, botao-categoria" text="Terror" />
 
-            <Label styleClass="subtitulo-sidebar" text="CONSOLES" />
-            <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" styleClass="button, botao-categoria" text="🔴 NINTENDO" />
-            <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" styleClass="button, botao-categoria" text="🔵 PLAYSTATION" />
-            <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" styleClass="button, botao-categoria" text="🟢 XBOX" />
-            <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" styleClass="button, botao-categoria" text="💻 PC" />
-        </children>
-    </VBox>
-</left>
+                <!-- CONSOLES -->
+                <Label layoutX="15.0" layoutY="367.0" styleClass="subtitulo-sidebar" text="Consoles" textFill="#4a4a4a" />
 
-<!-- ÁREA CENTRAL DINÂMICA (Onde o catalogoJogos.fxml é inserido) -->
-<center>
-    <StackPane fx:id="areaCentral" BorderPane.alignment="CENTER" />
-</center>
+                <!-- NINTENDO -->
+                <Button layoutX="10.0" layoutY="412.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefWidth="183.0" styleClass="button, botao-categoria" text="          Nintendo" />
+                <ImageView fitHeight="26.0" fitWidth="30.0" layoutX="16.0" layoutY="417.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@Nintendo.png" />
+                    </image>
+                </ImageView>
+
+                <!-- PLAYSTATION -->
+                <Button layoutX="10.0" layoutY="458.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefWidth="183.0" styleClass="button, botao-categoria" text="         Playstation" />
+                <ImageView fitHeight="26.0" fitWidth="30.0" layoutX="16.0" layoutY="463.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@Playstation.png" />
+                    </image>
+                </ImageView>
+
+                <!-- XBOX -->
+                <Button layoutX="10.0" layoutY="504.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefWidth="183.0" styleClass="button, botao-categoria" text="         Xbox" />
+                <ImageView fitHeight="26.0" fitWidth="30.0" layoutX="16.0" layoutY="509.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@Xbox.png" />
+                    </image>
+                </ImageView>
+
+                <!-- PC -->
+                <Button layoutX="10.0" layoutY="550.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefWidth="183.0" styleClass="button, botao-categoria" text="         PC" />
+                <ImageView fitHeight="26.0" fitWidth="30.0" layoutX="16.0" layoutY="555.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@Desktop.png" />
+                    </image>
+                </ImageView>
+            </children>
+        </AnchorPane>
+    </left>
+
+    <!-- ÁREA CENTRAL: FICA AO LADO DA SIDEBAR -->
+    <center>
+        <StackPane fx:id="areaCentral" stylesheets="@styleMenu.css" BorderPane.alignment="CENTER" />
+    </center>
 
 </BorderPane>

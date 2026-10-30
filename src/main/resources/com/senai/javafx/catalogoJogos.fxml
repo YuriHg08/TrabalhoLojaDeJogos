@@ -1,14 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.layout.FlowPane?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 
-<ScrollPane fitToWidth="true" styleClass="custom-scroll-pane" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.senai.javafx.controllers.CatalogoJogosController">
+<ScrollPane fitToWidth="true" styleClass="custom-scroll-pane" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.senai.javafx.controllers.CatalogoJogosController">
     <content>
-        <VBox spacing="20.0" styleClass="conteudo-loja">
+        <VBox spacing="20.0" styleClass="conteudo-loja" stylesheets="@styleMenu.css">
             <padding>
                 <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
             </padding>
@@ -16,8 +14,8 @@
                 <!-- Hero Banner Central -->
                 <VBox prefHeight="140.0" styleClass="card, banner-hero">
                     <children>
-                        <Label styleClass="titulo-banner" text="GAME POINT" />
-                        <Label styleClass="texto-mutado" text="Encontre aqui várias opções de jogos e consoles multiplataformas!" />
+                        <Label styleClass="titulo-banner" text="Nexus" textFill="#fff7f7" />
+                        <Label styleClass="texto-mutado" text="Encontre aqui várias opções de jogos e consoles multiplataformas!" textFill="WHITE" />
                     </children>
                 </VBox>
 
