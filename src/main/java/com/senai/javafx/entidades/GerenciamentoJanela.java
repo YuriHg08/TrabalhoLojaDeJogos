@@ -37,6 +37,21 @@ public class GerenciamentoJanela extends Application {
         modoEscuroAtivo = ativo;
     }
 
+    public static void alternarModoEscuro() {
+        modoEscuroAtivo = !modoEscuroAtivo;
+
+        if (primaryStage != null && primaryStage.getScene() != null) {
+            Parent root = primaryStage.getScene().getRoot();
+            if (modoEscuroAtivo) {
+                if (!root.getStyleClass().contains("modo-escuro")) {
+                    root.getStyleClass().add("modo-escuro");
+                }
+            } else {
+                root.getStyleClass().remove("modo-escuro");
+            }
+        }
+    }
+
     public static void abrirJanela(String fxmlPath, String titulo) {
         try {
             FXMLLoader loader = new FXMLLoader(GerenciamentoJanela.class.getResource(fxmlPath));

@@ -36,6 +36,9 @@ public class CadastroJogosController {
     @FXML
     private Label respostaJogo;
 
+    @FXML
+    private TextField txtEstoqueJogo;
+
     // Lista de objetos do tipo Jogo
     public static final ObservableList<Jogo> jogosSalvos = FXCollections.observableArrayList();
 
@@ -72,7 +75,13 @@ public class CadastroJogosController {
     void cadastrarJogo() {
         String nome = txtNomeJogo.getText().trim();
         String precoTexto = txtPrecoJogo.getText().trim();
+        Double preco = Double.parseDouble(precoTexto.replace(",", "."));
+
+        String estoqueTexto = txtEstoqueJogo.getText().trim();
+        int estoque = Integer.parseInt(estoqueTexto.replace(",", "."));
+
         String categoria = menuCategoria.getValue();
+
 
         // Validações dos campos obrigatórios
         if (nome.isEmpty()) {
@@ -100,11 +109,9 @@ public class CadastroJogosController {
         }
 
         try {
-            // Trata se o usuário digitar vírgula ao invés de ponto no valor
-            double preco = Double.parseDouble(precoTexto.replace(",", "."));
 
             // Instancia o novo objeto Jogo com a imagem selecionada
-            Jogo novoJogo = new Jogo(nome, categoria, preco, caminhoImagemSelecionada);
+            Jogo novoJogo = new Jogo(nome, categoria, preco, caminhoImagemSelecionada, estoque);
             jogosSalvos.add(novoJogo);
 
             // Limpa os campos da tela após salvar

@@ -1,80 +1,44 @@
 package com.senai.javafx.controllers;
 
+import com.senai.javafx.entidades.GerenciamentoJanela;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
-import java.io.IOException;
-
-import static com.senai.javafx.entidades.GerenciamentoJanela.abrirJanela;
 
 public class SidebarController {
 
-    private static boolean modoEscuroAtivo = false;
-
-    private void trocarTela(ActionEvent event, String fxmlPath) {
-        try {
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            boolean estavaMaximizado = stage.isMaximized();
-
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
-            Parent root = loader.load();
-
-            if (modoEscuroAtivo) {
-                root.getStyleClass().add("modo-escuro");
-            }
-
-            Scene scene = new Scene(root);
-            stage.setScene(scene);
-            stage.setMaximized(estavaMaximizado);
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
     @FXML
     void abrirCadastroCliente(ActionEvent event) {
-        abrirJanela("/com/senai/javafx/views/cadastroClientes.fxml", "Cadastrar um cliente");
+        GerenciamentoJanela.abrirJanela("/com/senai/javafx/cadastroClientes.fxml", "Cadastrar Cliente");
     }
 
     @FXML
     void abrirCadastroCategorias(ActionEvent event) {
-        abrirJanela("/com/senai/javafx/views/cadastroCategoria.fxml", "Cadastrar uma categoria");
+        GerenciamentoJanela.abrirJanela("/com/senai/javafx/cadastroCategoria.fxml", "Cadastrar Categoria");
     }
 
     @FXML
     void abrirCadastroJogos(ActionEvent event) {
-        abrirJanela("/com/senai/javafx/views/cadastroJogos.fxml", "Cadastrar um jogo");
+        GerenciamentoJanela.abrirJanela("/com/senai/javafx/cadastroJogos.fxml", "Cadastrar Jogo");
     }
 
     @FXML
     void abrirConsultarClientes(ActionEvent event) {
-        abrirJanela("/com/senai/javafx/views/consultaClientes.fxml", "Consultar clientes");
+        GerenciamentoJanela.abrirJanela("/com/senai/javafx/consultaClientes.fxml", "Consultar Clientes");
     }
 
     @FXML
     void abrirConsultarJogos(ActionEvent event) {
-        abrirJanela("/com/senai/javafx/views/consultarJogos.fxml", "Cadastrar um jogo");
+        GerenciamentoJanela.abrirJanela("/com/senai/javafx/consultarJogos.fxml", "Consultar Jogos");
     }
 
     @FXML
     void alternarModoEscuro(ActionEvent event) {
-        Scene scene = ((Node) event.getSource()).getScene();
-        modoEscuroAtivo = !modoEscuroAtivo;
-
-        if (modoEscuroAtivo) {
-            scene.getRoot().getStyleClass().add("modo-escuro");
-        } else {
-            scene.getRoot().getStyleClass().remove("modo-escuro");
-        }
+        // Agora delega a troca para o gerenciador global
+        GerenciamentoJanela.alternarModoEscuro();
     }
 
     @FXML
     void alternarConta(ActionEvent event) {
-        trocarTela(event, "/com/senai/javafx/views/telaLogin.fxml");
+        GerenciamentoJanela.abrirJanela("/com/senai/javafx/telaLogin.fxml", "Fazer Login");
     }
 }
