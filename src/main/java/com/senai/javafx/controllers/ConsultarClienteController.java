@@ -2,7 +2,7 @@ package com.senai.javafx.controllers;
 
 import com.senai.javafx.entidades.Cliente;
 import com.senai.javafx.entidades.ClienteCadastro;
-import com.senai.javafx.entidades.HelloApplication;
+import com.senai.javafx.entidades.GerenciamentoJanela;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
@@ -34,7 +34,7 @@ public class ConsultarClienteController {
 
     @FXML
     public void voltarTela(ActionEvent event) {
-        HelloApplication.WindowManager.voltarTela("/com/senai/javafx/opcao.fxml", event);
+        GerenciamentoJanela.voltarTela();
 
     }
 }

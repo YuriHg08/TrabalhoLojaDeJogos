@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox prefWidth="250.0" spacing="12.0" styleClass="sidebar" stylesheets="@style.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.senai.javafx.controllers.SidebarController">
+    <padding>
+        <Insets bottom="24.0" left="20.0" right="20.0" top="60.0" />
+    </padding>
+    <children>
+        <Button maxWidth="Infinity" mnemonicParsing="false" onAction="#abrirCadastroCliente" styleClass="botao-secundario" text="Cadastrar cliente" />
+        <Button maxWidth="Infinity" mnemonicParsing="false" onAction="#abrirCadastroCategorias" styleClass="botao-secundario" text="Cadastrar categorias" />
+        <Button maxWidth="Infinity" mnemonicParsing="false" onAction="#abrirCadastroJogos" styleClass="botao-secundario" text="Cadastrar jogos" />
+        <Button maxWidth="Infinity" mnemonicParsing="false" onAction="#abrirConsultarClientes" styleClass="botao-secundario" text="Consultar clientes" />
+        <Button maxWidth="Infinity" mnemonicParsing="false" onAction="#abrirConsultarJogos" styleClass="botao-secundario" text="Consultar jogos" />
+
+        <Region VBox.vgrow="ALWAYS" />
+
+        <HBox spacing="10.0">
+            <children>
+                <Button maxWidth="Infinity" mnemonicParsing="false" onAction="#alternarConta" prefHeight="35.0" styleClass="botao-secundario" text="Alternar conta" HBox.hgrow="ALWAYS" />
+                <Button maxWidth="Infinity" mnemonicParsing="false" onAction="#alternarModoEscuro" prefHeight="35.0" styleClass="botao-secundario" text="Modo escuro" HBox.hgrow="ALWAYS" />
+            </children>
+        </HBox>
+    </children>
+</VBox>

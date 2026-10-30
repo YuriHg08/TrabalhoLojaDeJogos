@@ -1,6 +1,6 @@
 package com.senai.javafx.controllers;
 
-import com.senai.javafx.entidades.HelloApplication;
+import com.senai.javafx.entidades.GerenciamentoJanela;
 import com.senai.javafx.entidades.Jogo;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -36,16 +36,18 @@ public class CadastroJogosController {
     @FXML
     private Label respostaJogo;
 
+    @FXML
+    private TextField txtEstoqueJogo;
+
     // Lista de objetos do tipo Jogo
     public static final ObservableList<Jogo> jogosSalvos = FXCollections.observableArrayList();
 
     private String caminhoImagemSelecionada;
 
+
     @FXML
     public void initialize() {
-        if (categoriasSalvas != null) {
             menuCategoria.setItems(categoriasSalvas);
-        }
     }
 
     @FXML
@@ -73,7 +75,13 @@ public class CadastroJogosController {
     void cadastrarJogo() {
         String nome = txtNomeJogo.getText().trim();
         String precoTexto = txtPrecoJogo.getText().trim();
+        Double preco = Double.parseDouble(precoTexto.replace(",", "."));
+
+        String estoqueTexto = txtEstoqueJogo.getText().trim();
+        int estoque = Integer.parseInt(estoqueTexto.replace(",", "."));
+
         String categoria = menuCategoria.getValue();
+
 
         // Validações dos campos obrigatórios
         if (nome.isEmpty()) {
@@ -101,11 +109,9 @@ public class CadastroJogosController {
         }
 
         try {
-            // Trata se o usuário digitar vírgula ao invés de ponto no valor
-            double preco = Double.parseDouble(precoTexto.replace(",", "."));
 
             // Instancia o novo objeto Jogo com a imagem selecionada
-            Jogo novoJogo = new Jogo(nome, categoria, preco, caminhoImagemSelecionada);
+            Jogo novoJogo = new Jogo(nome, categoria, preco, caminhoImagemSelecionada, estoque);
             jogosSalvos.add(novoJogo);
 
             // Limpa os campos da tela após salvar
@@ -124,6 +130,7 @@ public class CadastroJogosController {
 
     @FXML
     public void voltarTela(ActionEvent event) {
-        HelloApplication.WindowManager.voltarTela("/com/senai/javafx/opcao.fxml", event);
+        GerenciamentoJanela.voltarTela();
+
     }
 }

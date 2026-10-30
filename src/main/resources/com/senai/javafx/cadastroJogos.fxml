@@ -5,45 +5,57 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox alignment="TOP_LEFT" prefHeight="560.0" prefWidth="340.0" spacing="18.0" styleClass="painel-principal" stylesheets="@style.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.senai.javafx.controllers.CadastroJogosController">
-    <padding>
-        <Insets bottom="32.0" left="28.0" right="28.0" top="36.0" />
-    </padding>
+<BorderPane prefHeight="700.0" prefWidth="1000.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.senai.javafx.controllers.CadastroJogosController">
+    <!-- BARRA LATERAL FIXA -->
+    <left>
+        <fx:include source="sideBar.fxml" />
+    </left>
 
-    <!-- Título Principal -->
-    <Label styleClass="titulo-login" text="Cadastrar um jogo">
-        <VBox.margin>
-            <Insets bottom="10.0" />
-        </VBox.margin>
-    </Label>
+    <!-- ÁREA CENTRAL RESPONSIVA E CENTRALIZADA -->
+    <center>
+        <StackPane style="-fx-background-color: -cor-fundo;">
+            <padding>
+                <Insets bottom="24.0" left="24.0" right="24.0" top="24.0" />
+            </padding>
+            <children>
+                <VBox maxWidth="520.0" spacing="14.0" styleClass="painel-principal">
+                    <children>
+                        <Label styleClass="titulo-tela" text="Cadastrar um jogo" />
 
-    <!-- Campos de Entrada -->
-    <TextField fx:id="txtNomeJogo" prefHeight="38.0" promptText="Nome do jogo" styleClass="campo-texto" />
-    <TextField fx:id="txtPrecoJogo" prefHeight="38.0" promptText="Preço (Ex: 59.90)" styleClass="campo-texto" />
-    <ComboBox fx:id="menuCategoria" prefHeight="38.0" prefWidth="300.0" promptText="Selecione uma categoria" styleClass="combo-box" stylesheets="@style.css" />
-   <AnchorPane>
-      <children>
-           <ImageView fx:id="imgPreview" fitHeight="84.0" fitWidth="130.0" pickOnBounds="true" preserveRatio="true">
-            <image>
-               <Image url="@../../../../../../../../Pictures/imagem.png" />
-            </image>
-         </ImageView>
-           <Button fx:id="btnEscolherImagem" layoutX="142.0" layoutY="21.0" mnemonicParsing="false" onAction="#selecionarImagem" prefHeight="81.0" prefWidth="144.0" styleClass="botao-secundario" text="Escolher Capa..." />
-      </children>
-   </AnchorPane>
+                        <!-- Campos de texto -->
+                        <TextField fx:id="txtNomeJogo" prefHeight="38.0" promptText="Nome do jogo (Ex: Aventura Intergaláctica)" styleClass="campo-texto" />
+                        <TextField fx:id="txtPrecoJogo" prefHeight="38.0" promptText="Preço (Ex: 59.90)" styleClass="campo-texto" />
+                        <TextField fx:id="txtEstoqueJogo" prefHeight="38.0" promptText="Estoque (Ex: 5)" styleClass="campo-texto" />
 
-    <!-- Mensagem de Feedback -->
-    <Label fx:id="respostaJogo" alignment="CENTER" prefHeight="20.0" prefWidth="284.0" styleClass="label-campo" />
-   <HBox>
-      <children>
-           <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#cadastrarJogo" prefHeight="38.0" prefWidth="319.0" styleClass="botao-primario" text="Cadastrar" />
-      </children>
-   </HBox>
-     <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#voltarTela" prefHeight="38.0" prefWidth="306.0" styleClass="botao-secundario" text="Voltar" />
-</VBox>
+                        <ComboBox fx:id="menuCategoria" maxWidth="Infinity" prefHeight="38.0" promptText="Selecione uma categoria" styleClass="combo-box" />
+
+                        <!-- Seção de Capa com HBox flexível -->
+                        <HBox alignment="CENTER_LEFT" spacing="16.0">
+                            <children>
+                                <Pane prefHeight="110.0" prefWidth="110.0" styleClass="botao-secundario">
+                                    <children>
+                                        <ImageView fx:id="imgPreview" fitHeight="110.0" fitWidth="110.0" pickOnBounds="true" preserveRatio="true" />
+                                    </children>
+                                </Pane>
+                                <Button fx:id="btnEscolherImagem" maxWidth="Infinity" mnemonicParsing="false" onAction="#selecionarImagem" prefHeight="40.0" styleClass="botao-secundario" text="Escolher Capa..." HBox.hgrow="ALWAYS" />
+                            </children>
+                        </HBox>
+
+                        <!-- Mensagem de status / feedback -->
+                        <Label fx:id="respostaJogo" alignment="CENTER" maxWidth="Infinity" prefHeight="24.0" styleClass="subtitulo" />
+
+                        <!-- Botão de Ação -->
+                        <Button maxWidth="Infinity" mnemonicParsing="false" onAction="#cadastrarJogo" prefHeight="42.0" styleClass="botao-primario" text="Cadastrar" />
+                    </children>
+                </VBox>
+            </children>
+        </StackPane>
+    </center>
+</BorderPane>

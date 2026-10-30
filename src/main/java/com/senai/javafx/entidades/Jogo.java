@@ -6,18 +6,20 @@
         private String categoriaJogo;
         private double precoJogo;
         private String caminhoImagem; // Atributo para armazenar o caminho/URL da imagem
+        private int estoqueJogo;
 
         // Construtor completo
-        public Jogo(String nomeJogo, String categoriaJogo, double precoJogo, String caminhoImagem) {
+        public Jogo(String nomeJogo, String categoriaJogo, double precoJogo, String caminhoImagem, int estoqueJogo) {
             this.nomeJogo = nomeJogo;
             this.categoriaJogo = categoriaJogo;
             this.precoJogo = precoJogo;
             this.caminhoImagem = caminhoImagem;
+            this.estoqueJogo = estoqueJogo;
         }
 
         // Construtor sem imagem (opcional)
-        public Jogo(String nomeJogo, String categoriaJogo, double precoJogo) {
-            this(nomeJogo, categoriaJogo, precoJogo, null);
+        public Jogo(String nomeJogo, String categoriaJogo, double precoJogo, int estoqueJogo) {
+            this(nomeJogo, categoriaJogo, precoJogo, null, estoqueJogo);
         }
 
         // --- GETTERS E SETTERS ---
@@ -53,5 +55,11 @@
         public void setPrecoJogo(double precoJogo) {
             this.precoJogo = precoJogo;
         }
+
+        public int getEstoqueJogo() { return estoqueJogo; }
+
+        public void setEstoqueJogo(int estoqueJogo) { this.estoqueJogo = estoqueJogo; }
+
     }
+
 
