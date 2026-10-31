@@ -1,10 +1,12 @@
 package com.senai.javafx.controllers.LadoCliente;
 
 import com.senai.javafx.entidades.GerenciamentoJanela;
+import com.senai.javafx.entidades.UsuarioCadastro;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+
 
 import static com.senai.javafx.entidades.GerenciamentoJanela.exibirAlerta;
 
@@ -34,9 +36,18 @@ public class loginUserController {
             return;
         }
 
-        GerenciamentoJanela.exibirAlerta("Sucesso", "Login realizado com sucesso!", GerenciamentoJanela.TipoAlerta.SUCESSO);
+        // Login do administrador (não precisa de registo)
+        if (nome.equals("admin") && senha.equals("admin")) {
+            GerenciamentoJanela.abrirJanela("/com/senai/javafx/opcao.fxml", "Menu de ações");
+            return;
+        }
 
-        // Redireciona para a loja
+        if (!UsuarioCadastro.autenticar(nome, senha)) {
+            exibirAlerta("Atenção", "Utilizador ou senha inválidos!", GerenciamentoJanela.TipoAlerta.ALERTA);
+            return;
+        }
+
+        GerenciamentoJanela.exibirAlerta("Sucesso", "Login realizado com sucesso!", GerenciamentoJanela.TipoAlerta.SUCESSO);
         GerenciamentoJanela.abrirJanela("/com/senai/javafx/telaInicial.fxml", "Nexus Store - Página inicial");
     }
 

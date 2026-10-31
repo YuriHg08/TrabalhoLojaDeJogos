@@ -13,7 +13,7 @@ public class opcaoUserController {
 
     @FXML
     private void handleCadastreSe(ActionEvent event) {
-        GerenciamentoJanela.abrirJanela("/com/senai/javafx/cadastroClientesUser.fxml", "Nexus Store - Cadastre-se");
+        GerenciamentoJanela.abrirJanela("/com/senai/javafx/cadastroClienteUser.fxml", "Nexus Store - Cadastre-se");
     }
 
     @FXML
