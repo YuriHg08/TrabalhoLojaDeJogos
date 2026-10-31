@@ -55,8 +55,4 @@ public class CadastroClientesController {
 
     }
 
-    @FXML
-    void alternarConta(ActionEvent event) {
-        GerenciamentoJanela.abrirJanela("/com/senai/javafx/telaLogin.fxml", "Fazer Login");
-    }
 }

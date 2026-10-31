@@ -61,7 +61,7 @@ public class CadastroJogosController {
         );
         fileChooser.getExtensionFilters().add(extFilter);
 
-        // Obtém o Stage atual a partir do clique do botão
+        // Abre a tela de importar imagem
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         File arquivo = fileChooser.showOpenDialog(stage);
 
@@ -83,7 +83,7 @@ public class CadastroJogosController {
         String categoria = menuCategoria.getValue();
 
 
-        // Validações dos campos obrigatórios
+        // Verificando os campos obrigatórios
         if (nome.isEmpty()) {
             respostaJogo.setText("Insira um nome para o jogo!");
             return;
@@ -110,7 +110,7 @@ public class CadastroJogosController {
 
         try {
 
-            // Instancia o novo objeto Jogo com a imagem selecionada
+            // Cria o novo jogo e adiciona na lista atual
             Jogo novoJogo = new Jogo(nome, categoria, preco, caminhoImagemSelecionada, estoque);
             jogosSalvos.add(novoJogo);
 

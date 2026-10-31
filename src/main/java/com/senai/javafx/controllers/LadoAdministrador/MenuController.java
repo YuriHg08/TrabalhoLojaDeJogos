@@ -32,4 +32,15 @@ public class MenuController {
         GerenciamentoJanela.abrirJanela("/com/senai/javafx/consultarJogos.fxml", "Consultar Jogos");
     }
 
+    @FXML
+    private void alternarConta(ActionEvent event) {
+        GerenciamentoJanela.abrirJanela("/com/senai/javafx/opcaoUser.fxml", "Nexus Store - Boas-vindas");
+    }
+
+    @FXML
+    private void voltarPaginaInicial(ActionEvent event) {
+        GerenciamentoJanela.abrirJanela("/com/senai/javafx/telaInicial.fxml", "Nexus Store");
+
+    }
+
 }

@@ -6,7 +6,7 @@
     -cor-fundo: #0d121d;
     -cor-sidebar: #171d2a;
     -cor-superficie: #171d2a;
-    -cor-superficie-alt: #2b3651;
+    -cor-superficie-alt: #1b2437;
     -cor-borda: #212b3d;
 
     /* Acentos Neon */
@@ -113,14 +113,14 @@
 .botao-categoria:hover {
     -fx-background-color: -cor-secundaria;
     -fx-text-fill: -cor-texto-principal;
-    -fx-border-color: transparent transparent transparent -cor-neon-ciano;
+    -fx-border-color: transparent transparent transparent -cor-neon-rosa;
     -fx-border-width: 0 0 0 3px;
 }
 
 .botao-categoria-ativo {
     -fx-background-color: -cor-superficie-alt;
-    -fx-text-fill: -cor-neon-ciano;
-    -fx-border-color: transparent transparent transparent -cor-neon-ciano;
+    -fx-text-fill: -cor-texto-principal;
+    -fx-border-color: transparent transparent transparent -cor-neon-rosa;
     -fx-border-width: 0 0 0 3px;
 }
 
@@ -145,8 +145,7 @@
 .titulo-login {
     -fx-font-size: 22px;
     -fx-font-weight: bold;
-    -fx-text-fill: -cor-neon-rosa;
-    -fx-effect: -glow-titulo;
+    -fx-text-fill: -cor-primaria;
 }
 
 .subtitulo {
@@ -268,7 +267,7 @@
 }
 
 .table-view .column-header .label {
-    -fx-text-fill: -cor-neon-ciano;
+    -fx-text-fill: -cor-texto-secundario;
     -fx-font-size: 13px;
     -fx-font-weight: bold;
 }

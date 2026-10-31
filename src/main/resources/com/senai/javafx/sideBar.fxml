@@ -1,40 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.String?>
-<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.Region?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.shape.SVGPath?>
 
-<VBox prefHeight="483.0" prefWidth="250.0" spacing="12.0" styleClass="sidebar" stylesheets="@styleMenu.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.senai.javafx.controllers.LadoAdministrador.SidebarController">
-    <padding>
-        <Insets bottom="24.0" left="20.0" right="20.0" top="60.0" />
-    </padding>
-    <children>
-        <Button maxWidth="Infinity" mnemonicParsing="false" onAction="#abrirCadastroCliente" styleClass="botao-secundario" text="Cadastrar cliente" />
-        <Button maxWidth="Infinity" mnemonicParsing="false" onAction="#abrirCadastroCategorias" styleClass="botao-secundario" text="Cadastrar categorias" />
-        <Button maxWidth="Infinity" mnemonicParsing="false" onAction="#abrirCadastroJogos" styleClass="botao-secundario" text="Cadastrar jogos" />
-        <Button maxWidth="Infinity" mnemonicParsing="false" onAction="#abrirConsultarClientes" styleClass="botao-secundario" text="Consultar clientes" />
-        <Button maxWidth="Infinity" mnemonicParsing="false" onAction="#abrirConsultarJogos" styleClass="botao-secundario" text="Consultar jogos" />
-
-        <Region VBox.vgrow="ALWAYS" />
-      <AnchorPane prefHeight="61.0" prefWidth="210.0">
-         <children>
-                <Button layoutX="76.0" layoutY="12.0" maxWidth="Infinity" mnemonicParsing="false" onAction="#alternarConta" prefHeight="44.0" prefWidth="42.0">
-               <styleClass>
-                  <String fx:value="sidebar-btn" />
-                  <String fx:value="sidebar-btn-bottom" />
-               </styleClass>
-            </Button>
-            <ImageView fitHeight="23.0" fitWidth="23.0" layoutX="86.0" layoutY="20.0" pickOnBounds="true">
-               <image>
-                  <Image url="@imagens/AntDesignUserSwitchOutlined.png" />
-               </image>
-            </ImageView>
-         </children>
-      </AnchorPane>
-    </children>
-</VBox>
+<AnchorPane prefHeight="700.0" prefWidth="210.0" styleClass="sidebar-cliente" stylesheets="@styleMenu.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.senai.javafx.controllers.LadoAdministrador.MenuController">
+   <children>
+      <ImageView fitHeight="21.0" fitWidth="96.0" layoutX="15.0" layoutY="21.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@imagens/nexus.png" />
+         </image>
+         <effect>
+            <DropShadow>
+               <color>
+                  <Color opacity="0.2633587718009949" />
+               </color>
+            </DropShadow>
+         </effect>
+      </ImageView>
+      <TextField fx:id="txtPesquisa" layoutX="15.0" layoutY="57.0" promptText="Buscar" styleClass="campo-texto" stylesheets="@styleMenu.css" />
+      <Button layoutX="11.0" layoutY="600.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#voltarPaginaInicial" prefHeight="28.0" prefWidth="182.0" styleClass="botao-secundario" text="Voltar para a loja" />
+      <Button fx:id="painelAdm" layoutX="11.0" layoutY="646.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefWidth="182.0" styleClass="botao-categoria-ativo" text="Painel de administrador" />
+      <SVGPath content="m253.66 133.66l-24 24a8 8 0 0 1-11.32 0l-24-24a8 8 0 0 1 11.32-11.32L216 132.69V128A88 88 0 0 0 56.49 76.67a8 8 0 0 1-13-9.34A104 104 0 0 1 232 128v4.69l10.34-10.35a8 8 0 0 1 11.32 11.32m-41.18 55A104 104 0 0 1 24 128v-4.69l-10.34 10.35a8 8 0 0 1-11.32-11.32l24-24a8 8 0 0 1 11.32 0l24 24a8 8 0 0 1-11.32 11.32L40 123.31V128a87.62 87.62 0 0 0 22.24 58.41a79.66 79.66 0 0 1 36.06-28.75a48 48 0 1 1 59.4 0a79.6 79.6 0 0 1 36.08 28.78a90 90 0 0 0 5.71-7.11a8 8 0 0 1 13 9.34ZM128 152a32 32 0 1 0-32-32a32 32 0 0 0 32 32m0 64a88.2 88.2 0 0 0 53.92-18.49a64 64 0 0 0-107.84 0A87.57 87.57 0 0 0 128 216" fill="WHITE" layoutX="39.0" layoutY="-97.0" managed="false" nodeOrientation="LEFT_TO_RIGHT" scaleX="0.08" scaleY="0.08" stroke="TRANSPARENT" strokeType="INSIDE" />
+      <Button layoutX="148.0" layoutY="11.0" mnemonicParsing="false" onAction="#alternarConta" opacity="0.4" prefHeight="31.0" prefWidth="39.0" styleClass="sidebar-btn" />
+      <Button layoutX="18.0" layoutY="186.0" maxWidth="Infinity" mnemonicParsing="false" onAction="#cadastroClientes" prefHeight="40.0" prefWidth="166.0" styleClass="botao-categoria" text="Cadastrar clientes" />
+      <Button layoutX="19.0" layoutY="245.0" maxWidth="Infinity" mnemonicParsing="false" onAction="#cadastroCategoria" prefHeight="40.0" prefWidth="166.0" styleClass="botao-categoria" text="Cadastrar categorias" />
+      <Button layoutX="18.0" layoutY="301.0" maxWidth="Infinity" mnemonicParsing="false" onAction="#cadastroJogos" prefHeight="40.0" prefWidth="166.0" styleClass="botao-categoria" text="Cadastrar jogos" />
+      <Button layoutX="18.0" layoutY="355.0" maxWidth="Infinity" mnemonicParsing="false" onAction="#consultarClientes" prefHeight="40.0" prefWidth="166.0" styleClass="botao-categoria" text="Consultar clientes" />
+      <Button layoutX="19.0" layoutY="411.0" maxWidth="Infinity" mnemonicParsing="false" onAction="#consultarJogos" prefHeight="40.0" prefWidth="166.0" styleClass="botao-categoria" text="Consultar jogos" />
+   </children>
+</AnchorPane>

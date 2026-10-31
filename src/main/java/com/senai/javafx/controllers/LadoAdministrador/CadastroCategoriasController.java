@@ -47,7 +47,7 @@ public class CadastroCategoriasController {
             resposta.setText("Insira um nome para a categoria!");
 
         } else {
-            // Adiciona a nova categoria, limpa a caixa de texto e retorna mensagem de sucesso
+            // Adiciona a nova categoria, limpa a caixa de texto e retorna sucesso
             categoriasSalvas.add(novaCategoria);
             nomeCategoria.clear();
             resposta.setText("Categoria cadastrada!");

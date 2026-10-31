@@ -1,12 +1,12 @@
 package com.senai.javafx.controllers.LadoCliente;
 
 import com.senai.javafx.entidades.GerenciamentoJanela;
+import com.senai.javafx.entidades.Sessao;
 import com.senai.javafx.entidades.UsuarioCadastro;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-
 
 import static com.senai.javafx.entidades.GerenciamentoJanela.exibirAlerta;
 
@@ -17,6 +17,12 @@ public class loginUserController {
 
     @FXML
     private PasswordField txtSenha;
+
+    @FXML
+    public void initialize() {
+        aplicarLimiteCaracteres(txtNome, 50);
+        aplicarLimiteCaracteres(txtSenha, 30);
+    }
 
     private void aplicarLimiteCaracteres(TextField field, int max) {
         field.textProperty().addListener((observable, oldValue, newValue) -> {
@@ -36,16 +42,21 @@ public class loginUserController {
             return;
         }
 
-        // Login do administrador (não precisa de registo)
+        // Login do administrador
         if (nome.equals("admin") && senha.equals("admin")) {
-            GerenciamentoJanela.abrirJanela("/com/senai/javafx/opcao.fxml", "Menu de ações");
+            Sessao.iniciarSessao(nome, senha);
+            GerenciamentoJanela.abrirJanela("/com/senai/javafx/telaInicial.fxml", "Menu de ações");
             return;
         }
 
+        // Login de usuário padrão
         if (!UsuarioCadastro.autenticar(nome, senha)) {
             exibirAlerta("Atenção", "Utilizador ou senha inválidos!", GerenciamentoJanela.TipoAlerta.ALERTA);
             return;
         }
+
+        // Salva as credenciais validadas na sessão global
+        Sessao.iniciarSessao(nome, senha);
 
         GerenciamentoJanela.exibirAlerta("Sucesso", "Login realizado com sucesso!", GerenciamentoJanela.TipoAlerta.SUCESSO);
         GerenciamentoJanela.abrirJanela("/com/senai/javafx/telaInicial.fxml", "Nexus Store - Página inicial");
@@ -60,6 +71,4 @@ public class loginUserController {
     private void handleCadastreSe(ActionEvent event) {
         GerenciamentoJanela.abrirJanela("/com/senai/javafx/cadastroClienteUser.fxml", "Cadastrar-se na Nexus");
     }
-
-
 }
