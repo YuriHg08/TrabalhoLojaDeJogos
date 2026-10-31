@@ -1,4 +1,4 @@
-package com.senai.javafx.controllers;
+package com.senai.javafx.controllers.LadoAdministrador;
 
 import com.senai.javafx.entidades.Cliente;
 import com.senai.javafx.entidades.ClienteCadastro;

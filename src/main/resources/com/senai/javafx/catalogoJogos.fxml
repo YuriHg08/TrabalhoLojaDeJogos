@@ -1,25 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.VBox?>
 
-<ScrollPane fitToWidth="true" styleClass="custom-scroll-pane" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.senai.javafx.controllers.CatalogoJogosController">
+<ScrollPane fitToWidth="true" styleClass="custom-scroll-pane" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.senai.javafx.controllers.LadoCliente.CatalogoJogosController">
     <content>
         <VBox spacing="20.0" styleClass="conteudo-loja" stylesheets="@styleMenu.css">
             <padding>
                 <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
             </padding>
             <children>
-                <!-- Hero Banner Central -->
-                <VBox prefHeight="140.0" styleClass="card, banner-hero">
-                    <children>
-                        <Label styleClass="titulo-banner" text="Nexus" textFill="#fff7f7" />
-                        <Label styleClass="texto-mutado" text="Encontre aqui várias opções de jogos e consoles multiplataformas!" textFill="WHITE" />
-                    </children>
-                </VBox>
 
-                <Label fx:id="lblCategoriaAtual" styleClass="subtitulo" text="CATÁLOGO DE JOGOS" />
+                <Label fx:id="lblCategoriaAtual" styleClass="subtitulo" text="Catálogo de jogos" />
 
                 <!-- Grelha onde os cards dos jogos vão ser gerados dinamicamente -->
                 <FlowPane fx:id="containerJogos" hgap="15.0" vgap="15.0" />

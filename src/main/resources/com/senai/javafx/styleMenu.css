@@ -49,53 +49,6 @@
 }
 
 /* ==========================================================================
-   2. VARIAÇÃO: MODO CLARO (.root.modo-claro)
-   ========================================================================== */
-.root.modo-claro {
-    /* Superfícies e Fundos */
-    -cor-fundo: #f0f2f5;
-    -cor-sidebar: #ffffff;
-    -cor-superficie: #ffffff;
-    -cor-superficie-alt: #f1f1f1;
-    -cor-borda: #dcdfe4;
-
-    /* Acentos e Neon Adaptados para Leitura Clara */
-    -cor-neon-rosa: #d90062;
-    -cor-neon-ciano: #0077b6;
-    -cor-neon-amarelo: #b45309;
-    -cor-neon-verde: #059669;
-
-    /* Ações e Estados Primários */
-    -cor-primaria: #2b7cf6;
-    -cor-primaria-hover: #1a6be8;
-    -cor-primaria-pressed: #1255be;
-
-    /* Botões Secundários */
-    -cor-secundaria: #e4e6eb;
-    -cor-secundaria-hover: #d8dadf;
-    -cor-botao-hover: #e4e6eb;
-
-    /* Textos */
-    -cor-texto-principal: #111111;
-    -cor-texto-secundario: #555555;
-    -cor-texto-claro: #ffffff;
-    -cor-texto-prompt: #888888;
-
-    /* Inputs e Campos */
-    -cor-campo: #e4e6eb;
-    -cor-campo-foco: #d8dadf;
-
-    /* Alerta / Perigo */
-    -cor-perigo: #e53935;
-    -cor-perigo-hover: #d32f2f;
-
-    /* Desativa sombras neon no tema claro */
-    -sombra-card: dropshadow(three-pass-box, rgba(0, 0, 0, 0.08), 8, 0, 0, 2);
-    -glow-titulo: dropshadow(three-pass-box, transparent, 0, 0, 0, 0);
-    -glow-primario: dropshadow(three-pass-box, transparent, 0, 0, 0, 0);
-}
-
-/* ==========================================================================
    3. BARRAS LATERAIS (SIDEBARS)
    ========================================================================== */
 .sidebar,
@@ -407,7 +360,6 @@
 
 .banner-hero {
     -fx-background-color: linear-gradient(to right, #12091f, #0d1a2d);
-    -fx-border-color: -cor-neon-rosa;
     -fx-border-width: 1.5px;
     -fx-border-radius: 12px;
     -fx-background-radius: 12px;
@@ -448,4 +400,74 @@
     -fx-font-size: 14px;
     -fx-font-weight: bold;
     -fx-text-fill: -cor-neon-verde;
+}
+
+/* ==========================================================================
+   11. CAIXAS DE DIÁLOGO E ALERTAS (DialogPane)
+   ========================================================================== */
+
+/* Fundo, bordas e sombra geral do diálogo */
+.dialog-pane {
+    -fx-background-color: -cor-superficie;
+    -fx-border-color: -cor-borda;
+    -fx-border-width: 1px;
+    -fx-border-radius: 8px;
+    -fx-background-radius: 8px;
+    -fx-effect: -sombra-card;
+}
+
+/* Área de cabeçalho (Header) */
+.dialog-pane .header-panel {
+    -fx-background-color: -cor-superficie-alt;
+    -fx-background-radius: 7px 7px 0 0;
+    -fx-padding: 12px 16px;
+    -fx-border-color: transparent transparent -cor-borda transparent;
+    -fx-border-width: 0 0 1px 0;
+}
+
+.dialog-pane .header-panel .label {
+    -fx-text-fill: -cor-neon-rosa;
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+}
+
+/* Área de conteúdo e mensagem principal */
+.dialog-pane .content {
+    -fx-background-color: transparent;
+    -fx-padding: 16px;
+}
+
+.dialog-pane .content .label {
+    -fx-text-fill: -cor-texto-principal;
+    -fx-font-size: 13px;
+}
+
+/* Barra inferior de ações/botões */
+.dialog-pane .button-bar {
+    -fx-background-color: -cor-superficie;
+    -fx-background-radius: 0 0 7px 7px;
+    -fx-padding: 12px 16px;
+    -fx-border-color: -cor-borda transparent transparent transparent;
+    -fx-border-width: 1px 0 0 0;
+}
+
+/* Botões do diálogo (adotando o estilo primário da aplicação) */
+.dialog-pane .button {
+    -fx-background-color: -cor-primaria;
+    -fx-text-fill: -cor-texto-claro;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 6px;
+    -fx-border-radius: 6px;
+    -fx-cursor: hand;
+    -fx-pref-height: 32px;
+    -fx-padding: 0 14px;
+}
+
+.dialog-pane .button:hover {
+    -fx-background-color: -cor-primaria-hover;
+}
+
+.dialog-pane .button:armed {
+    -fx-background-color: -cor-primaria-pressed;
 }

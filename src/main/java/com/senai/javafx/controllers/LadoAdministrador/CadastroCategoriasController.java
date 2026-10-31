@@ -1,4 +1,4 @@
-package com.senai.javafx.controllers;
+package com.senai.javafx.controllers.LadoAdministrador;
 
 import com.senai.javafx.entidades.GerenciamentoJanela;
 import javafx.collections.FXCollections;

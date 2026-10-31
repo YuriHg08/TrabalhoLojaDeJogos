@@ -1,4 +1,4 @@
-package com.senai.javafx.controllers;
+package com.senai.javafx.controllers.LadoAdministrador;
 
 import com.senai.javafx.entidades.GerenciamentoJanela;
 import javafx.event.ActionEvent;
@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 
 public class MenuController {
 
+    // Controller do menu administrativo
     @FXML
     private void cadastroClientes(ActionEvent event) {
         GerenciamentoJanela.abrirJanela("/com/senai/javafx/cadastroClientes.fxml", "Cadastrar Cliente");
@@ -30,4 +31,5 @@ public class MenuController {
     private void consultarJogos(ActionEvent event) {
         GerenciamentoJanela.abrirJanela("/com/senai/javafx/consultarJogos.fxml", "Consultar Jogos");
     }
+
 }

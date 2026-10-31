@@ -1,4 +1,4 @@
-package com.senai.javafx.controllers;
+package com.senai.javafx.controllers.LadoCliente;
 
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;

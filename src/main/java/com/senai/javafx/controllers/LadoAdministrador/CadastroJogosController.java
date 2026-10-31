@@ -1,4 +1,4 @@
-package com.senai.javafx.controllers;
+package com.senai.javafx.controllers.LadoAdministrador;
 
 import com.senai.javafx.entidades.GerenciamentoJanela;
 import com.senai.javafx.entidades.Jogo;
@@ -17,7 +17,7 @@ import javafx.stage.Stage;
 
 import java.io.File;
 
-import static com.senai.javafx.controllers.CadastroCategoriasController.categoriasSalvas;
+import static com.senai.javafx.controllers.LadoAdministrador.CadastroCategoriasController.categoriasSalvas;
 
 public class CadastroJogosController {
 

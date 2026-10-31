@@ -1,4 +1,4 @@
-package com.senai.javafx.controllers;
+package com.senai.javafx.controllers.LadoAdministrador;
 
 import com.senai.javafx.entidades.GerenciamentoJanela;
 import javafx.event.ActionEvent;
@@ -29,12 +29,6 @@ public class SidebarController {
     @FXML
     void abrirConsultarJogos(ActionEvent event) {
         GerenciamentoJanela.abrirJanela("/com/senai/javafx/consultarJogos.fxml", "Consultar Jogos");
-    }
-
-    @FXML
-    void alternarModoEscuro(ActionEvent event) {
-        // Agora delega a troca para o gerenciador global
-        GerenciamentoJanela.alternarModoEscuro();
     }
 
     @FXML

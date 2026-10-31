@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane prefHeight="700.0" prefWidth="1000.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.senai.javafx.controllers.CadastroCategoriasController">
+<BorderPane prefHeight="700.0" prefWidth="1000.0" stylesheets="@styleMenu.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.senai.javafx.controllers.LadoAdministrador.CadastroCategoriasController">
    <left>
       <fx:include source="sideBar.fxml" />
    </left>
@@ -19,7 +19,7 @@
             <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
          </padding>
          <children>
-            <VBox maxWidth="520.0" spacing="16.0" styleClass="painel-principal">
+            <VBox maxWidth="520.0" spacing="16.0" styleClass="painel-principal" stylesheets="@styleMenu.css">
                <children>
                   <Label styleClass="titulo-tela" text="Cadastrar categoria" />
 

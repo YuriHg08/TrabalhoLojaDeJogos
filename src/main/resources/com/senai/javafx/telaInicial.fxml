@@ -1,68 +1,84 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.paint.Color?>
 
-<BorderPane prefHeight="700.0" prefWidth="1200.0" styleClass="root" stylesheets="@styleMenu.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.senai.javafx.controllers.telaInicialController">
+<BorderPane prefHeight="700.0" prefWidth="1200.0" stylesheets="@styleMenu.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.senai.javafx.controllers.LadoCliente.telaInicialController">
 
     <!-- MENU ESQUERDO: SIDEBAR -->
     <left>
         <AnchorPane prefHeight="700.0" prefWidth="205.0" BorderPane.alignment="CENTER">
             <children>
-                <ImageView fitHeight="27.0" fitWidth="153.0" layoutX="15.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true">
+                <ImageView fitHeight="27.0" fitWidth="127.0" layoutX="15.0" layoutY="20.0" pickOnBounds="true">
                     <image>
-                        <Image url="@nexus.png" />
+                        <Image url="@imagens/nexus.png" />
                     </image>
+               <effect>
+                  <DropShadow>
+                     <color>
+                        <Color opacity="0.5152671933174133" />
+                     </color>
+                  </DropShadow>
+               </effect>
                 </ImageView>
-                <TextField fx:id="txtPesquisa" layoutX="15.0" layoutY="57.0" promptText="Buscar" styleClass="campo-texto" />
+                <TextField fx:id="txtPesquisa" layoutX="15.0" layoutY="57.0" promptText="Buscar" styleClass="campo-texto" stylesheets="@styleMenu.css" />
 
                 <!-- CATEGORIAS -->
-                <Label layoutX="15.0" layoutY="102.0" prefHeight="35.0" prefWidth="176.0" styleClass="subtitulo-sidebar" text="Categorias" textFill="#4a4a4a" />
-                <Button layoutX="17.0" layoutY="155.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="21.0" prefWidth="171.0" styleClass="button, botao-categoria" text="RPG" />
-                <Button layoutX="14.0" layoutY="203.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefWidth="175.0" styleClass="button, botao-categoria" text="Aventura" />
-                <Button layoutX="13.0" layoutY="254.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefWidth="175.0" styleClass="button, botao-categoria, botao-categoria-ativo" text="Ação" />
-                <Button layoutX="15.0" layoutY="309.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefWidth="175.0" styleClass="button, botao-categoria" text="Terror" />
+                <Label layoutX="17.0" layoutY="175.0" prefHeight="35.0" prefWidth="176.0" styleClass="subtitulo-sidebar" text="Categorias" textFill="#4a4a4a" />
+                <Button layoutX="16.0" layoutY="213.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="21.0" prefWidth="171.0" styleClass="botao-categoria" text="RPG" />
+                <Button layoutX="14.0" layoutY="258.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefWidth="175.0" styleClass="button, botao-categoria" text="Aventura" />
 
                 <!-- CONSOLES -->
-                <Label layoutX="15.0" layoutY="367.0" styleClass="subtitulo-sidebar" text="Consoles" textFill="#4a4a4a" />
+                <Label layoutX="17.0" layoutY="409.0" styleClass="subtitulo-sidebar" text="Consoles" textFill="#4a4a4a" />
 
                 <!-- NINTENDO -->
-                <Button layoutX="10.0" layoutY="412.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefWidth="183.0" styleClass="button, botao-categoria" text="          Nintendo" />
-                <ImageView fitHeight="26.0" fitWidth="30.0" layoutX="16.0" layoutY="417.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
+                <Button layoutX="10.0" layoutY="445.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefWidth="183.0" styleClass="button, botao-categoria" text="        Nintendo" />
+                <ImageView fitHeight="26.0" fitWidth="30.0" layoutX="16.0" layoutY="450.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
                     <image>
-                        <Image url="@Nintendo.png" />
+                        <Image url="@imagens/Nintendo.png" />
                     </image>
                 </ImageView>
 
                 <!-- PLAYSTATION -->
-                <Button layoutX="10.0" layoutY="458.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefWidth="183.0" styleClass="button, botao-categoria" text="         Playstation" />
-                <ImageView fitHeight="26.0" fitWidth="30.0" layoutX="16.0" layoutY="463.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
+                <Button layoutX="10.0" layoutY="491.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefWidth="183.0" styleClass="button, botao-categoria" text="        Playstation" />
+                <ImageView fitHeight="26.0" fitWidth="30.0" layoutX="16.0" layoutY="496.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
                     <image>
-                        <Image url="@Playstation.png" />
+                        <Image url="@imagens/Playstation.png" />
                     </image>
                 </ImageView>
 
                 <!-- XBOX -->
-                <Button layoutX="10.0" layoutY="504.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefWidth="183.0" styleClass="button, botao-categoria" text="         Xbox" />
-                <ImageView fitHeight="26.0" fitWidth="30.0" layoutX="16.0" layoutY="509.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
+                <Button layoutX="10.0" layoutY="537.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefWidth="183.0" styleClass="button, botao-categoria" text="        Xbox" />
+                <ImageView fitHeight="26.0" fitWidth="30.0" layoutX="16.0" layoutY="542.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
                     <image>
-                        <Image url="@Xbox.png" />
+                        <Image url="@imagens/Xbox.png" />
                     </image>
                 </ImageView>
 
                 <!-- PC -->
-                <Button layoutX="10.0" layoutY="550.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefWidth="183.0" styleClass="button, botao-categoria" text="         PC" />
-                <ImageView fitHeight="26.0" fitWidth="30.0" layoutX="16.0" layoutY="555.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
+                <Button layoutX="10.0" layoutY="583.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefWidth="183.0" styleClass="button, botao-categoria" text="        PC" />
+                <ImageView fitHeight="26.0" fitWidth="30.0" layoutX="16.0" layoutY="588.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
                     <image>
-                        <Image url="@Desktop.png" />
+                        <Image url="@imagens/Desktop.png" />
                     </image>
                 </ImageView>
+            <Button layoutX="15.0" layoutY="113.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="28.0" prefWidth="172.0" text="Início">
+               <styleClass>
+                  <String fx:value="botao-categoria" />
+                  <String fx:value="botao-categoria-ativo" />
+               </styleClass>
+            </Button>
+            <Button layoutX="15.0" layoutY="307.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefWidth="175.0" styleClass="button, botao-categoria" text="Ação" />
+            <Button layoutX="14.0" layoutY="357.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefWidth="175.0" styleClass="button, botao-categoria" text="Ver mais" />
             </children>
         </AnchorPane>
     </left>

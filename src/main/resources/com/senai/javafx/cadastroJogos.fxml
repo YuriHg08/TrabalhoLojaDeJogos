@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane prefHeight="700.0" prefWidth="1000.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.senai.javafx.controllers.CadastroJogosController">
+<BorderPane prefHeight="700.0" prefWidth="1000.0" stylesheets="@styleMenu.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.senai.javafx.controllers.LadoAdministrador.CadastroJogosController">
     <!-- BARRA LATERAL FIXA -->
     <left>
         <fx:include source="sideBar.fxml" />
@@ -34,7 +34,7 @@
                         <TextField fx:id="txtPrecoJogo" prefHeight="38.0" promptText="Preço (Ex: 59.90)" styleClass="campo-texto" />
                         <TextField fx:id="txtEstoqueJogo" prefHeight="38.0" promptText="Estoque (Ex: 5)" styleClass="campo-texto" />
 
-                        <ComboBox fx:id="menuCategoria" maxWidth="Infinity" prefHeight="38.0" promptText="Selecione uma categoria" styleClass="combo-box" />
+                        <ComboBox fx:id="menuCategoria" maxWidth="Infinity" prefHeight="38.0" promptText="Selecione uma categoria" styleClass="campo-texto" />
 
                         <!-- Seção de Capa com HBox flexível -->
                         <HBox alignment="CENTER_LEFT" spacing="16.0">
