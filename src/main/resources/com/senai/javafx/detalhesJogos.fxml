@@ -45,6 +45,9 @@
                     </children>
                 </HBox>
 
+                <!-- Estoque disponível -->
+                <Label fx:id="lblEstoque" style="-fx-font-size: 13px; -fx-font-weight: bold;" text="" />
+
                 <!-- Botão Dinâmico: COMPRAR R$ XXX,XX -->
                 <Button fx:id="btnComprar" maxWidth="400.0" mnemonicParsing="false" onAction="#handleComprar" style="-fx-font-size: 16px; -fx-pref-height: 48px; -fx-background-radius: 24px;" styleClass="button, botao-primario" stylesheets="@styleMenu.css" text="COMPRAR" />
 

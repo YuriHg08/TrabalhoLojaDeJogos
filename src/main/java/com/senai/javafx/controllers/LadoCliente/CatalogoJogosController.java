@@ -13,6 +13,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
+import com.senai.javafx.controllers.LadoAdministrador.EditarJogoController;
+import com.senai.javafx.entidades.Sessao;
 import javafx.scene.CacheHint;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -76,6 +78,7 @@ public class CatalogoJogosController {
                 desligarListeners();
             } else if (!listenersLigados) {
                 ligarListeners();
+                cacheCards.clear();
                 agendarRecarga(); // atualiza caso algo tenha mudado enquanto estava fora
             }
         });
@@ -299,9 +302,25 @@ public class CatalogoJogosController {
         Region spacer = new Region();
         HBox.setHgrow(spacer, Priority.ALWAYS);
 
-        Button btnComprar = new Button("Comprar");
-        btnComprar.getStyleClass().addAll("button", "botao-primario");
+        // Administrador vê "Editar"; cliente vê "Comprar" (ou "Sem estoque" em vermelho)
+        boolean admin = Sessao.isAdmin();
+        boolean semEstoque = jogo.getEstoqueJogo() <= 0;
 
+        String textoBotao;
+        String classeBotao;
+        if (admin) {
+            textoBotao = "Editar";
+            classeBotao = "botao-primario";
+        } else if (semEstoque) {
+            textoBotao = "Sem estoque";
+            classeBotao = "botao-sem-estoque";
+        } else {
+            textoBotao = "Comprar";
+            classeBotao = "botao-primario";
+        }
+
+        Button btnComprar = new Button(textoBotao);
+        btnComprar.getStyleClass().addAll("button", classeBotao);
         rodapeCard.getChildren().addAll(lblPreco, spacer, btnComprar);
 
         // Adiciona os elementos ao card
@@ -312,15 +331,24 @@ public class CatalogoJogosController {
                 rodapeCard
         );
 
-        card.setOnMouseClicked(e -> abrirDetalhesJogo(card, jogo));
+        card.setOnMouseClicked(e -> abrirJogo(card, jogo, admin));
 
         // Usa setOnMouseClicked no botão para que o e.consume() evite o duplo clique no card
         btnComprar.setOnMouseClicked(e -> {
             e.consume();
-            abrirDetalhesJogo(btnComprar, jogo);
+            abrirJogo(btnComprar, jogo, admin);
         });
 
         return card;
+    }
+
+    // Admin abre a janela de edição; cliente abre a tela de detalhes/compra
+    private void abrirJogo(Node origem, Jogo jogo, boolean admin) {
+        if (admin) {
+            EditarJogoController.abrir(jogo, origem.getScene().getWindow());
+        } else {
+            abrirDetalhesJogo(origem, jogo);
+        }
     }
 
     private void abrirDetalhesJogo(Node node, Jogo jogo) {

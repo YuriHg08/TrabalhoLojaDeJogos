@@ -143,6 +143,10 @@ public class CadastroJogosController {
             // A conversão fica aqui dentro para um valor inválido mostrar mensagem em vez de travar
             double preco = Double.parseDouble(precoTexto.replace(",", "."));
             int estoque = Integer.parseInt(estoqueTexto);
+            if (estoque < 0) {
+                respostaJogo.setText("O estoque não pode ser negativo!");
+                return;
+            }
 
             // Cria o novo jogo e adiciona na lista atual
             Jogo novoJogo = new Jogo(nome, categoria, console, preco, caminhoImagemSelecionada, estoque);

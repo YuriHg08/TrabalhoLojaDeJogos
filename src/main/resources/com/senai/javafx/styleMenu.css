@@ -242,6 +242,32 @@
     -fx-background-color: -cor-perigo-hover;
 }
 
+/* Botão "Sem estoque": vermelho, mantém a cor mesmo desabilitado */
+.botao-sem-estoque,
+.botao-sem-estoque:disabled {
+    -fx-background-color: -cor-perigo;
+    -fx-text-fill: -cor-texto-claro;
+    -fx-font-weight: bold;
+    -fx-opacity: 1;
+}
+
+.botao-sem-estoque:hover {
+    -fx-background-color: -cor-perigo-hover;
+}
+
+/* Texto que informa o estoque na tela de detalhes */
+.estoque-ok {
+    -fx-text-fill: -cor-texto-secundario;
+}
+
+.estoque-baixo {
+    -fx-text-fill: #ffc700;
+}
+
+.estoque-zerado {
+    -fx-text-fill: -cor-perigo;
+}
+
 /* ==========================================================================
    8. TABELAS (TableView)
    ========================================================================== */

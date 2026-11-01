@@ -37,6 +37,9 @@ public class DetalhesJogosController {
     private Label lblInfoExtra;
 
     @FXML
+    private Label lblEstoque;
+
+    @FXML
     private Spinner<Integer> spnQuantidade;
 
     @FXML
@@ -61,29 +64,84 @@ public class DetalhesJogosController {
             lblInfoExtra.setText(categoria.toUpperCase() + " | " + console.toUpperCase());
         }
 
-        if (spnQuantidade != null) {
-            SpinnerValueFactory<Integer> valueFactory =
-                    new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 99, 1);
-            spnQuantidade.setValueFactory(valueFactory);
-
-            // Escutador para atualizar o preço total no botão ao alterar a quantidade
-            spnQuantidade.valueProperty().addListener((obs, valorAntigo, valorNovo) -> {
-                atualizarTextoBotaoCompra(valorNovo);
-            });
-        }
-
-        atualizarTextoBotaoCompra(1);
-
-        if (btnComprar != null) {
-            btnComprar.setText(String.format("Comprar R$ %.2f", jogo.getPrecoJogo()));
-        }
+        atualizarControlesDeEstoque();
 
         // Carrega a imagem do jogo
         carregarImagemComCorte(jogo.getCaminhoImagem(), 390, 270);
     }
+    // Atualiza seletor, texto de estoque e botão conforme o estoque atual do jogo
+    private void atualizarControlesDeEstoque() {
+        int estoque = jogoAtual.getEstoqueJogo();
+        boolean semEstoque = estoque <= 0;
+
+        if (spnQuantidade != null) {
+            // A quantidade máxima é o estoque disponível (0 a 0 quando não há nada)
+            SpinnerValueFactory<Integer> valueFactory = semEstoque
+                    ? new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 0, 0)
+                    : new SpinnerValueFactory.IntegerSpinnerValueFactory(1, estoque, 1);
+            spnQuantidade.setValueFactory(valueFactory);
+            spnQuantidade.setDisable(semEstoque);
+        }
+
+        atualizarTextoEstoque(estoque);
+
+        if (semEstoque) {
+            mostrarSemEstoque();
+        } else {
+            restaurarBotaoCompra();
+            atualizarTextoBotaoCompra(1);
+        }
+    }
+
+    private void restaurarBotaoCompra() {
+        if (btnComprar == null) {
+            return;
+        }
+        btnComprar.getStyleClass().remove("botao-sem-estoque");
+        if (!btnComprar.getStyleClass().contains("botao-primario")) {
+            btnComprar.getStyleClass().add("botao-primario");
+        }
+        btnComprar.setDisable(false);
+    }
+
+    // Mostra para o cliente quantas unidades existem no estoque
+    private void atualizarTextoEstoque(int estoque) {
+        if (lblEstoque == null) {
+            return;
+        }
+
+        lblEstoque.getStyleClass().removeAll("estoque-ok", "estoque-baixo", "estoque-zerado");
+
+        if (estoque <= 0) {
+            lblEstoque.setText("Produto esgotado");
+            lblEstoque.getStyleClass().add("estoque-zerado");
+        } else if (estoque <= 5) {
+            lblEstoque.setText(estoque == 1
+                    ? "Resta apenas 1 unidade em estoque!"
+                    : "Restam apenas " + estoque + " unidades em estoque!");
+            lblEstoque.getStyleClass().add("estoque-baixo");
+        } else {
+            lblEstoque.setText("Em estoque: " + estoque + " unidades");
+            lblEstoque.getStyleClass().add("estoque-ok");
+        }
+    }
+
+    // Troca o botão de comprar por "SEM ESTOQUE" em vermelho
+    private void mostrarSemEstoque() {
+        if (btnComprar == null) {
+            return;
+        }
+
+        btnComprar.setText("SEM ESTOQUE");
+        btnComprar.getStyleClass().remove("botao-primario");
+        if (!btnComprar.getStyleClass().contains("botao-sem-estoque")) {
+            btnComprar.getStyleClass().add("botao-sem-estoque");
+        }
+        btnComprar.setDisable(true);
+    }
 
     private void atualizarTextoBotaoCompra(int quantidade) {
-        if (btnComprar != null && jogoAtual != null) {
+        if (btnComprar != null && jogoAtual != null && jogoAtual.getEstoqueJogo() > 0) {
             double total = jogoAtual.getPrecoJogo() * quantidade;
             btnComprar.setText("COMPRAR " + FORMATO_PRECO.format(total));
         }
@@ -146,10 +204,26 @@ public class DetalhesJogosController {
 
     @FXML
     private void handleComprar(ActionEvent event) {
+        // Proteção extra: nunca permite comprar mais do que existe em estoque
+        int estoque = jogoAtual != null ? jogoAtual.getEstoqueJogo() : 0;
+        int quantidade = spnQuantidade.getValue() != null ? spnQuantidade.getValue() : 0;
+
+        if (estoque <= 0 || quantidade < 1 || quantidade > estoque) {
+            GerenciamentoJanela.exibirAlerta("Atenção",
+                    "Quantidade acima do estoque disponível!",
+                    GerenciamentoJanela.TipoAlerta.ALERTA);
+            return;
+        }
+        // Desconta do estoque a quantidade que o cliente comprou
+        jogoAtual.setEstoqueJogo(estoque - quantidade);
+
+        // Atualiza a tela na hora (estoque restante, limite do seletor, botão "SEM ESTOQUE")
+        atualizarControlesDeEstoque();
+
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Compra realizada");
         alert.setHeaderText(null);
-        alert.setContentText("Obrigado por adquirir " + lblNomeJogo.getText() + "!");
+        alert.setContentText("Obrigado por adquirir " + quantidade + "x " + lblNomeJogo.getText() + "!");
         alert.showAndWait();
     }
 
@@ -160,5 +234,14 @@ public class DetalhesJogosController {
         if (!GerenciamentoJanela.restaurarTelaGuardada("Nexus Store - Página inicial")) {
             GerenciamentoJanela.abrirJanela("/com/senai/javafx/telaInicial.fxml", "Nexus Store - Página inicial");
         }
+    }
+    @FXML
+    public void initialize() {
+        // Escutador (registrado uma vez só) para atualizar o preço total ao mudar a quantidade
+        spnQuantidade.valueProperty().addListener((obs, valorAntigo, valorNovo) -> {
+            if (valorNovo != null) {
+                atualizarTextoBotaoCompra(valorNovo);
+            }
+        });
     }
 }

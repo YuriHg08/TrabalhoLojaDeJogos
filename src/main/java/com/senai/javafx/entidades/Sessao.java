@@ -13,6 +13,10 @@ public class Sessao {
         usuarioLogado = null;
         senhaLogada = null;
     }
+    // Mesmo critério usado no login: admin / admin
+    public static boolean isAdmin() {
+        return "admin".equals(usuarioLogado) && "admin".equals(senhaLogada);
+    }
 
     public static String getUsuarioLogado() {
         return usuarioLogado;
