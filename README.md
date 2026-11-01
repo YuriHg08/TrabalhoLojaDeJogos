@@ -1,11 +1,16 @@
-﻿# 🎮 Loja de Jogos - SENAI
+﻿# 🎮 Nexus - Loja de Jogos & Consoles
 
-Um programa simples utilizando Java e JavaFX, que consiste num painel administrativo de uma loja de games virtual, onde é possível:
+Um programa simples utilizando Java e JavaFX, que consiste numa loja de games (incluindo painel administrativo), onde é possível:
 
+## No painel de administrador:
 * Gerenciar clientes;
 * Adicionar/remover jogos;
-* Verificar estoque de um jogo;
-* Realizar uma venda;
-* Entre outras funcionalidades.
+* Cadastrar categorias novas;
+* Consultar jogos (incluindo estoque) cadastrados.
 
-> O programa foi pensado para ser um trabalho de nosso curso e poder demonstrar o que aprendemos durante o processo.
+## Lado do cliente:
+* Comprar jogos/consoles;
+* Filtrar jogo por plataforma ou categoria;
+* Visualizar seus jogos adquiridos.
+
+> O programa foi pensado para ser um trabalho do curso técnico e poder demonstrar um pouco mais das nossas habilidades.
