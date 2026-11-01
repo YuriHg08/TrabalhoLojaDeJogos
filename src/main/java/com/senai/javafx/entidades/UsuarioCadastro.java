@@ -1,9 +1,12 @@
 package com.senai.javafx.entidades;
-
+import java.util.Collections;
 import java.util.ArrayList;
 import java.util.List;
 
 public class UsuarioCadastro {
+    public static List<Usuario> listar() {
+        return Collections.unmodifiableList(usuarios);
+    }
     private static final List<Usuario> usuarios = new ArrayList<>();
 
     public static boolean existe(String nome) {

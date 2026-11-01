@@ -18,12 +18,11 @@
             </padding>
             <children>
                 <Label styleClass="titulo-tela" text="Clientes cadastrados" />
+                <Label fx:id="lblTotal" styleClass="texto-mutado" />
 
                 <TableView fx:id="tabela" VBox.vgrow="ALWAYS">
                     <columns>
-                        <TableColumn fx:id="colNome" prefWidth="280.0" text="Nome" />
-                        <TableColumn fx:id="colCpf" prefWidth="220.0" text="CPF" />
-                        <TableColumn fx:id="colTelefone" prefWidth="220.0" text="Telefone" />
+                        <TableColumn fx:id="colNome" prefWidth="280.0" text="Nome / Usuário" />
                     </columns>
                     <columnResizePolicy>
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

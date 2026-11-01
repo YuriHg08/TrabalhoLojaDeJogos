@@ -48,10 +48,11 @@
                             </children>
                         </VBox>
 
-                        <!-- E-mail -->
+                        <!-- Confirmar senha -->
                         <VBox spacing="4.0">
                             <children>
-                                <HBox alignment="CENTER_LEFT" spacing="6.0" />
+                                <Label styleClass="label-campo" text="Confirmar senha" />
+                                <PasswordField fx:id="txtConfirmarSenha" promptText="Digite a senha novamente" styleClass="campo-texto" />
                             </children>
                         </VBox>
 

@@ -26,7 +26,6 @@
             </Label>
 
             <!-- Ações principais do sistema -->
-            <Button maxWidth="Infinity" mnemonicParsing="false" onAction="#cadastroClientes" prefHeight="40.0" styleClass="botao-secundario" text="Cadastrar clientes" />
             <Button maxWidth="Infinity" mnemonicParsing="false" onAction="#cadastroCategoria" prefHeight="40.0" styleClass="botao-secundario" text="Cadastrar categorias" />
             <Button maxWidth="Infinity" mnemonicParsing="false" onAction="#cadastroJogos" prefHeight="40.0" styleClass="botao-secundario" text="Cadastrar jogos" />
             <Button maxWidth="Infinity" mnemonicParsing="false" onAction="#consultarClientes" prefHeight="40.0" styleClass="botao-secundario" text="Consultar clientes" />

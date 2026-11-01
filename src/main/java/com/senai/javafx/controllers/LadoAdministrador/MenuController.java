@@ -7,10 +7,7 @@ import javafx.fxml.FXML;
 public class MenuController {
 
     // Controller do menu administrativo
-    @FXML
-    private void cadastroClientes(ActionEvent event) {
-        GerenciamentoJanela.abrirJanela("/com/senai/javafx/cadastroClientes.fxml", "Cadastrar Cliente");
-    }
+
 
     @FXML
     private void consultarClientes(ActionEvent event) {

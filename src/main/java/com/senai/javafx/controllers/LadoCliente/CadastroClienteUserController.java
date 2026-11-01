@@ -18,23 +18,30 @@ public class CadastroClienteUserController {
     private PasswordField txtSenha;
 
     @FXML
+    private PasswordField txtConfirmarSenha;
+
+    @FXML
     private void handleCadastrar(ActionEvent event) {
         String nome = txtNome.getText().trim();
         String senha = txtSenha.getText().trim();
+        String confirmarSenha = txtConfirmarSenha.getText().trim();
 
-        if (nome.isEmpty() || senha.isEmpty()) {
+        if (nome.isEmpty() || senha.isEmpty() || confirmarSenha.isEmpty()) {
             exibirAlerta("Atenção", "Por favor, preencha todos os campos!", GerenciamentoJanela.TipoAlerta.ALERTA);
             return;
         }
 
-
         if (nome.length() <= 3) {
             exibirAlerta("Atenção", "Nome de usuário precisa ter 4 ou mais dígitos", GerenciamentoJanela.TipoAlerta.ALERTA);
-        return;
+            return;
         }
         if (senha.length() <= 7) {
             exibirAlerta("Atenção", "Senha precisa ter 8 ou mais dígitos", GerenciamentoJanela.TipoAlerta.ALERTA);
-        return;
+            return;
+        }
+        if (!senha.equals(confirmarSenha)) {
+            exibirAlerta("Atenção", "As senhas não coincidem!", GerenciamentoJanela.TipoAlerta.ALERTA);
+            return;
         }
         if (!UsuarioCadastro.cadastrar(nome, senha)) {
             exibirAlerta("Atenção", "Esse utilizador já existe!", GerenciamentoJanela.TipoAlerta.ALERTA);
