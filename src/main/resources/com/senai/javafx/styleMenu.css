@@ -598,6 +598,115 @@
     -fx-text-fill: -cor-texto-principal;
 }
 
+/* ==========================================================================
+   CARRINHO, PAGAMENTO E NOTAS
+   ========================================================================== */
+
+/* Barra do carrinho no rodapé da loja / detalhes */
+.barra-carrinho {
+    -fx-background-color: -cor-superficie;
+    -fx-border-color: -cor-neon-rosa transparent transparent transparent;
+    -fx-border-width: 2px 0 0 0;
+    -fx-padding: 12px 24px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.5), 12, 0, 0, -3);
+}
+
+.barra-carrinho-titulo {
+    -fx-font-size: 11px;
+    -fx-font-weight: bold;
+    -fx-text-fill: -cor-texto-secundario;
+}
+
+.barra-carrinho-resumo {
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-text-fill: -cor-texto-principal;
+}
+
+.label-total {
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-text-fill: -cor-neon-verde;
+}
+
+/* Linha de um jogo dentro do carrinho */
+.item-carrinho {
+    -fx-background-color: -cor-superficie-alt;
+    -fx-background-radius: 10px;
+    -fx-border-color: -cor-borda;
+    -fx-border-radius: 10px;
+    -fx-padding: 12px 16px;
+}
+
+/* Opções de pagamento (Pix / Cartão / Dinheiro) */
+.opcao-pagamento {
+    -fx-background-color: -cor-superficie-alt;
+    -fx-text-fill: -cor-texto-secundario;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-text-alignment: center;
+    -fx-alignment: CENTER;
+    -fx-pref-height: 70px;
+    -fx-background-radius: 10px;
+    -fx-border-color: -cor-borda;
+    -fx-border-radius: 10px;
+    -fx-border-width: 1.5px;
+    -fx-cursor: hand;
+}
+
+.opcao-pagamento:hover {
+    -fx-border-color: -cor-neon-ciano;
+    -fx-text-fill: -cor-texto-principal;
+}
+
+.opcao-pagamento:selected {
+    -fx-border-color: -cor-neon-rosa;
+    -fx-text-fill: -cor-texto-principal;
+    -fx-effect: -glow-primario;
+}
+
+.resumo-pagamento {
+    -fx-background-color: -cor-campo;
+    -fx-background-radius: 10px;
+    -fx-border-color: -cor-borda;
+    -fx-border-radius: 10px;
+    -fx-padding: 16px;
+}
+
+/* Seletor de data (aprovação de compras no painel do admin) */
+.date-picker {
+    -fx-background-color: -cor-campo;
+    -fx-background-radius: 6px;
+}
+
+.date-picker .arrow-button {
+    -fx-background-color: transparent;
+}
+
+.date-picker .arrow-button .arrow {
+    -fx-background-color: -cor-texto-secundario;
+}
+
+/* Botões pequenos dentro de células de tabela */
+.botao-tabela {
+    -fx-pref-height: 30px;
+    -fx-font-size: 12px;
+    -fx-padding: 0 12px;
+}
+
+/* Nota de compra (janela "Ver nota" do histórico) */
+.nota-compra {
+    -fx-background-color: -cor-superficie;
+    -fx-border-color: -cor-borda;
+    -fx-border-width: 1px;
+}
+
+.nota-linha-total {
+    -fx-border-color: -cor-borda transparent transparent transparent;
+    -fx-border-width: 1px 0 0 0;
+    -fx-padding: 10px 0 0 0;
+}
+
 /* Botão "Sem estoque" menor dentro dos cards da loja (não encosta no preço) */
 .card-jogo .botao-sem-estoque {
     -fx-font-size: 11px;

@@ -1,5 +1,6 @@
 package com.senai.javafx.controllers.LadoCliente;
 
+import com.senai.javafx.entidades.Carrinho;
 import com.senai.javafx.entidades.FiltroCatalogo;
 import com.senai.javafx.entidades.GerenciamentoJanela;
 import com.senai.javafx.entidades.Sessao;
@@ -16,6 +17,7 @@ import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
@@ -159,8 +161,9 @@ public class telaInicialController {
     private void carregarCatalogo() {
         try {
             Parent catalogo = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/com/senai/javafx/catalogoJogos.fxml")));
-            areaCentral.getChildren().clear();
-            areaCentral.getChildren().add(catalogo);
+            // Catálogo em cima e, embaixo, a barra do carrinho (só aparece com itens)
+            VBox.setVgrow(catalogo, Priority.ALWAYS);
+            areaCentral.getChildren().setAll(new VBox(catalogo, new BarraCarrinho()));
         } catch (IOException e) {
             System.err.println("Erro ao carregar a tela de catálogo de jogos: " + e.getMessage());
             e.printStackTrace();
@@ -174,6 +177,13 @@ public class telaInicialController {
 
     @FXML
     void alternarConta(ActionEvent event) {
+        // Com itens no carrinho o cliente precisa concluir o pagamento (ou remover os itens) primeiro
+        if (!Carrinho.isVazio()) {
+            GerenciamentoJanela.exibirAlerta("Atenção",
+                    "Você tem itens no carrinho. Conclua o pagamento antes de trocar de conta.",
+                    GerenciamentoJanela.TipoAlerta.ALERTA);
+            return;
+        }
         GerenciamentoJanela.abrirJanela("/com/senai/javafx/opcaoUser.fxml", "Fazer Login");
     }
-}
+}

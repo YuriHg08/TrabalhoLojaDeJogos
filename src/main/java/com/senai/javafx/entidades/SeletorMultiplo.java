@@ -91,4 +91,4 @@ public class SeletorMultiplo {
         List<String> marcados = getSelecionados();
         botao.setText(marcados.isEmpty() ? textoVazio : String.join(", ", marcados));
     }
-}
+}

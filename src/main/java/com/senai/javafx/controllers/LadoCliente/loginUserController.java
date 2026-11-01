@@ -92,4 +92,4 @@ public class loginUserController {
     private void handleCadastreSe(ActionEvent event) {
         GerenciamentoJanela.abrirJanela("/com/senai/javafx/cadastroClienteUser.fxml", "Cadastrar-se na Nexus");
     }
-}
+}

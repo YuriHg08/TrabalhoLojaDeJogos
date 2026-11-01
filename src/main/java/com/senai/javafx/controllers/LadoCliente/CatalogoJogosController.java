@@ -335,15 +335,26 @@ public class CatalogoJogosController {
                 rodapeCard
         );
 
-        card.setOnMouseClicked(e -> abrirJogo(card, jogo, admin));
-
-        // Usa setOnMouseClicked no botão para que o e.consume() evite o duplo clique no card
-        btnComprar.setOnMouseClicked(e -> {
-            e.consume();
-            abrirJogo(btnComprar, jogo, admin);
+        // O botão usa onAction: dispara ao soltar o mouse (mesmo com um leve movimento) e também pelo teclado.
+        // O clique no resto do card ignora o que veio do botão, para não abrir a tela duas vezes.
+        btnComprar.setOnAction(e -> abrirJogo(btnComprar, jogo, admin));
+        card.setOnMouseClicked(e -> {
+            if (!(e.getTarget() instanceof Node alvo) || !estaDentro(alvo, btnComprar)) {
+                abrirJogo(card, jogo, admin);
+            }
         });
 
         return card;
+    }
+
+    // true se "alvo" é o próprio "ancestral" ou está dentro dele (ex.: o texto de dentro de um botão)
+    private static boolean estaDentro(Node alvo, Node ancestral) {
+        for (Node n = alvo; n != null; n = n.getParent()) {
+            if (n == ancestral) {
+                return true;
+            }
+        }
+        return false;
     }
 
     // Admin abre a janela de edição; cliente abre a tela de detalhes/compra
@@ -377,7 +388,11 @@ public class CatalogoJogosController {
             scene.setRoot(root);
 
         } catch (Exception e) {
+            // Antes o erro só aparecia no console e o botão parecia "morto"; agora o cliente é avisado
             e.printStackTrace();
+            GerenciamentoJanela.exibirAlerta("Erro",
+                    "Não foi possível abrir os detalhes de \"" + jogo.getNomeJogo() + "\".\n" + e,
+                    GerenciamentoJanela.TipoAlerta.ERRO);
         }
     }
-}
+}

@@ -111,6 +111,10 @@ public class GerenciamentoJanela extends Application {
         telaGuardada = root;
     }
 
+    public static boolean temTelaGuardada() {
+        return telaGuardada != null;
+    }
+
     // Devolve true se conseguiu restaurar; false se não havia tela guardada
     public static boolean restaurarTelaGuardada(String titulo) {
         if (telaGuardada == null || primaryStage == null || primaryStage.getScene() == null) {
@@ -217,4 +221,4 @@ public class GerenciamentoJanela extends Application {
 
         modalStage.showAndWait();
     }
-}
+}

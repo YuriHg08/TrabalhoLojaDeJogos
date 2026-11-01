@@ -60,4 +60,4 @@ public class CadastroClienteUserController {
     private void handleIniciarSessao(ActionEvent event) {
         GerenciamentoJanela.abrirJanela("/com/senai/javafx/loginUser.fxml", "Entrar na conta");
     }
-}
+}

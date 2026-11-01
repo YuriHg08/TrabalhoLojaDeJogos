@@ -28,8 +28,9 @@
       <Button layoutX="148.0" layoutY="11.0" mnemonicParsing="false" onAction="#alternarConta" opacity="0.4" prefHeight="31.0" prefWidth="39.0" styleClass="sidebar-btn" />
       <Button layoutX="19.0" layoutY="186.0" maxWidth="Infinity" mnemonicParsing="false" onAction="#cadastroCategoria" prefHeight="40.0" prefWidth="166.0" styleClass="botao-categoria" text="Cadastrar categorias" />
       <Button layoutX="18.0" layoutY="242.0" maxWidth="Infinity" mnemonicParsing="false" onAction="#cadastroJogos" prefHeight="40.0" prefWidth="166.0" styleClass="botao-categoria" text="Cadastrar jogos" />
-      <Button layoutX="18.0" layoutY="296.0" maxWidth="Infinity" mnemonicParsing="false" onAction="#consultarClientes" prefHeight="40.0" prefWidth="166.0" styleClass="botao-categoria" text="Consultar clientes" />
+      <Button fx:id="btnConsultarClientes" layoutX="18.0" layoutY="296.0" maxWidth="Infinity" mnemonicParsing="false" onAction="#consultarClientes" prefHeight="40.0" prefWidth="166.0" styleClass="botao-categoria" text="Consultar clientes" />
       <Button layoutX="19.0" layoutY="352.0" maxWidth="Infinity" mnemonicParsing="false" onAction="#consultarJogos" prefHeight="40.0" prefWidth="166.0" styleClass="botao-categoria" text="Consultar jogos" />
+      <Button layoutX="19.0" layoutY="408.0" maxWidth="Infinity" mnemonicParsing="false" onAction="#historicoCompras" prefHeight="40.0" prefWidth="166.0" styleClass="botao-categoria" text="Histórico de compras" />
       <Label layoutX="16.0" layoutY="51.0" prefHeight="38.0" prefWidth="182.0" styleClass="subtitulo" text="Painel do administrador" />
    </children>
 </AnchorPane>

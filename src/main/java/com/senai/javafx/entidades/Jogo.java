@@ -100,4 +100,4 @@ public class Jogo {
     public boolean temConsole(String console) {
         return consoles.stream().anyMatch(c -> c.equalsIgnoreCase(console));
     }
-}
+}

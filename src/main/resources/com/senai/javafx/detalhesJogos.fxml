@@ -5,7 +5,9 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
-<StackPane alignment="CENTER" prefHeight="700.0" prefWidth="1200.0" styleClass="root" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.senai.javafx.controllers.LadoCliente.DetalhesJogosController">
+<BorderPane prefHeight="700.0" prefWidth="1200.0" styleClass="root" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.senai.javafx.controllers.LadoCliente.DetalhesJogosController">
+    <center>
+    <StackPane alignment="CENTER">
     <children>
         <VBox alignment="TOP_CENTER" maxWidth="700.0" spacing="20.0" styleClass="card">
             <padding>
@@ -54,4 +56,12 @@
             </children>
         </VBox>
     </children>
-</StackPane>
+    </StackPane>
+    </center>
+
+    <!-- Barra "Ir para o carrinho": criada pelo controller (só aparece quando há itens no carrinho).
+         Não dá para usar <BarraCarrinho/> aqui: o FXMLLoader confunde a pasta "LadoCliente" (maiúscula) com uma classe. -->
+    <bottom>
+        <StackPane fx:id="rodape" />
+    </bottom>
+</BorderPane>

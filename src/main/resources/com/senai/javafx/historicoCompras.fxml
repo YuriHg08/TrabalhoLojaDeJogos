@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane prefHeight="700.0" prefWidth="1000.0" stylesheets="@styleMenu.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.senai.javafx.controllers.ConsultarComprasController">
+    <left>
+        <fx:include source="sideBar.fxml" />
+    </left>
+    <center>
+        <VBox spacing="16.0" style="-fx-background-color: -cor-fundo;">
+            <padding>
+                <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+            </padding>
+            <children>
+                <Label styleClass="titulo-tela" text="Histórico de compras" />
+                <Label fx:id="lblResumo" styleClass="texto-mutado" />
+
+                <TableView fx:id="tabelaCompras" VBox.vgrow="ALWAYS">
+                    <columns>
+                        <TableColumn fx:id="colNota" maxWidth="80.0" minWidth="60.0" prefWidth="70.0" text="Nota" />
+                        <TableColumn fx:id="colData" prefWidth="100.0" text="Data" />
+                        <TableColumn fx:id="colCliente" prefWidth="120.0" text="Cliente" />
+                        <TableColumn fx:id="colItens" prefWidth="240.0" text="Itens" />
+                        <TableColumn fx:id="colQuantidade" maxWidth="90.0" minWidth="60.0" prefWidth="70.0" text="Qtd." />
+                        <TableColumn fx:id="colPagamento" prefWidth="100.0" text="Pagamento" />
+                        <TableColumn fx:id="colTotal" prefWidth="110.0" text="Valor total" />
+                        <TableColumn fx:id="colNotaDetalhe" minWidth="110.0" prefWidth="120.0" text="Nota" />
+                    </columns>
+                    <columnResizePolicy>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                    </columnResizePolicy>
+                </TableView>
+            </children>
+        </VBox>
+    </center>
+</BorderPane>
