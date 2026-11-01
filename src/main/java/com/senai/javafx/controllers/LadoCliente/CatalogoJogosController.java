@@ -1,16 +1,20 @@
-
 package com.senai.javafx.controllers.LadoCliente;
 
 import com.senai.javafx.controllers.LadoAdministrador.CadastroJogosController;
 import com.senai.javafx.entidades.FiltroCatalogo;
 import com.senai.javafx.entidades.Jogo;
-
+import com.senai.javafx.entidades.GerenciamentoJanela;
+import javafx.application.Platform;
 import javafx.beans.InvalidationListener;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.ListChangeListener;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
+import javafx.scene.CacheHint;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -24,18 +28,24 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import org.w3c.dom.Node;
 
-import java.awt.event.ActionEvent;
-import java.io.IOException;
 import java.text.NumberFormat;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
-import com.senai.javafx.controllers.LadoCliente.DetalhesJogosController;
+import java.util.Map;
 
 public class CatalogoJogosController {
 
     private static final NumberFormat FORMATO_PRECO =
             NumberFormat.getCurrencyInstance(new Locale("pt", "BR"));
+
+    // Tamanho máximo (em pixels) em que as capas são mantidas na memória.
+    private static final double LIMITE_CAPA = 420;
+
+    // Cache de imagens: cada capa é lida só uma vez
+    private static final Map<String, Image> CACHE_IMAGENS = new HashMap<>();
 
     @FXML
     private FlowPane containerJogos;
@@ -43,51 +53,97 @@ public class CatalogoJogosController {
     @FXML
     private Label lblCategoriaAtual;
 
-    private final InvalidationListener aoMudarFiltro = obs -> carregarJogos();
-    private final ListChangeListener<Jogo> aoMudarJogos = mudanca -> carregarJogos();
+    // Cards já montados: ao filtrar, só reaproveitamos os que já existem
+    private final Map<Jogo, VBox> cacheCards = new HashMap<>();
+
+    // Evita recarregar várias vezes seguidas quando vários filtros mudam juntos
+    private boolean recargaPendente = false;
+    private boolean listenersLigados = false;
+    private final InvalidationListener aoMudarFiltro = obs -> agendarRecarga();
+    private final ListChangeListener<Jogo> aoMudarJogos = mudanca -> {
+        cacheCards.clear(); // jogo novo/removido/editado: refaz os cards
+        agendarRecarga();
+    };
 
     @FXML
     public void initialize() {
 
-        FiltroCatalogo.categoriaProperty().addListener(aoMudarFiltro);
-        FiltroCatalogo.consoleProperty().addListener(aoMudarFiltro);
-        CadastroJogosController.jogosSalvos.addListener(aoMudarJogos);
-        FiltroCatalogo.buscaProperty().addListener(aoMudarFiltro);
-        FiltroCatalogo.precoMinProperty().addListener(aoMudarFiltro);
-        FiltroCatalogo.precoMaxProperty().addListener(aoMudarFiltro);
+        ligarListeners();
 
-        // Remove os listeners quando a tela sair da cena
+        // Tira os listeners quando a tela sai da cena e recoloca quando ela volta
         containerJogos.sceneProperty().addListener((obs, antiga, nova) -> {
             if (nova == null) {
-                FiltroCatalogo.categoriaProperty().removeListener(aoMudarFiltro);
-                FiltroCatalogo.consoleProperty().removeListener(aoMudarFiltro);
-                CadastroJogosController.jogosSalvos.removeListener(aoMudarJogos);
-                FiltroCatalogo.buscaProperty().removeListener(aoMudarFiltro);
-                FiltroCatalogo.precoMinProperty().removeListener(aoMudarFiltro);
-                FiltroCatalogo.precoMaxProperty().removeListener(aoMudarFiltro);
+                desligarListeners();
+            } else if (!listenersLigados) {
+                ligarListeners();
+                agendarRecarga(); // atualiza caso algo tenha mudado enquanto estava fora
             }
         });
 
         carregarJogos();
     }
 
+    private void ligarListeners() {
+        if (listenersLigados) {
+            return;
+        }
+        listenersLigados = true;
+        FiltroCatalogo.categoriaProperty().addListener(aoMudarFiltro);
+        FiltroCatalogo.consoleProperty().addListener(aoMudarFiltro);
+        FiltroCatalogo.buscaProperty().addListener(aoMudarFiltro);
+        FiltroCatalogo.precoMinProperty().addListener(aoMudarFiltro);
+        FiltroCatalogo.precoMaxProperty().addListener(aoMudarFiltro);
+        CadastroJogosController.jogosSalvos.addListener(aoMudarJogos);
+    }
+
+    private void desligarListeners() {
+        if (!listenersLigados) {
+            return;
+        }
+        listenersLigados = false;
+        FiltroCatalogo.categoriaProperty().removeListener(aoMudarFiltro);
+        FiltroCatalogo.consoleProperty().removeListener(aoMudarFiltro);
+        FiltroCatalogo.buscaProperty().removeListener(aoMudarFiltro);
+        FiltroCatalogo.precoMinProperty().removeListener(aoMudarFiltro);
+        FiltroCatalogo.precoMaxProperty().removeListener(aoMudarFiltro);
+        CadastroJogosController.jogosSalvos.removeListener(aoMudarJogos);
+    }
+
+    // Junta várias mudanças de filtro (busca + preço mín + preço máx) em uma só recarga
+    private void agendarRecarga() {
+        if (recargaPendente) {
+            return;
+        }
+        recargaPendente = true;
+        Platform.runLater(() -> {
+            recargaPendente = false;
+            carregarJogos();
+        });
+    }
+
     private void carregarJogos() {
 
-        containerJogos.getChildren().clear();
         atualizarTitulo();
+
+        List<Node> visiveis = new ArrayList<>();
 
         for (Jogo jogo : CadastroJogosController.jogosSalvos) {
             if (FiltroCatalogo.aceita(jogo)) {
-                containerJogos.getChildren().add(criarCardJogo(jogo));
+                // Reaproveita o card se já foi criado antes
+                visiveis.add(cacheCards.computeIfAbsent(jogo, this::criarCardJogo));
             }
         }
 
-        if (containerJogos.getChildren().isEmpty()) {
+        if (visiveis.isEmpty()) {
             Label vazio = new Label(FiltroCatalogo.temBuscaOuPreco()
                     ? "Nenhum jogo encontrado para essa busca."
                     : "Nenhum jogo encontrado com esse filtro.");
-            containerJogos.getChildren().add(vazio);
+            vazio.getStyleClass().add("texto-mutado");
+            visiveis.add(vazio);
         }
+
+        // Uma única atualização da tela em vez de clear() + vários add()
+        containerJogos.getChildren().setAll(visiveis);
     }
 
     private void atualizarTitulo() {
@@ -104,11 +160,102 @@ public class CatalogoJogosController {
         }
     }
 
+    // Carrega a capa uma única vez, em segundo plano, com tamanho limitado
+    private static Image obterCapa(String caminho) {
+        try {
+            return CACHE_IMAGENS.computeIfAbsent(caminho,
+                    c -> new Image(c, LIMITE_CAPA, LIMITE_CAPA, true, true, true));
+        } catch (Exception e) {
+            return null;
+        }
+    }
+    // Chamado antes de abrir a loja: começa a carregar as capas em segundo plano
+    public static void preCarregarCapas() {
+        for (Jogo jogo : CadastroJogosController.jogosSalvos) {
+            String caminho = jogo.getCaminhoImagem();
+            if (caminho != null && !caminho.isBlank()) {
+                obterCapa(caminho);
+            }
+        }
+    }
+
+    // Coloca a capa no card assim que ela estiver pronta (sem travar a tela)
+    private void aplicarCapa(Image imagem, StackPane imgHolder) {
+
+        if (imagem.getProgress() >= 1.0) {
+            montarCapa(imagem, imgHolder);
+            return;
+        }
+
+        imagem.progressProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> obs, Number antigo, Number novo) {
+                if (novo.doubleValue() >= 1.0) {
+                    imagem.progressProperty().removeListener(this);
+                    montarCapa(imagem, imgHolder);
+                }
+            }
+        });
+    }
+
+    private void montarCapa(Image imagem, StackPane imgHolder) {
+
+        if (imagem.isError() || imagem.getWidth() <= 0 || imagem.getHeight() <= 0) {
+            return;
+        }
+
+        ImageView imagemView = new ImageView(imagem);
+
+        double largura = 176;
+        double altura = 110;
+
+        double proporcaoAlvo = largura / altura;
+        double proporcaoImagem = imagem.getWidth() / imagem.getHeight();
+
+        double x = 0;
+        double y = 0;
+
+        double larguraCorte = imagem.getWidth();
+        double alturaCorte = imagem.getHeight();
+
+        // Corta as laterais ou a parte superior/inferior
+        // para preencher todo o espaço sem deformar
+        if (proporcaoImagem > proporcaoAlvo) {
+
+            larguraCorte = imagem.getHeight() * proporcaoAlvo;
+            x = (imagem.getWidth() - larguraCorte) / 2;
+
+        } else {
+
+            alturaCorte = imagem.getWidth() / proporcaoAlvo;
+            y = (imagem.getHeight() - alturaCorte) / 2;
+        }
+
+        // Define a área que será exibida
+        imagemView.setViewport(new Rectangle2D(
+                x,
+                y,
+                larguraCorte,
+                alturaCorte
+        ));
+
+        imagemView.setFitWidth(largura);
+        imagemView.setFitHeight(altura);
+        imagemView.setPreserveRatio(false);
+        imagemView.setSmooth(true);
+
+        imgHolder.getChildren().setAll(imagemView);
+    }
+
     private VBox criarCardJogo(Jogo jogo) {
 
         VBox card = new VBox(8);
         card.getStyleClass().addAll("card", "card-jogo");
         card.setPrefWidth(200);
+
+        // Guarda o card já desenhado (com sombra) como "foto"
+        card.setCache(true);
+        card.setCacheHint(CacheHint.SPEED);
 
         // Área da imagem
         StackPane imgHolder = new StackPane();
@@ -120,57 +267,13 @@ public class CatalogoJogosController {
         lblFoto.getStyleClass().add("texto-mutado");
         imgHolder.getChildren().add(lblFoto);
 
-        // Carrega automaticamente a capa do jogo
+        // Carrega a capa do jogo (cache + segundo plano)
         String caminho = jogo.getCaminhoImagem();
 
         if (caminho != null && !caminho.isBlank()) {
-
-            // Carregamento síncrono para obter as dimensões da imagem
-            Image imagem = new Image(caminho);
-
-            if (!imagem.isError() && imagem.getWidth() > 0 && imagem.getHeight() > 0) {
-
-                ImageView imagemView = new ImageView(imagem);
-
-                double largura = 176;
-                double altura = 110;
-
-                double proporcaoAlvo = largura / altura;
-                double proporcaoImagem = imagem.getWidth() / imagem.getHeight();
-
-                double x = 0;
-                double y = 0;
-
-                double larguraCorte = imagem.getWidth();
-                double alturaCorte = imagem.getHeight();
-
-                // Corta as laterais ou a parte superior/inferior
-                // para preencher todo o espaço sem deformar
-                if (proporcaoImagem > proporcaoAlvo) {
-
-                    larguraCorte = imagem.getHeight() * proporcaoAlvo;
-                    x = (imagem.getWidth() - larguraCorte) / 2;
-
-                } else {
-
-                    alturaCorte = imagem.getWidth() / proporcaoAlvo;
-                    y = (imagem.getHeight() - alturaCorte) / 2;
-                }
-
-                // Define a área que será exibida
-                imagemView.setViewport(new Rectangle2D(
-                        x,
-                        y,
-                        larguraCorte,
-                        alturaCorte
-                ));
-
-                imagemView.setFitWidth(largura);
-                imagemView.setFitHeight(altura);
-                imagemView.setPreserveRatio(false);
-                imagemView.setSmooth(true);
-
-                imgHolder.getChildren().setAll(imagemView);
+            Image imagem = obterCapa(caminho);
+            if (imagem != null) {
+                aplicarCapa(imagem, imgHolder);
             }
         }
 
@@ -209,7 +312,6 @@ public class CatalogoJogosController {
                 rodapeCard
         );
 
-
         card.setOnMouseClicked(e -> abrirDetalhesJogo(card, jogo));
 
         // Usa setOnMouseClicked no botão para que o e.consume() evite o duplo clique no card
@@ -220,27 +322,31 @@ public class CatalogoJogosController {
 
         return card;
     }
-        private void abrirDetalhesJogo(javafx.scene.Node node, Jogo jogo) {
-            try {
-                FXMLLoader loader = new FXMLLoader(
-                        getClass().getResource("/com/senai/javafx/detalhesJogos.fxml")
-                );
-                Parent root = loader.load();
 
-                // Passa o objeto Jogo completo para a nova tela
-                DetalhesJogosController controller = loader.getController();
-                controller.setJogo(jogo);
+    private void abrirDetalhesJogo(Node node, Jogo jogo) {
+        try {
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource("/com/senai/javafx/detalhesJogos.fxml")
+            );
+            Parent root = loader.load();
 
-                Scene scene = ((Stage) node.getScene().getWindow()).getScene();
-                scene.getStylesheets().add(getClass().getResource("/com/senai/javafx/styleMenu.css").toExternalForm());
-                scene.setRoot(root);
+            // Passa o objeto Jogo completo para a nova tela
+            DetalhesJogosController controller = loader.getController();
+            controller.setJogo(jogo);
 
-            } catch (Exception e) {
-                e.printStackTrace();
+            Scene scene = ((Stage) node.getScene().getWindow()).getScene();
+
+            // Só adiciona o CSS se ainda não estiver na cena
+            String css = getClass().getResource("/com/senai/javafx/styleMenu.css").toExternalForm();
+            if (!scene.getStylesheets().contains(css)) {
+                scene.getStylesheets().add(css);
             }
+            GerenciamentoJanela.guardarTela(scene.getRoot());
+            scene.setRoot(root);
+            scene.setRoot(root);
+
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
-
-
-
-
+}

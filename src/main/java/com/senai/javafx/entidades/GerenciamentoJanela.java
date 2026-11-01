@@ -104,7 +104,23 @@ public class GerenciamentoJanela extends Application {
     public static void voltarTela() {
         abrirJanela("/com/senai/javafx/opcao.fxml", "Menu de opções");
     }
+    // Tela que fica guardada enquanto o usuário vê os detalhes de um jogo
+    private static Parent telaGuardada;
 
+    public static void guardarTela(Parent root) {
+        telaGuardada = root;
+    }
+
+    // Devolve true se conseguiu restaurar; false se não havia tela guardada
+    public static boolean restaurarTelaGuardada(String titulo) {
+        if (telaGuardada == null || primaryStage == null || primaryStage.getScene() == null) {
+            return false;
+        }
+        primaryStage.getScene().setRoot(telaGuardada);
+        primaryStage.setTitle(titulo);
+        telaGuardada = null;
+        return true;
+    }
     /**
      * Exibe um modal customizado integrado ao tema visual da aplicação.
      */

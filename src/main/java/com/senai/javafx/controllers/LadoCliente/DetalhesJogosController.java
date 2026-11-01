@@ -155,7 +155,10 @@ public class DetalhesJogosController {
 
     @FXML
     private void handleVoltar(ActionEvent event) {
-        GerenciamentoJanela.abrirJanela("/com/senai/javafx/telaInicial.fxml", "Nexus Store - Página inicial");
-
+        // Volta para a tela que já estava montada (instantâneo).
+        // Se não houver, reconstrói como antes.
+        if (!GerenciamentoJanela.restaurarTelaGuardada("Nexus Store - Página inicial")) {
+            GerenciamentoJanela.abrirJanela("/com/senai/javafx/telaInicial.fxml", "Nexus Store - Página inicial");
+        }
     }
 }

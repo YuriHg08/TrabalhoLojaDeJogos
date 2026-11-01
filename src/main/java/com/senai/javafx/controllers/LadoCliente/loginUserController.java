@@ -4,9 +4,13 @@ import com.senai.javafx.entidades.GerenciamentoJanela;
 import com.senai.javafx.entidades.Sessao;
 import com.senai.javafx.entidades.UsuarioCadastro;
 import javafx.event.ActionEvent;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.animation.PauseTransition;
+import javafx.scene.control.Button;
+import javafx.util.Duration;
 
 import static com.senai.javafx.entidades.GerenciamentoJanela.exibirAlerta;
 
@@ -22,6 +26,9 @@ public class loginUserController {
     public void initialize() {
         aplicarLimiteCaracteres(txtNome, 50);
         aplicarLimiteCaracteres(txtSenha, 30);
+
+        // Enquanto o usuário digita, as capas da loja já vão sendo carregadas
+        Platform.runLater(CatalogoJogosController::preCarregarCapas);
     }
 
     private void aplicarLimiteCaracteres(TextField field, int max) {
@@ -45,7 +52,7 @@ public class loginUserController {
         // Login do administrador
         if (nome.equals("admin") && senha.equals("admin")) {
             Sessao.iniciarSessao(nome, senha);
-            GerenciamentoJanela.abrirJanela("/com/senai/javafx/telaInicial.fxml", "Menu de ações");
+            entrarNaLoja(event, "Menu de ações");
             return;
         }
 
@@ -59,7 +66,21 @@ public class loginUserController {
         Sessao.iniciarSessao(nome, senha);
 
         GerenciamentoJanela.exibirAlerta("Sucesso", "Login realizado com sucesso!", GerenciamentoJanela.TipoAlerta.SUCESSO);
-        GerenciamentoJanela.abrirJanela("/com/senai/javafx/telaInicial.fxml", "Nexus Store - Página inicial");
+        entrarNaLoja(event, "Nexus Store - Página inicial");
+    }
+
+    // Mostra "Entrando..." e só depois carrega a loja, para a tela não parecer congelada
+    private void entrarNaLoja(ActionEvent event, String titulo) {
+        if (event.getSource() instanceof Button botao) {
+            botao.setDisable(true);
+            botao.setText("Entrando...");
+        }
+
+        // Pausa de 60 ms só para o texto ser desenhado antes do carregamento pesado
+        PauseTransition pausa = new PauseTransition(Duration.millis(60));
+        pausa.setOnFinished(e ->
+                GerenciamentoJanela.abrirJanela("/com/senai/javafx/telaInicial.fxml", titulo));
+        pausa.play();
     }
 
     @FXML
