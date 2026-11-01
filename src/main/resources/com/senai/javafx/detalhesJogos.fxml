@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<StackPane alignment="CENTER" prefHeight="700.0" prefWidth="1200.0" styleClass="root" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.senai.javafx.controllers.LadoCliente.DetalhesJogosController">
+    <children>
+        <VBox alignment="TOP_CENTER" maxWidth="700.0" spacing="20.0" styleClass="card">
+            <padding>
+                <Insets bottom="30.0" left="40.0" right="40.0" top="25.0" />
+            </padding>
+            <children>
+
+                <!-- Botão Voltar -->
+                <HBox alignment="CENTER_LEFT">
+                    <children>
+                        <Button fx:id="btnVoltar" mnemonicParsing="false" onAction="#handleVoltar" styleClass="button, botao-secundario" text="← VOLTAR A EXPLORAR" />
+                    </children>
+                </HBox>
+
+                <!-- Título Dinâmico do Jogo -->
+                <Label fx:id="lblNomeJogo" alignment="CENTER" styleClass="titulo-banner" text="" textAlignment="CENTER" wrapText="true" />
+
+                <!-- Area da Imagem com Moldura Neon -->
+                <StackPane maxWidth="400.0" minHeight="260.0" prefHeight="280.0" styleClass="imagem-placeholder">
+                    <children>
+                        <ImageView fx:id="imgJogo" fitHeight="270.0" fitWidth="390.0" preserveRatio="true" />
+                    </children>
+                </StackPane>
+
+                <!-- Badge Dinâmica: CATEGORIA | CONSOLE -->
+                <HBox alignment="CENTER" maxWidth="380.0" style="-fx-background-color: -cor-superficie-alt; -fx-background-radius: 20px; -fx-padding: 8px 16px; -fx-border-color: -cor-borda; -fx-border-radius: 20px;">
+                    <children>
+                        <Label fx:id="lblInfoExtra" styleClass="label-campo" style="-fx-font-size: 13px; -fx-text-fill: -cor-texto-secundario;" text="" />
+                    </children>
+                </HBox>
+
+                <!-- Botão Dinâmico: COMPRAR R$ XXX,XX -->
+                <Button fx:id="btnComprar" maxWidth="400.0" mnemonicParsing="false" onAction="#handleComprar" styleClass="button, botao-primario" style="-fx-font-size: 16px; -fx-pref-height: 48px; -fx-background-radius: 24px;" text="COMPRAR" />
+
+            </children>
+        </VBox>
+    </children>
+</StackPane>

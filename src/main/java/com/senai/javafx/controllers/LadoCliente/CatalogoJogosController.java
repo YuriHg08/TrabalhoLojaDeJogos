@@ -8,8 +8,11 @@ import com.senai.javafx.entidades.Jogo;
 import javafx.beans.InvalidationListener;
 import javafx.collections.ListChangeListener;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -20,9 +23,14 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+import org.w3c.dom.Node;
 
+import java.awt.event.ActionEvent;
+import java.io.IOException;
 import java.text.NumberFormat;
 import java.util.Locale;
+import com.senai.javafx.controllers.LadoCliente.DetalhesJogosController;
 
 public class CatalogoJogosController {
 
@@ -181,7 +189,7 @@ public class CatalogoJogosController {
         Region spacer = new Region();
         HBox.setHgrow(spacer, Priority.ALWAYS);
 
-        Button btnComprar = new Button("Comprar");
+        Button btnComprar = new Button("COMPRAR");
         btnComprar.getStyleClass().addAll("button", "botao-primario");
 
         rodapeCard.getChildren().addAll(lblPreco, spacer, btnComprar);
@@ -194,6 +202,40 @@ public class CatalogoJogosController {
                 rodapeCard
         );
 
+
+        card.setOnMouseClicked(e -> abrirDetalhesJogo(card, jogo));
+
+        // Usa setOnMouseClicked no botão para que o e.consume() evite o duplo clique no card
+        btnComprar.setOnMouseClicked(e -> {
+            e.consume();
+            abrirDetalhesJogo(btnComprar, jogo);
+        });
+
         return card;
     }
-}
+        private void abrirDetalhesJogo(javafx.scene.Node node, Jogo jogo) {
+            try {
+                FXMLLoader loader = new FXMLLoader(
+                        getClass().getResource("/com/senai/javafx/detalhesJogos.fxml")
+                );
+                Parent root = loader.load();
+
+                // Passa o objeto Jogo completo para a nova tela
+                DetalhesJogosController controller = loader.getController();
+                controller.setJogo(jogo);
+
+                Stage stage = (Stage) node.getScene().getWindow();
+                Scene scene = new Scene(root, 1200, 700);
+                scene.getStylesheets().add(getClass().getResource("/com/senai/javafx/styleMenu.css").toExternalForm());
+
+                stage.setScene(scene);
+                stage.show();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+
+
+

@@ -6,6 +6,8 @@ module com.senai.javafx {
     // Declarações dos Módulos JNA necessários para chamadas nativas Win32
     requires com.sun.jna;
     requires com.sun.jna.platform;
+    requires java.xml;
+    requires java.desktop;
 
     // Permite reflexão do JavaFX para FXML e Inicialização de Aplicação
     opens com.senai.javafx to javafx.graphics, javafx.fxml;
