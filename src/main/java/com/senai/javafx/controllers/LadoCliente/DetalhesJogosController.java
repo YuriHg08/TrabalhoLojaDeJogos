@@ -1,5 +1,6 @@
 package com.senai.javafx.controllers.LadoCliente;
 
+import com.senai.javafx.entidades.GerenciamentoJanela;
 import com.senai.javafx.entidades.Jogo;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -74,7 +75,7 @@ public class DetalhesJogosController {
         atualizarTextoBotaoCompra(1);
 
         if (btnComprar != null) {
-            btnComprar.setText(String.format("COMPRAR R$ %.2f", jogo.getPrecoJogo()));
+            btnComprar.setText(String.format("Comprar R$ %.2f", jogo.getPrecoJogo()));
         }
 
         // Carrega a imagem do jogo
@@ -132,7 +133,7 @@ public class DetalhesJogosController {
         this.precoAtual = preco;
         lblNomeJogo.setText(nome);
         lblInfoExtra.setText(categoria.toUpperCase() + " | " + plataforma.toUpperCase());
-        btnComprar.setText(String.format("COMPRAR R$ %.2f", preco));
+        btnComprar.setText(String.format("Comprar (R$ %.2f)", preco));
 
         if (caminhoImagem != null && !caminhoImagem.isEmpty()) {
             try {
@@ -146,7 +147,7 @@ public class DetalhesJogosController {
     @FXML
     private void handleComprar(ActionEvent event) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Compra Realizada");
+        alert.setTitle("Compra realizada");
         alert.setHeaderText(null);
         alert.setContentText("Obrigado por adquirir " + lblNomeJogo.getText() + "!");
         alert.showAndWait();
@@ -154,18 +155,7 @@ public class DetalhesJogosController {
 
     @FXML
     private void handleVoltar(ActionEvent event) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/senai/javafx/telaInicial.fxml"));
-            Parent root = loader.load();
+        GerenciamentoJanela.abrirJanela("/com/senai/javafx/telaInicial.fxml", "Nexus Store - Página inicial");
 
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            Scene scene = new Scene(root, 1200, 700);
-            scene.getStylesheets().add(getClass().getResource("/com/senai/javafx/styleMenu.css").toExternalForm());
-
-            stage.setScene(scene);
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 }
