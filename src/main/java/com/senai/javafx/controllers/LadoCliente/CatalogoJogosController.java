@@ -1,9 +1,19 @@
+
 package com.senai.javafx.controllers.LadoCliente;
 
+import com.senai.javafx.controllers.LadoAdministrador.CadastroJogosController;
+import com.senai.javafx.entidades.FiltroCatalogo;
+import com.senai.javafx.entidades.Jogo;
+
+import javafx.beans.InvalidationListener;
+import javafx.collections.ListChangeListener;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
@@ -11,7 +21,13 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
+import java.text.NumberFormat;
+import java.util.Locale;
+
 public class CatalogoJogosController {
+
+    private static final NumberFormat FORMATO_PRECO =
+            NumberFormat.getCurrencyInstance(new Locale("pt", "BR"));
 
     @FXML
     private FlowPane containerJogos;
@@ -19,49 +35,147 @@ public class CatalogoJogosController {
     @FXML
     private Label lblCategoriaAtual;
 
+    private final InvalidationListener aoMudarFiltro = obs -> carregarJogos();
+    private final ListChangeListener<Jogo> aoMudarJogos = mudanca -> carregarJogos();
+
     @FXML
     public void initialize() {
+
+        FiltroCatalogo.categoriaProperty().addListener(aoMudarFiltro);
+        FiltroCatalogo.consoleProperty().addListener(aoMudarFiltro);
+        CadastroJogosController.jogosSalvos.addListener(aoMudarJogos);
+
+        // Remove os listeners quando a tela sair da cena
+        containerJogos.sceneProperty().addListener((obs, antiga, nova) -> {
+            if (nova == null) {
+                FiltroCatalogo.categoriaProperty().removeListener(aoMudarFiltro);
+                FiltroCatalogo.consoleProperty().removeListener(aoMudarFiltro);
+                CadastroJogosController.jogosSalvos.removeListener(aoMudarJogos);
+            }
+        });
+
         carregarJogos();
     }
 
     private void carregarJogos() {
+
         containerJogos.getChildren().clear();
+        atualizarTitulo();
 
-        String[][] jogos = {
-                {"God of War Ragnarök", "PS5 / PC", "R$ 349,90"},
-                {"Elden Ring", "MULTI", "R$ 299,90"},
-                {"Spider-Man 2", "PS5", "R$ 349,90"},
-                {"Call of Duty: MWIII", "MULTI", "R$ 299,90"},
-                {"Cyberpunk 2077", "MULTI", "R$ 199,90"},
-                {"Resident Evil Village", "MULTI", "R$ 149,90"}
-        };
+        for (Jogo jogo : CadastroJogosController.jogosSalvos) {
+            if (FiltroCatalogo.aceita(jogo)) {
+                containerJogos.getChildren().add(criarCardJogo(jogo));
+            }
+        }
 
-        for (String[] jogo : jogos) {
-            containerJogos.getChildren().add(criarCardJogo(jogo[0], jogo[1], jogo[2]));
+        if (containerJogos.getChildren().isEmpty()) {
+            Label vazio = new Label("Nenhum jogo encontrado com esse filtro.");
+            vazio.getStyleClass().add("texto-mutado");
+            containerJogos.getChildren().add(vazio);
         }
     }
 
-    private VBox criarCardJogo(String titulo, String plataforma, String preco) {
+    private void atualizarTitulo() {
+
+        String categoria = FiltroCatalogo.getCategoria();
+        String console = FiltroCatalogo.getConsole();
+
+        if (categoria == null && console == null) {
+            lblCategoriaAtual.setText("Catálogo de jogos");
+        } else if (categoria != null && console != null) {
+            lblCategoriaAtual.setText(categoria + " • " + console);
+        } else {
+            lblCategoriaAtual.setText(categoria != null ? categoria : console);
+        }
+    }
+
+    private VBox criarCardJogo(Jogo jogo) {
+
         VBox card = new VBox(8);
         card.getStyleClass().addAll("card", "card-jogo");
         card.setPrefWidth(200);
 
+        // Área da imagem
         StackPane imgHolder = new StackPane();
         imgHolder.getStyleClass().add("imagem-placeholder");
+        imgHolder.setPrefSize(176, 110);
+
+        // Imagem padrão caso o jogo não tenha capa
         Label lblFoto = new Label("FOTO DO JOGO");
         lblFoto.getStyleClass().add("texto-mutado");
         imgHolder.getChildren().add(lblFoto);
 
-        Label lblTitulo = new Label(titulo);
+        // Carrega automaticamente a capa do jogo
+        String caminho = jogo.getCaminhoImagem();
+
+        if (caminho != null && !caminho.isBlank()) {
+
+            // Carregamento síncrono para obter as dimensões da imagem
+            Image imagem = new Image(caminho);
+
+            if (!imagem.isError() && imagem.getWidth() > 0 && imagem.getHeight() > 0) {
+
+                ImageView imagemView = new ImageView(imagem);
+
+                double largura = 176;
+                double altura = 110;
+
+                double proporcaoAlvo = largura / altura;
+                double proporcaoImagem = imagem.getWidth() / imagem.getHeight();
+
+                double x = 0;
+                double y = 0;
+
+                double larguraCorte = imagem.getWidth();
+                double alturaCorte = imagem.getHeight();
+
+                // Corta as laterais ou a parte superior/inferior
+                // para preencher todo o espaço sem deformar
+                if (proporcaoImagem > proporcaoAlvo) {
+
+                    larguraCorte = imagem.getHeight() * proporcaoAlvo;
+                    x = (imagem.getWidth() - larguraCorte) / 2;
+
+                } else {
+
+                    alturaCorte = imagem.getWidth() / proporcaoAlvo;
+                    y = (imagem.getHeight() - alturaCorte) / 2;
+                }
+
+                // Define a área que será exibida
+                imagemView.setViewport(new Rectangle2D(
+                        x,
+                        y,
+                        larguraCorte,
+                        alturaCorte
+                ));
+
+                imagemView.setFitWidth(largura);
+                imagemView.setFitHeight(altura);
+                imagemView.setPreserveRatio(false);
+                imagemView.setSmooth(true);
+
+                imgHolder.getChildren().setAll(imagemView);
+            }
+        }
+
+        // Nome do jogo
+        Label lblTitulo = new Label(jogo.getNomeJogo());
         lblTitulo.getStyleClass().add("subtitulo");
 
-        Label lblPlataforma = new Label(plataforma);
+        // Console
+        Label lblPlataforma = new Label(
+                jogo.getConsoleJogo() != null ? jogo.getConsoleJogo() : ""
+        );
         lblPlataforma.getStyleClass().add("texto-mutado");
 
+        // Rodapé do card
         HBox rodapeCard = new HBox();
         rodapeCard.setAlignment(Pos.CENTER_LEFT);
 
-        Label lblPreco = new Label(preco);
+        Label lblPreco = new Label(
+                FORMATO_PRECO.format(jogo.getPrecoJogo())
+        );
         lblPreco.getStyleClass().add("label-preco");
 
         Region spacer = new Region();
@@ -71,7 +185,14 @@ public class CatalogoJogosController {
         btnComprar.getStyleClass().addAll("button", "botao-primario");
 
         rodapeCard.getChildren().addAll(lblPreco, spacer, btnComprar);
-        card.getChildren().addAll(imgHolder, lblTitulo, lblPlataforma, rodapeCard);
+
+        // Adiciona os elementos ao card
+        card.getChildren().addAll(
+                imgHolder,
+                lblTitulo,
+                lblPlataforma,
+                rodapeCard
+        );
 
         return card;
     }

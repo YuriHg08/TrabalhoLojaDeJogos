@@ -1,7 +1,7 @@
     package com.senai.javafx.entidades;
 
     public class Jogo {
-
+        private String consoleJogo;
         private String nomeJogo;
         private String categoriaJogo;
         private double precoJogo;
@@ -9,17 +9,17 @@
         private int estoqueJogo;
 
         // Construtor completo
-        public Jogo(String nomeJogo, String categoriaJogo, double precoJogo, String caminhoImagem, int estoqueJogo) {
+        public Jogo(String nomeJogo, String categoriaJogo, String consoleJogo, double precoJogo, String caminhoImagem, int estoqueJogo) {
             this.nomeJogo = nomeJogo;
             this.categoriaJogo = categoriaJogo;
+            this.consoleJogo = consoleJogo;
             this.precoJogo = precoJogo;
             this.caminhoImagem = caminhoImagem;
             this.estoqueJogo = estoqueJogo;
         }
 
-        // Construtor sem imagem (opcional)
-        public Jogo(String nomeJogo, String categoriaJogo, double precoJogo, int estoqueJogo) {
-            this(nomeJogo, categoriaJogo, precoJogo, null, estoqueJogo);
+        public Jogo(String nomeJogo, String categoriaJogo, double precoJogo, String caminhoImagem, int estoqueJogo) {
+            this(nomeJogo, categoriaJogo, null, precoJogo, caminhoImagem, estoqueJogo);
         }
 
         // --- GETTERS E SETTERS ---
@@ -60,6 +60,9 @@
 
         public void setEstoqueJogo(int estoqueJogo) { this.estoqueJogo = estoqueJogo; }
 
+        public String getConsoleJogo() { return consoleJogo; }
+
+        public void setConsoleJogo(String consoleJogo) { this.consoleJogo = consoleJogo; }
     }
 
 

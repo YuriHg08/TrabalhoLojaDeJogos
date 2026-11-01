@@ -470,3 +470,14 @@
 .dialog-pane .button:armed {
     -fx-background-color: -cor-primaria-pressed;
 }
+/* Lista de categorias rolável na sidebar do cliente */
+.scroll-categorias {
+    -fx-background: transparent;
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-padding: 0;
+}
+
+.scroll-categorias > .viewport {
+    -fx-background-color: transparent;
+}

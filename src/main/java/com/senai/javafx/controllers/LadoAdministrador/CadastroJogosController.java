@@ -2,6 +2,7 @@ package com.senai.javafx.controllers.LadoAdministrador;
 
 import com.senai.javafx.entidades.GerenciamentoJanela;
 import com.senai.javafx.entidades.Jogo;
+import com.senai.javafx.entidades.FiltroCatalogo;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -16,6 +17,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import java.io.File;
+import java.net.URL;
 
 import static com.senai.javafx.controllers.LadoAdministrador.CadastroCategoriasController.categoriasSalvas;
 
@@ -31,6 +33,9 @@ public class CadastroJogosController {
     private ComboBox<String> menuCategoria;
 
     @FXML
+    private ComboBox<String> menuConsole;
+
+    @FXML
     private ImageView imgPreview;
 
     @FXML
@@ -41,13 +46,31 @@ public class CadastroJogosController {
 
     // Lista de objetos do tipo Jogo
     public static final ObservableList<Jogo> jogosSalvos = FXCollections.observableArrayList();
+    static {
+        jogosSalvos.addAll(
+                new Jogo("God of War Ragnarök", "Ação", "Playstation", 349.90, imagem("god_of_war.png"), 10),
+                new Jogo("Spider-Man 2", "Aventura", "Playstation", 349.90, imagem("spider_man_2.png"), 10),
+                new Jogo("Elden Ring", "RPG", "PC", 299.90, imagem("elden_ring.png"), 10),
+                new Jogo("Cyberpunk 2077", "RPG", "PC", 199.90, imagem("cyberpunk_2077.png"), 10),
+                new Jogo("Call of Duty: MWIII", "Ação", "Xbox", 299.90, imagem("call_of_duty_mwiii.png"), 10),
+                new Jogo("Resident Evil Village", "Aventura", "Xbox", 149.90, imagem("resident_evil_village.png"), 10),
+                new Jogo("Zelda: Tears of the Kingdom", "Aventura", "Nintendo", 349.90, imagem("zelda_totk.png"), 10)
+        );
+    }
+
+    // Procura a imagem em resources/com/senai/javafx/imagens/jogos/
+    // Se o arquivo não existir, devolve null e o catálogo mostra o texto "FOTO DO JOGO"
+    private static String imagem(String arquivo) {
+        URL url = CadastroJogosController.class.getResource("/com/senai/javafx/imagens/jogos/" + arquivo);
+        return url != null ? url.toExternalForm() : null;
+    }
 
     private String caminhoImagemSelecionada;
 
 
     @FXML
-    public void initialize() {
-            menuCategoria.setItems(categoriasSalvas);
+    public void initialize() {menuCategoria.setItems(categoriasSalvas);
+        menuConsole.setItems(FXCollections.observableArrayList(FiltroCatalogo.CONSOLES));
     }
 
     @FXML
@@ -75,13 +98,9 @@ public class CadastroJogosController {
     void cadastrarJogo() {
         String nome = txtNomeJogo.getText().trim();
         String precoTexto = txtPrecoJogo.getText().trim();
-        Double preco = Double.parseDouble(precoTexto.replace(",", "."));
-
         String estoqueTexto = txtEstoqueJogo.getText().trim();
-        int estoque = Integer.parseInt(estoqueTexto.replace(",", "."));
-
         String categoria = menuCategoria.getValue();
-
+        String console = menuConsole.getValue();
 
         // Verificando os campos obrigatórios
         if (nome.isEmpty()) {
@@ -103,29 +122,45 @@ public class CadastroJogosController {
             return;
         }
 
+        if (estoqueTexto.isEmpty()) {
+            respostaJogo.setText("Insira o estoque do jogo!");
+            return;
+        }
+
         if (categoria == null || categoria.isEmpty()) {
             respostaJogo.setText("Selecione uma categoria!");
             return;
         }
 
+        if (console == null || console.isEmpty()) {
+            respostaJogo.setText("Selecione um console!");
+            return;
+        }
+
         try {
+            // A conversão fica aqui dentro para um valor inválido mostrar mensagem em vez de travar
+            double preco = Double.parseDouble(precoTexto.replace(",", "."));
+            int estoque = Integer.parseInt(estoqueTexto);
 
             // Cria o novo jogo e adiciona na lista atual
-            Jogo novoJogo = new Jogo(nome, categoria, preco, caminhoImagemSelecionada, estoque);
+            Jogo novoJogo = new Jogo(nome, categoria, console, preco, caminhoImagemSelecionada, estoque);
             jogosSalvos.add(novoJogo);
 
             // Limpa os campos da tela após salvar
             txtNomeJogo.clear();
             txtPrecoJogo.clear();
+            txtEstoqueJogo.clear();
             menuCategoria.getSelectionModel().clearSelection();
+            menuConsole.getSelectionModel().clearSelection();
             imgPreview.setImage(null);
             caminhoImagemSelecionada = null;
 
             respostaJogo.setText("Jogo cadastrado com sucesso!");
 
         } catch (NumberFormatException e) {
-            respostaJogo.setText("Preço inválido! Ex: 59.90");
+            respostaJogo.setText("Preço ou estoque inválido! Ex: 59.90 e 5");
         }
+
     }
 
     @FXML

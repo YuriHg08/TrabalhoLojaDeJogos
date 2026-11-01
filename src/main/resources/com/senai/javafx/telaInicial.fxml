@@ -8,8 +8,10 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.shape.SVGPath?>
 
@@ -23,26 +25,34 @@
                     <image>
                         <Image url="@imagens/nexus.png" />
                     </image>
-               <effect>
-                  <DropShadow>
-                     <color>
-                        <Color opacity="0.2633587718009949" />
-                     </color>
-                  </DropShadow>
-               </effect>
+                    <effect>
+                        <DropShadow>
+                            <color>
+                                <Color opacity="0.2633587718009949" />
+                            </color>
+                        </DropShadow>
+                    </effect>
                 </ImageView>
                 <TextField fx:id="txtPesquisa" layoutX="15.0" layoutY="57.0" promptText="Buscar" styleClass="campo-texto" stylesheets="@styleMenu.css" />
 
                 <!-- CATEGORIAS -->
                 <Label layoutX="21.0" layoutY="175.0" prefHeight="35.0" prefWidth="176.0" styleClass="subtitulo-sidebar" text="Categorias" textFill="#4a4a4a" />
-                <Button layoutX="20.0" layoutY="213.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="21.0" prefWidth="171.0" styleClass="botao-categoria" text="RPG" />
-                <Button layoutX="18.0" layoutY="258.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefWidth="175.0" styleClass="button, botao-categoria" text="Aventura" />
+                <!-- Os botões de categoria são gerados no controller a partir das categorias cadastradas -->
+                <ScrollPane fitToWidth="true" hbarPolicy="NEVER" layoutX="10.0" layoutY="213.0" prefHeight="185.0" prefWidth="190.0" styleClass="scroll-categorias">
+                    <content>
+                        <VBox fx:id="boxCategorias" spacing="6.0" />
+                    </content>
+                </ScrollPane>
 
                 <!-- CONSOLES -->
                 <Label layoutX="21.0" layoutY="409.0" styleClass="subtitulo-sidebar" text="Consoles" textFill="#4a4a4a" />
 
                 <!-- NINTENDO -->
-                <Button layoutX="14.0" layoutY="445.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefWidth="183.0" styleClass="button, botao-categoria" text="        Nintendo" />
+                <Button fx:id="btnNintendo" layoutX="14.0" layoutY="445.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#filtrarConsole" prefWidth="183.0" styleClass="button, botao-categoria" text="        Nintendo">
+                    <userData>
+                        <String fx:value="Nintendo" />
+                    </userData>
+                </Button>
                 <ImageView fitHeight="26.0" fitWidth="30.0" layoutX="20.0" layoutY="450.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
                     <image>
                         <Image url="@imagens/Nintendo.png" />
@@ -50,7 +60,11 @@
                 </ImageView>
 
                 <!-- PLAYSTATION -->
-                <Button layoutX="14.0" layoutY="491.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefWidth="183.0" styleClass="button, botao-categoria" text="        Playstation" />
+                <Button fx:id="btnPlaystation" layoutX="14.0" layoutY="491.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#filtrarConsole" prefWidth="183.0" styleClass="button, botao-categoria" text="        Playstation">
+                    <userData>
+                        <String fx:value="Playstation" />
+                    </userData>
+                </Button>
                 <ImageView fitHeight="26.0" fitWidth="30.0" layoutX="20.0" layoutY="496.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
                     <image>
                         <Image url="@imagens/Playstation.png" />
@@ -58,7 +72,11 @@
                 </ImageView>
 
                 <!-- XBOX -->
-                <Button layoutX="14.0" layoutY="537.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefWidth="183.0" styleClass="button, botao-categoria" text="        Xbox" />
+                <Button fx:id="btnXbox" layoutX="14.0" layoutY="537.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#filtrarConsole" prefWidth="183.0" styleClass="button, botao-categoria" text="        Xbox">
+                    <userData>
+                        <String fx:value="Xbox" />
+                    </userData>
+                </Button>
                 <ImageView fitHeight="26.0" fitWidth="30.0" layoutX="20.0" layoutY="542.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
                     <image>
                         <Image url="@imagens/Xbox.png" />
@@ -66,23 +84,25 @@
                 </ImageView>
 
                 <!-- PC -->
-                <Button layoutX="14.0" layoutY="583.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefWidth="183.0" styleClass="button, botao-categoria" text="        PC" />
+                <Button fx:id="btnPC" layoutX="14.0" layoutY="583.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#filtrarConsole" prefWidth="183.0" styleClass="button, botao-categoria" text="        PC">
+                    <userData>
+                        <String fx:value="PC" />
+                    </userData>
+                </Button>
                 <ImageView fitHeight="26.0" fitWidth="30.0" layoutX="20.0" layoutY="588.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
                     <image>
                         <Image url="@imagens/Desktop.png" />
                     </image>
                 </ImageView>
-            <Button layoutX="15.0" layoutY="113.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="28.0" prefWidth="172.0" text="Início">
-               <styleClass>
-                  <String fx:value="botao-categoria" />
-                  <String fx:value="botao-categoria-ativo" />
-               </styleClass>
-            </Button>
-            <Button layoutX="19.0" layoutY="307.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefWidth="175.0" styleClass="button, botao-categoria" text="Ação" />
-            <Button layoutX="18.0" layoutY="357.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefWidth="175.0" styleClass="button, botao-categoria" text="Ver mais" />
-            <Button fx:id="painelAdm" layoutX="11.0" layoutY="646.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#menuAdm" prefWidth="182.0" styleClass="botao-secundario" text="Painel do administrador" />
-            <SVGPath content="m253.66 133.66l-24 24a8 8 0 0 1-11.32 0l-24-24a8 8 0 0 1 11.32-11.32L216 132.69V128A88 88 0 0 0 56.49 76.67a8 8 0 0 1-13-9.34A104 104 0 0 1 232 128v4.69l10.34-10.35a8 8 0 0 1 11.32 11.32m-41.18 55A104 104 0 0 1 24 128v-4.69l-10.34 10.35a8 8 0 0 1-11.32-11.32l24-24a8 8 0 0 1 11.32 0l24 24a8 8 0 0 1-11.32 11.32L40 123.31V128a87.62 87.62 0 0 0 22.24 58.41a79.66 79.66 0 0 1 36.06-28.75a48 48 0 1 1 59.4 0a79.6 79.6 0 0 1 36.08 28.78a90 90 0 0 0 5.71-7.11a8 8 0 0 1 13 9.34ZM128 152a32 32 0 1 0-32-32a32 32 0 0 0 32 32m0 64a88.2 88.2 0 0 0 53.92-18.49a64 64 0 0 0-107.84 0A87.57 87.57 0 0 0 128 216" fill="WHITE" layoutX="37.0" layoutY="-97.0" managed="false" nodeOrientation="LEFT_TO_RIGHT" scaleX="0.08" scaleY="0.08" stroke="TRANSPARENT" strokeType="INSIDE" />
-            <Button layoutX="144.0" layoutY="12.0" mnemonicParsing="false" onAction="#alternarConta" opacity="0.4" prefHeight="29.0" prefWidth="41.0" styleClass="sidebar-btn" />
+                <Button fx:id="btnInicio" layoutX="15.0" layoutY="113.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#filtrarInicio" prefHeight="28.0" prefWidth="172.0" text="Início">
+                    <styleClass>
+                        <String fx:value="botao-categoria" />
+                        <String fx:value="botao-categoria-ativo" />
+                    </styleClass>
+                </Button>
+                <Button fx:id="painelAdm" layoutX="11.0" layoutY="646.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#menuAdm" prefWidth="182.0" styleClass="botao-secundario" text="Painel do administrador" />
+                <SVGPath content="m253.66 133.66l-24 24a8 8 0 0 1-11.32 0l-24-24a8 8 0 0 1 11.32-11.32L216 132.69V128A88 88 0 0 0 56.49 76.67a8 8 0 0 1-13-9.34A104 104 0 0 1 232 128v4.69l10.34-10.35a8 8 0 0 1 11.32 11.32m-41.18 55A104 104 0 0 1 24 128v-4.69l-10.34 10.35a8 8 0 0 1-11.32-11.32l24-24a8 8 0 0 1 11.32 0l24 24a8 8 0 0 1-11.32 11.32L40 123.31V128a87.62 87.62 0 0 0 22.24 58.41a79.66 79.66 0 0 1 36.06-28.75a48 48 0 1 1 59.4 0a79.6 79.6 0 0 1 36.08 28.78a90 90 0 0 0 5.71-7.11a8 8 0 0 1 13 9.34ZM128 152a32 32 0 1 0-32-32a32 32 0 0 0 32 32m0 64a88.2 88.2 0 0 0 53.92-18.49a64 64 0 0 0-107.84 0A87.57 87.57 0 0 0 128 216" fill="WHITE" layoutX="37.0" layoutY="-97.0" managed="false" nodeOrientation="LEFT_TO_RIGHT" scaleX="0.08" scaleY="0.08" stroke="TRANSPARENT" strokeType="INSIDE" />
+                <Button layoutX="144.0" layoutY="12.0" mnemonicParsing="false" onAction="#alternarConta" opacity="0.4" prefHeight="29.0" prefWidth="41.0" styleClass="sidebar-btn" />
             </children>
         </AnchorPane>
     </left>
