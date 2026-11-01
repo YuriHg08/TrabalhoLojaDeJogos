@@ -54,7 +54,8 @@ public class CadastroJogosController {
                 new Jogo("Cyberpunk 2077", "RPG", "PC", 199.90, imagem("cyberpunk_2077.png"), 10),
                 new Jogo("Call of Duty: MWIII", "Ação", "Xbox", 299.90, imagem("call_of_duty_mwiii.png"), 10),
                 new Jogo("Resident Evil Village", "Aventura", "Xbox", 149.90, imagem("resident_evil_village.png"), 10),
-                new Jogo("Zelda: Tears of the Kingdom", "Aventura", "Nintendo", 349.90, imagem("zelda_totk.png"), 10)
+                new Jogo("Zelda: Tears of the Kingdom", "Aventura", "Nintendo", 349.90, imagem("zelda_totk.png"), 10),
+                new Jogo("Grand Theft Auto VI", "Ação", "Playstation", 449.90, imagem("GTA_VI.png"), 10)
         );
     }
 
