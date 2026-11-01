@@ -11,13 +11,20 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.Spinner;
+import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.text.NumberFormat;
+import java.util.Locale;
 
 public class DetalhesJogosController {
+
+    private static final NumberFormat FORMATO_PRECO =
+            NumberFormat.getCurrencyInstance(new Locale("pt", "BR"));
 
     @FXML
     private Label lblNomeJogo;
@@ -27,6 +34,9 @@ public class DetalhesJogosController {
 
     @FXML
     private Label lblInfoExtra;
+
+    @FXML
+    private Spinner<Integer> spnQuantidade;
 
     @FXML
     private Button btnComprar;
@@ -50,12 +60,32 @@ public class DetalhesJogosController {
             lblInfoExtra.setText(categoria.toUpperCase() + " | " + console.toUpperCase());
         }
 
+        if (spnQuantidade != null) {
+            SpinnerValueFactory<Integer> valueFactory =
+                    new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 99, 1);
+            spnQuantidade.setValueFactory(valueFactory);
+
+            // Escutador para atualizar o preço total no botão ao alterar a quantidade
+            spnQuantidade.valueProperty().addListener((obs, valorAntigo, valorNovo) -> {
+                atualizarTextoBotaoCompra(valorNovo);
+            });
+        }
+
+        atualizarTextoBotaoCompra(1);
+
         if (btnComprar != null) {
             btnComprar.setText(String.format("COMPRAR R$ %.2f", jogo.getPrecoJogo()));
         }
 
         // Carrega a imagem do jogo
         carregarImagemComCorte(jogo.getCaminhoImagem(), 390, 270);
+    }
+
+    private void atualizarTextoBotaoCompra(int quantidade) {
+        if (btnComprar != null && jogoAtual != null) {
+            double total = jogoAtual.getPrecoJogo() * quantidade;
+            btnComprar.setText("COMPRAR " + FORMATO_PRECO.format(total));
+        }
     }
 
     private void carregarImagemComCorte(String caminho, double larguraAlvo, double alturaAlvo) {

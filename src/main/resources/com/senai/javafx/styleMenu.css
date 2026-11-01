@@ -481,3 +481,54 @@
 .scroll-categorias > .viewport {
     -fx-background-color: transparent;
 }
+
+/* Contentor em formato de Cápsula */
+.capsula-quantidade {
+    -fx-background-color: -cor-superficie-alt;
+    -fx-background-radius: 24px;
+    -fx-border-color: -cor-borda;
+    -fx-border-radius: 24px;
+    -fx-padding: 4px 8px 4px 20px;
+}
+
+/* Rótulo "QUANTIDADE:" */
+.label-quantidade {
+    -fx-text-fill: -cor-texto-primario;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+}
+
+/* Estilização Neon Dark do Spinner */
+.spinner-custom {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+.spinner-custom .text-field {
+    -fx-background-color: -cor-superficie;
+    -fx-text-fill: -cor-neon;
+    -fx-font-weight: bold;
+    -fx-alignment: center;
+    -fx-background-radius: 16px 0 0 16px;
+    -fx-border-color: -cor-borda;
+    -fx-border-radius: 16px 0 0 16px;
+}
+
+.spinner-custom .increment-arrow-button,
+.spinner-custom .decrement-arrow-button {
+    -fx-background-color: -cor-superficie;
+    -fx-border-color: -cor-borda;
+}
+
+.spinner-custom .increment-arrow-button {
+    -fx-background-radius: 0 16px 0 0;
+}
+
+.spinner-custom .decrement-arrow-button {
+    -fx-background-radius: 0 0 16px 0;
+}
+
+.spinner-custom .increment-arrow-button:hover,
+.spinner-custom .decrement-arrow-button:hover {
+    -fx-background-color: -cor-neon;
+}
