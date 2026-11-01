@@ -1,20 +1,23 @@
 package com.senai.javafx.entidades;
 
 import javafx.beans.property.ObjectProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableSet;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 import java.text.Normalizer;
+import java.util.LinkedHashSet;
 import java.util.List;
-import java.util.Objects;
 
 public final class FiltroCatalogo {
 
     public static final List<String> CONSOLES = List.of("Nintendo", "Playstation", "Xbox", "PC");
 
-    private static final StringProperty categoria = new SimpleStringProperty();
-    private static final StringProperty console = new SimpleStringProperty();
+    // Podem ser marcadas várias categorias e vários consoles ao mesmo tempo
+    private static final ObservableSet<String> categorias = FXCollections.observableSet(new LinkedHashSet<>());
+    private static final ObservableSet<String> consoles = FXCollections.observableSet(new LinkedHashSet<>());
 
     // Busca por nome e faixa de preço (null = sem limite)
     private static final StringProperty busca = new SimpleStringProperty();
@@ -23,14 +26,12 @@ public final class FiltroCatalogo {
 
     private FiltroCatalogo() {}
 
-    public static StringProperty categoriaProperty() { return categoria; }
-    public static StringProperty consoleProperty() { return console; }
+    public static ObservableSet<String> categoriasSelecionadas() { return categorias; }
+    public static ObservableSet<String> consolesSelecionados() { return consoles; }
     public static StringProperty buscaProperty() { return busca; }
     public static ObjectProperty<Double> precoMinProperty() { return precoMin; }
     public static ObjectProperty<Double> precoMaxProperty() { return precoMax; }
 
-    public static String getCategoria() { return categoria.get(); }
-    public static String getConsole() { return console.get(); }
     public static String getBusca() { return busca.get(); }
     public static Double getPrecoMin() { return precoMin.get(); }
     public static Double getPrecoMax() { return precoMax.get(); }
@@ -46,28 +47,32 @@ public final class FiltroCatalogo {
         return busca.get() != null || precoMin.get() != null || precoMax.get() != null;
     }
 
-    // Clicar no que já está selecionado remove o filtro
+    // Clicar no que já está marcado desmarca; senão, marca (sem tirar os outros)
     public static void alternarCategoria(String nova) {
-        categoria.set(Objects.equals(categoria.get(), nova) ? null : nova);
+        if (!categorias.remove(nova)) {
+            categorias.add(nova);
+        }
     }
 
     public static void alternarConsole(String novo) {
-        console.set(Objects.equals(console.get(), novo) ? null : novo);
+        if (!consoles.remove(novo)) {
+            consoles.add(novo);
+        }
     }
 
     public static void limpar() {
-        categoria.set(null);
-        console.set(null);
+        categorias.clear();
+        consoles.clear();
         busca.set(null);
         precoMin.set(null);
         precoMax.set(null);
     }
 
     public static boolean aceita(Jogo jogo) {
-        boolean okCategoria = categoria.get() == null
-                || categoria.get().equalsIgnoreCase(jogo.getCategoriaJogo());
-        boolean okConsole = console.get() == null
-                || console.get().equalsIgnoreCase(jogo.getConsoleJogo());
+        // Dentro de cada grupo basta bater com UM dos marcados (ex.: Ação ou RPG)
+        // O jogo precisa ter TODOS os marcados (ex.: Xbox e Playstation juntos)
+        boolean okCategoria = categorias.stream().allMatch(jogo::temCategoria);
+        boolean okConsole = consoles.stream().allMatch(jogo::temConsole);
 
         return okCategoria && okConsole && aceitaNome(jogo) && aceitaPreco(jogo);
     }

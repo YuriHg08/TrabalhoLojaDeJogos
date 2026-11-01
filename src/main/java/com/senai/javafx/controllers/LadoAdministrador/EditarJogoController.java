@@ -1,7 +1,10 @@
 package com.senai.javafx.controllers.LadoAdministrador;
 
 import com.senai.javafx.entidades.FiltroCatalogo;
+import com.senai.javafx.entidades.GerenciamentoJanela;
 import com.senai.javafx.entidades.Jogo;
+import com.senai.javafx.entidades.SeletorMultiplo;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -9,7 +12,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
+import javafx.scene.control.MenuButton;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -20,6 +23,7 @@ import javafx.stage.Stage;
 import javafx.stage.Window;
 
 import java.io.File;
+import java.util.List;
 import java.util.Locale;
 
 import static com.senai.javafx.controllers.LadoAdministrador.CadastroCategoriasController.categoriasSalvas;
@@ -34,9 +38,9 @@ public class EditarJogoController {
     @FXML
     private TextField txtEstoqueJogo;
     @FXML
-    private ComboBox<String> menuCategoria;
+    private MenuButton menuCategoria;
     @FXML
-    private ComboBox<String> menuConsole;
+    private MenuButton menuConsole;
     @FXML
     private ImageView imgPreview;
     @FXML
@@ -48,6 +52,8 @@ public class EditarJogoController {
     private Stage stage;
     private String caminhoImagem;
     private boolean confirmandoRemocao = false;
+    private SeletorMultiplo seletorCategorias;
+    private SeletorMultiplo seletorConsoles;
 
     // Abre a janela de edição (modal) para o jogo escolhido
     public static void abrir(Jogo jogo, Window dono) {
@@ -63,7 +69,10 @@ public class EditarJogoController {
             janela.initModality(Modality.APPLICATION_MODAL);
             janela.setTitle("Editar jogo");
             janela.setResizable(false);
-            janela.setScene(new Scene(root));
+            Scene cena = new Scene(root);
+            cena.getStylesheets().add(
+                    EditarJogoController.class.getResource("/com/senai/javafx/styleMenu.css").toExternalForm());
+            janela.setScene(cena);
 
             controller.stage = janela;
             controller.carregar(jogo);
@@ -71,13 +80,19 @@ public class EditarJogoController {
             janela.showAndWait();
         } catch (Exception e) {
             e.printStackTrace();
+            // Mostra o erro em vez de o botão "não fazer nada"
+            Throwable causa = e.getCause() != null ? e.getCause() : e;
+            GerenciamentoJanela.exibirAlerta("Erro",
+                    "Não foi possível abrir a edição: " + causa,
+                    GerenciamentoJanela.TipoAlerta.ERRO);
         }
     }
 
     @FXML
     public void initialize() {
-        menuCategoria.setItems(categoriasSalvas);
-        menuConsole.getItems().setAll(FiltroCatalogo.CONSOLES);
+        seletorCategorias = new SeletorMultiplo(menuCategoria, categoriasSalvas, "Selecione categorias");
+        seletorConsoles = new SeletorMultiplo(menuConsole,
+                FXCollections.observableArrayList(FiltroCatalogo.CONSOLES), "Selecione plataformas");
     }
 
     private void carregar(Jogo jogo) {
@@ -87,8 +102,8 @@ public class EditarJogoController {
         txtNomeJogo.setText(jogo.getNomeJogo());
         txtPrecoJogo.setText(String.format(Locale.US, "%.2f", jogo.getPrecoJogo()));
         txtEstoqueJogo.setText(String.valueOf(jogo.getEstoqueJogo()));
-        menuCategoria.setValue(jogo.getCategoriaJogo());
-        menuConsole.setValue(jogo.getConsoleJogo());
+        seletorCategorias.setSelecionados(jogo.getCategorias());
+        seletorConsoles.setSelecionados(jogo.getConsoles());
         mostrarPreview();
     }
 
@@ -125,8 +140,8 @@ public class EditarJogoController {
         String nome = txtNomeJogo.getText().trim();
         String precoTexto = txtPrecoJogo.getText().trim();
         String estoqueTexto = txtEstoqueJogo.getText().trim();
-        String categoria = menuCategoria.getValue();
-        String console = menuConsole.getValue();
+        List<String> categorias = seletorCategorias.getSelecionados();
+        List<String> consoles = seletorConsoles.getSelecionados();
 
         if (nome.isEmpty()) {
             lblResposta.setText("Insira um nome para o jogo!");
@@ -149,12 +164,12 @@ public class EditarJogoController {
             lblResposta.setText("Insira o estoque do jogo!");
             return;
         }
-        if (categoria == null || categoria.isEmpty()) {
-            lblResposta.setText("Selecione uma categoria!");
+        if (categorias.isEmpty()) {
+            lblResposta.setText("Selecione pelo menos uma categoria!");
             return;
         }
-        if (console == null || console.isEmpty()) {
-            lblResposta.setText("Selecione uma plataforma!");
+        if (consoles.isEmpty()) {
+            lblResposta.setText("Selecione pelo menos uma plataforma!");
             return;
         }
 
@@ -180,8 +195,8 @@ public class EditarJogoController {
         jogo.setNomeJogo(nome);
         jogo.setPrecoJogo(preco);
         jogo.setEstoqueJogo(estoque);
-        jogo.setCategoriaJogo(categoria);
-        jogo.setConsoleJogo(console);
+        jogo.setCategorias(categorias);
+        jogo.setConsoles(consoles);
         jogo.setCaminhoImagem(caminhoImagem);
 
         // Avisa quem observa a lista (catálogo e tabela) que este jogo mudou

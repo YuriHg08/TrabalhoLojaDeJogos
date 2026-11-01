@@ -6,9 +6,11 @@ import com.senai.javafx.entidades.FiltroCatalogo;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import java.util.List;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
-import javafx.scene.control.ComboBox;
+import javafx.scene.control.MenuButton;
+import com.senai.javafx.entidades.SeletorMultiplo;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -30,10 +32,10 @@ public class CadastroJogosController {
     private TextField txtPrecoJogo;
 
     @FXML
-    private ComboBox<String> menuCategoria;
+    private MenuButton menuCategoria;
 
     @FXML
-    private ComboBox<String> menuConsole;
+    private MenuButton menuConsole;
 
     @FXML
     private ImageView imgPreview;
@@ -47,17 +49,18 @@ public class CadastroJogosController {
     // Lista de objetos do tipo Jogo
     public static final ObservableList<Jogo> jogosSalvos = FXCollections.observableArrayList();
     static {
-        jogosSalvos.addAll(
-                new Jogo("God of War Ragnarök", "Ação", "Playstation", 349.90, imagem("god_of_war.png"), 10),
-                new Jogo("Spider-Man 2", "Aventura", "Playstation", 349.90, imagem("spider_man_2.png"), 10),
-                new Jogo("Elden Ring", "RPG", "PC", 299.90, imagem("elden_ring.png"), 10),
-                new Jogo("Cyberpunk 2077", "RPG", "PC", 199.90, imagem("cyberpunk_2077.png"), 10),
-                new Jogo("Call of Duty: MWIII", "Ação", "Xbox", 299.90, imagem("call_of_duty_mwiii.png"), 10),
-                new Jogo("Resident Evil Village", "Aventura", "Xbox", 149.90, imagem("resident_evil_village.png"), 10),
-                new Jogo("Zelda: Tears of the Kingdom", "Aventura", "Nintendo", 349.90, imagem("zelda_totk.png"), 10),
-                new Jogo("Grand Theft Auto VI", "Ação", "Playstation", 449.90, imagem("GTA_VI.png"), 10),
-                new Jogo("Pokemon Legend Arceus", "RPG", "Nintendo", 349.00, imagem("Pokemon_A.png"), 10)
-        );
+
+                jogosSalvos.addAll(
+                        new Jogo("God of War Ragnarök", List.of("Ação", "Aventura"), List.of("Playstation", "PC"), 349.90, imagem("god_of_war.png"), 10),
+                        new Jogo("Spider-Man 2", List.of("Ação", "Aventura"), List.of("Playstation", "PC"), 349.90, imagem("spider_man_2.png"), 10),
+                        new Jogo("Elden Ring", List.of("RPG", "Ação"), List.of("PC", "Playstation", "Xbox"), 299.90, imagem("elden_ring.png"), 10),
+                        new Jogo("Cyberpunk 2077", List.of("RPG", "Ação"), List.of("PC", "Playstation", "Xbox"), 199.90, imagem("cyberpunk_2077.png"), 10),
+                        new Jogo("Call of Duty: MWIII", List.of("Ação"), List.of("PC", "Playstation", "Xbox"), 299.90, imagem("call_of_duty_mwiii.png"), 10),
+                        new Jogo("Resident Evil Village", List.of("Ação", "Aventura"), List.of("PC", "Playstation", "Xbox"), 149.90, imagem("resident_evil_village.png"), 10),
+                        new Jogo("Zelda: Tears of the Kingdom", List.of("Aventura", "Ação"), List.of("Nintendo"), 349.90, imagem("zelda_totk.png"), 10),
+                        new Jogo("Grand Theft Auto VI", List.of("Ação", "Aventura"), List.of("Playstation", "Xbox"), 449.90, imagem("GTA_VI.png"), 10),
+                        new Jogo("Pokemon Legend Arceus", List.of("RPG", "Aventura"), List.of("Nintendo"), 349.00, imagem("Pokemon_A.png"), 10)
+                );
     }
 
     // Procura a imagem em resources/com/senai/javafx/imagens/jogos/
@@ -68,11 +71,15 @@ public class CadastroJogosController {
     }
 
     private String caminhoImagemSelecionada;
-
+    // Seletores de várias opções (um jogo pode ter mais de uma categoria e console)
+    private SeletorMultiplo seletorCategorias;
+    private SeletorMultiplo seletorConsoles;
 
     @FXML
-    public void initialize() {menuCategoria.setItems(categoriasSalvas);
-        menuConsole.setItems(FXCollections.observableArrayList(FiltroCatalogo.CONSOLES));
+    public void initialize() {
+        seletorCategorias = new SeletorMultiplo(menuCategoria, categoriasSalvas, "Selecione categorias");
+        seletorConsoles = new SeletorMultiplo(menuConsole,
+                FXCollections.observableArrayList(FiltroCatalogo.CONSOLES), "Selecione plataformas");
     }
 
     @FXML
@@ -101,8 +108,8 @@ public class CadastroJogosController {
         String nome = txtNomeJogo.getText().trim();
         String precoTexto = txtPrecoJogo.getText().trim();
         String estoqueTexto = txtEstoqueJogo.getText().trim();
-        String categoria = menuCategoria.getValue();
-        String console = menuConsole.getValue();
+        java.util.List<String> categorias = seletorCategorias.getSelecionados();
+        java.util.List<String> consoles = seletorConsoles.getSelecionados();
 
         // Verificando os campos obrigatórios
         if (nome.isEmpty()) {
@@ -129,13 +136,13 @@ public class CadastroJogosController {
             return;
         }
 
-        if (categoria == null || categoria.isEmpty()) {
-            respostaJogo.setText("Selecione uma categoria!");
+        if (categorias.isEmpty()) {
+            respostaJogo.setText("Selecione pelo menos uma categoria!");
             return;
         }
 
-        if (console == null || console.isEmpty()) {
-            respostaJogo.setText("Selecione um console!");
+        if (consoles.isEmpty()) {
+            respostaJogo.setText("Selecione pelo menos uma plataforma!");
             return;
         }
 
@@ -149,15 +156,15 @@ public class CadastroJogosController {
             }
 
             // Cria o novo jogo e adiciona na lista atual
-            Jogo novoJogo = new Jogo(nome, categoria, console, preco, caminhoImagemSelecionada, estoque);
+            Jogo novoJogo = new Jogo(nome, categorias, consoles, preco, caminhoImagemSelecionada, estoque);
             jogosSalvos.add(novoJogo);
 
             // Limpa os campos da tela após salvar
             txtNomeJogo.clear();
             txtPrecoJogo.clear();
             txtEstoqueJogo.clear();
-            menuCategoria.getSelectionModel().clearSelection();
-            menuConsole.getSelectionModel().clearSelection();
+            seletorCategorias.limpar();
+            seletorConsoles.limpar();
             imgPreview.setImage(null);
             caminhoImagemSelecionada = null;
 

@@ -61,6 +61,7 @@ public class DetalhesJogosController {
         if (lblInfoExtra != null) {
             String categoria = jogo.getCategoriaJogo() != null ? jogo.getCategoriaJogo() : "GERAL";
             String console = jogo.getConsoleJogo() != null ? jogo.getConsoleJogo() : "TODAS";
+            lblInfoExtra.setWrapText(true);
             lblInfoExtra.setText(categoria.toUpperCase() + " | " + console.toUpperCase());
         }
 

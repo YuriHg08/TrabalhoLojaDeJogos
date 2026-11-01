@@ -23,6 +23,7 @@ import javafx.util.Duration;
 import java.io.IOException;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 import static com.senai.javafx.controllers.LadoAdministrador.CadastroCategoriasController.categoriasSalvas;
 
@@ -71,8 +72,8 @@ public class telaInicialController {
         configurarBusca();
 
         montarCategorias();
-        FiltroCatalogo.categoriaProperty().addListener(new WeakInvalidationListener(aoMudarFiltro));
-        FiltroCatalogo.consoleProperty().addListener(new WeakInvalidationListener(aoMudarFiltro));
+        FiltroCatalogo.categoriasSelecionadas().addListener(new WeakInvalidationListener(aoMudarFiltro));
+        FiltroCatalogo.consolesSelecionados().addListener(new WeakInvalidationListener(aoMudarFiltro));
         categoriasSalvas.addListener(new WeakListChangeListener<String>(aoMudarCategorias));
 
         carregarCatalogo();
@@ -119,17 +120,17 @@ public class telaInicialController {
 
     // Destaca na sidebar o que está filtrado
     private void atualizarDestaques() {
-        String categoria = FiltroCatalogo.getCategoria();
-        String console = FiltroCatalogo.getConsole();
+        Set<String> categorias = FiltroCatalogo.categoriasSelecionadas();
+        Set<String> consoles = FiltroCatalogo.consolesSelecionados();
 
-        setAtivo(btnInicio, categoria == null && console == null);
+        setAtivo(btnInicio, categorias.isEmpty() && consoles.isEmpty());
 
         for (Button botao : List.of(btnNintendo, btnPlaystation, btnXbox, btnPC)) {
-            setAtivo(botao, Objects.equals(botao.getUserData(), console));
+            setAtivo(botao, consoles.contains(botao.getUserData()));
         }
 
         for (Node botao : boxCategorias.getChildren()) {
-            setAtivo((Button) botao, Objects.equals(botao.getUserData(), categoria));
+            setAtivo((Button) botao, categorias.contains(botao.getUserData()));
         }
     }
 

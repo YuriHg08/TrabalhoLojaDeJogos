@@ -559,3 +559,47 @@
 .spinner-custom .decrement-arrow-button:hover {
     -fx-background-color: -cor-neon;
 }
+
+/* ==========================================================================
+   MENU DE VÁRIAS OPÇÕES (categorias e plataformas com caixinhas)
+   ========================================================================== */
+.menu-button.campo-texto {
+    -fx-text-fill: -cor-texto-principal;
+}
+
+.menu-button.campo-texto .label {
+    -fx-text-fill: -cor-texto-principal;
+}
+
+.menu-button.campo-texto .arrow {
+    -fx-background-color: -cor-texto-secundario;
+}
+
+.context-menu {
+    -fx-background-color: -cor-superficie;
+    -fx-border-color: -cor-borda;
+    -fx-background-radius: 6px;
+    -fx-border-radius: 6px;
+}
+
+.context-menu .menu-item {
+    -fx-background-color: transparent;
+}
+
+.context-menu .menu-item:focused {
+    -fx-background-color: -cor-superficie-alt;
+}
+
+.context-menu .check-box {
+    -fx-text-fill: -cor-texto-principal;
+}
+
+.context-menu .check-box .label {
+    -fx-text-fill: -cor-texto-principal;
+}
+
+/* Botão "Sem estoque" menor dentro dos cards da loja (não encosta no preço) */
+.card-jogo .botao-sem-estoque {
+    -fx-font-size: 11px;
+    -fx-padding: 6px 10px;
+}

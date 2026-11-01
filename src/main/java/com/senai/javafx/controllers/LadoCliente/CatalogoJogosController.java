@@ -78,8 +78,9 @@ public class CatalogoJogosController {
                 desligarListeners();
             } else if (!listenersLigados) {
                 ligarListeners();
+                // Algo pode ter mudado enquanto estava fora (ex.: estoque após uma compra)
                 cacheCards.clear();
-                agendarRecarga(); // atualiza caso algo tenha mudado enquanto estava fora
+                agendarRecarga();
             }
         });
 
@@ -91,8 +92,8 @@ public class CatalogoJogosController {
             return;
         }
         listenersLigados = true;
-        FiltroCatalogo.categoriaProperty().addListener(aoMudarFiltro);
-        FiltroCatalogo.consoleProperty().addListener(aoMudarFiltro);
+        FiltroCatalogo.categoriasSelecionadas().addListener(aoMudarFiltro);
+        FiltroCatalogo.consolesSelecionados().addListener(aoMudarFiltro);
         FiltroCatalogo.buscaProperty().addListener(aoMudarFiltro);
         FiltroCatalogo.precoMinProperty().addListener(aoMudarFiltro);
         FiltroCatalogo.precoMaxProperty().addListener(aoMudarFiltro);
@@ -104,8 +105,8 @@ public class CatalogoJogosController {
             return;
         }
         listenersLigados = false;
-        FiltroCatalogo.categoriaProperty().removeListener(aoMudarFiltro);
-        FiltroCatalogo.consoleProperty().removeListener(aoMudarFiltro);
+        FiltroCatalogo.categoriasSelecionadas().removeListener(aoMudarFiltro);
+        FiltroCatalogo.consolesSelecionados().removeListener(aoMudarFiltro);
         FiltroCatalogo.buscaProperty().removeListener(aoMudarFiltro);
         FiltroCatalogo.precoMinProperty().removeListener(aoMudarFiltro);
         FiltroCatalogo.precoMaxProperty().removeListener(aoMudarFiltro);
@@ -151,15 +152,15 @@ public class CatalogoJogosController {
 
     private void atualizarTitulo() {
 
-        String categoria = FiltroCatalogo.getCategoria();
-        String console = FiltroCatalogo.getConsole();
+        String categoria = String.join(", ", FiltroCatalogo.categoriasSelecionadas());
+        String console = String.join(", ", FiltroCatalogo.consolesSelecionados());
 
-        if (categoria == null && console == null) {
+        if (categoria.isEmpty() && console.isEmpty()) {
             lblCategoriaAtual.setText("Catálogo de jogos");
-        } else if (categoria != null && console != null) {
+        } else if (!categoria.isEmpty() && !console.isEmpty()) {
             lblCategoriaAtual.setText(categoria + " • " + console);
         } else {
-            lblCategoriaAtual.setText(categoria != null ? categoria : console);
+            lblCategoriaAtual.setText(!categoria.isEmpty() ? categoria : console);
         }
     }
 
@@ -289,10 +290,13 @@ public class CatalogoJogosController {
                 jogo.getConsoleJogo() != null ? jogo.getConsoleJogo() : ""
         );
         lblPlataforma.getStyleClass().add("texto-mutado");
+        lblPlataforma.setWrapText(true);
+        lblPlataforma.setMaxWidth(176);
 
         // Rodapé do card
         HBox rodapeCard = new HBox();
         rodapeCard.setAlignment(Pos.CENTER_LEFT);
+        rodapeCard.setSpacing(8); // espaço entre o preço e o botão
 
         Label lblPreco = new Label(
                 FORMATO_PRECO.format(jogo.getPrecoJogo())
@@ -370,7 +374,6 @@ public class CatalogoJogosController {
                 scene.getStylesheets().add(css);
             }
             GerenciamentoJanela.guardarTela(scene.getRoot());
-            scene.setRoot(root);
             scene.setRoot(root);
 
         } catch (Exception e) {
