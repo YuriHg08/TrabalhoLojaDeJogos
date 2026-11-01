@@ -52,6 +52,9 @@ public class CatalogoJogosController {
         FiltroCatalogo.categoriaProperty().addListener(aoMudarFiltro);
         FiltroCatalogo.consoleProperty().addListener(aoMudarFiltro);
         CadastroJogosController.jogosSalvos.addListener(aoMudarJogos);
+        FiltroCatalogo.buscaProperty().addListener(aoMudarFiltro);
+        FiltroCatalogo.precoMinProperty().addListener(aoMudarFiltro);
+        FiltroCatalogo.precoMaxProperty().addListener(aoMudarFiltro);
 
         // Remove os listeners quando a tela sair da cena
         containerJogos.sceneProperty().addListener((obs, antiga, nova) -> {
@@ -59,6 +62,9 @@ public class CatalogoJogosController {
                 FiltroCatalogo.categoriaProperty().removeListener(aoMudarFiltro);
                 FiltroCatalogo.consoleProperty().removeListener(aoMudarFiltro);
                 CadastroJogosController.jogosSalvos.removeListener(aoMudarJogos);
+                FiltroCatalogo.buscaProperty().removeListener(aoMudarFiltro);
+                FiltroCatalogo.precoMinProperty().removeListener(aoMudarFiltro);
+                FiltroCatalogo.precoMaxProperty().removeListener(aoMudarFiltro);
             }
         });
 
@@ -77,8 +83,9 @@ public class CatalogoJogosController {
         }
 
         if (containerJogos.getChildren().isEmpty()) {
-            Label vazio = new Label("Nenhum jogo encontrado com esse filtro.");
-            vazio.getStyleClass().add("texto-mutado");
+            Label vazio = new Label(FiltroCatalogo.temBuscaOuPreco()
+                    ? "Nenhum jogo encontrado para essa busca."
+                    : "Nenhum jogo encontrado com esse filtro.");
             containerJogos.getChildren().add(vazio);
         }
     }

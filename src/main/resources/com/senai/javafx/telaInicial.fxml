@@ -13,6 +13,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.paint.Color?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.shape.SVGPath?>
 
 <BorderPane prefHeight="700.0" prefWidth="1200.0" stylesheets="@styleMenu.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.senai.javafx.controllers.LadoCliente.telaInicialController">
@@ -33,8 +34,14 @@
                         </DropShadow>
                     </effect>
                 </ImageView>
-                <TextField fx:id="txtPesquisa" layoutX="15.0" layoutY="57.0" promptText="Buscar" styleClass="campo-texto" stylesheets="@styleMenu.css" />
-
+                <TextField fx:id="txtPesquisa" layoutX="15.0" layoutY="57.0" prefWidth="172.0" promptText="Buscar jogo pelo nome" styleClass="campo-texto" stylesheets="@styleMenu.css" />
+                <!-- FILTRO DE PREÇO -->
+                <HBox layoutX="15.0" layoutY="101.0" prefWidth="172.0" spacing="6.0">
+                    <children>
+                        <TextField fx:id="txtPrecoMin" prefWidth="83.0" promptText="R$ mín" style="-fx-pref-height: 32px; -fx-padding: 5px 8px; -fx-font-size: 12px;" styleClass="campo-texto" />
+                        <TextField fx:id="txtPrecoMax" prefWidth="83.0" promptText="R$ máx" style="-fx-pref-height: 32px; -fx-padding: 5px 8px; -fx-font-size: 12px;" styleClass="campo-texto" />
+                    </children>
+                </HBox>
                 <!-- CATEGORIAS -->
                 <Label layoutX="21.0" layoutY="175.0" prefHeight="35.0" prefWidth="176.0" styleClass="subtitulo-sidebar" text="Categorias" textFill="#4a4a4a" />
                 <!-- Os botões de categoria são gerados no controller a partir das categorias cadastradas -->
@@ -74,7 +81,7 @@
                         <String fx:value="PC" />
                     </userData>
                 </Button>
-                <Button fx:id="btnInicio" layoutX="15.0" layoutY="113.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#filtrarInicio" prefHeight="28.0" prefWidth="172.0" text="Início">
+                <Button fx:id="btnInicio" layoutX="15.0" layoutY="141.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#filtrarInicio" prefHeight="28.0" prefWidth="172.0" text="Início">
                     <styleClass>
                         <String fx:value="botao-categoria" />
                         <String fx:value="botao-categoria-ativo" />

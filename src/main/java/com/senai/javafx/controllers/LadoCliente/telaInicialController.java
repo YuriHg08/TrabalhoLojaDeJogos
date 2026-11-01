@@ -3,6 +3,7 @@ package com.senai.javafx.controllers.LadoCliente;
 import com.senai.javafx.entidades.FiltroCatalogo;
 import com.senai.javafx.entidades.GerenciamentoJanela;
 import com.senai.javafx.entidades.Sessao;
+import javafx.animation.PauseTransition;
 import javafx.beans.InvalidationListener;
 import javafx.beans.WeakInvalidationListener;
 import javafx.collections.ListChangeListener;
@@ -14,8 +15,10 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextFormatter;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.util.Duration;
 
 import java.io.IOException;
 import java.util.List;
@@ -32,6 +35,15 @@ public class telaInicialController {
 
     @FXML
     private TextField txtPesquisa;
+
+    @FXML
+    private TextField txtPrecoMin;
+
+    @FXML
+    private TextField txtPrecoMax;
+
+    // Espera o usuário parar de digitar antes de filtrar
+    private final PauseTransition atrasoBusca = new PauseTransition(Duration.millis(250));
 
     @FXML
     private Button painelAdm;
@@ -56,6 +68,7 @@ public class telaInicialController {
         }
 
         FiltroCatalogo.limpar();
+        configurarBusca();
 
         montarCategorias();
         FiltroCatalogo.categoriaProperty().addListener(new WeakInvalidationListener(aoMudarFiltro));
@@ -63,6 +76,29 @@ public class telaInicialController {
         categoriasSalvas.addListener(new WeakListChangeListener<String>(aoMudarCategorias));
 
         carregarCatalogo();
+    }
+
+    // Liga a barra de busca e os campos de preço ao filtro do catálogo
+    private void configurarBusca() {
+        atrasoBusca.setOnFinished(e -> aplicarBusca());
+
+        txtPesquisa.textProperty().addListener((obs, antigo, novo) -> atrasoBusca.playFromStart());
+        txtPesquisa.setOnAction(e -> aplicarBusca());
+
+        for (TextField campo : List.of(txtPrecoMin, txtPrecoMax)) {
+            // Só aceita números, vírgula e ponto
+            campo.setTextFormatter(new TextFormatter<String>(
+                    mudanca -> mudanca.getControlNewText().matches("[0-9.,]*") ? mudanca : null));
+            campo.textProperty().addListener((obs, antigo, novo) -> atrasoBusca.playFromStart());
+            campo.setOnAction(e -> aplicarBusca());
+        }
+    }
+
+    private void aplicarBusca() {
+        atrasoBusca.stop();
+        FiltroCatalogo.setBusca(txtPesquisa.getText());
+        FiltroCatalogo.setPrecoMin(FiltroCatalogo.converterPreco(txtPrecoMin.getText()));
+        FiltroCatalogo.setPrecoMax(FiltroCatalogo.converterPreco(txtPrecoMax.getText()));
     }
 
     // Cria um botão para cada categoria cadastrada
@@ -106,6 +142,10 @@ public class telaInicialController {
 
     @FXML
     void filtrarInicio(ActionEvent event) {
+        txtPesquisa.clear();
+        txtPrecoMin.clear();
+        txtPrecoMax.clear();
+        atrasoBusca.stop();
         FiltroCatalogo.limpar();
     }
 
