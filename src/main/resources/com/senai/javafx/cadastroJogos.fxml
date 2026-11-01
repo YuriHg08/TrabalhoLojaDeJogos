@@ -35,11 +35,11 @@
                         <TextField fx:id="txtEstoqueJogo" prefHeight="38.0" promptText="Estoque (Ex: 5)" styleClass="campo-texto" />
 
                         <ComboBox fx:id="menuCategoria" maxWidth="Infinity" prefHeight="38.0" promptText="Selecione uma categoria" styleClass="campo-texto" />
-                        <ComboBox fx:id="menuConsole" maxWidth="Infinity" prefHeight="38.0" promptText="Selecione um console" styleClass="campo-texto" />
+                        <ComboBox fx:id="menuConsole" maxWidth="Infinity" prefHeight="38.0" promptText="Selecione uma plataforma" styleClass="campo-texto" />
                         <!-- Seção de Capa com HBox flexível -->
                         <HBox alignment="CENTER_LEFT" spacing="16.0">
                             <children>
-                                <Pane prefHeight="110.0" prefWidth="110.0" styleClass="botao-secundario">
+                                <Pane prefHeight="110.0" prefWidth="110.0" styleClass="imagem-placeholder">
                                     <children>
                                         <ImageView fx:id="imgPreview" fitHeight="110.0" fitWidth="110.0" pickOnBounds="true" preserveRatio="true" />
                                     </children>

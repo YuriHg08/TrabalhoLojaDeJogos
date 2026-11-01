@@ -3,12 +3,12 @@
 <?import java.lang.String?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
@@ -53,11 +53,6 @@
                         <String fx:value="Nintendo" />
                     </userData>
                 </Button>
-                <ImageView fitHeight="26.0" fitWidth="30.0" layoutX="20.0" layoutY="450.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
-                    <image>
-                        <Image url="@imagens/Nintendo.png" />
-                    </image>
-                </ImageView>
 
                 <!-- PLAYSTATION -->
                 <Button fx:id="btnPlaystation" layoutX="14.0" layoutY="491.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#filtrarConsole" prefWidth="183.0" styleClass="button, botao-categoria" text="        Playstation">
@@ -65,11 +60,6 @@
                         <String fx:value="Playstation" />
                     </userData>
                 </Button>
-                <ImageView fitHeight="26.0" fitWidth="30.0" layoutX="20.0" layoutY="496.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
-                    <image>
-                        <Image url="@imagens/Playstation.png" />
-                    </image>
-                </ImageView>
 
                 <!-- XBOX -->
                 <Button fx:id="btnXbox" layoutX="14.0" layoutY="537.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#filtrarConsole" prefWidth="183.0" styleClass="button, botao-categoria" text="        Xbox">
@@ -77,11 +67,6 @@
                         <String fx:value="Xbox" />
                     </userData>
                 </Button>
-                <ImageView fitHeight="26.0" fitWidth="30.0" layoutX="20.0" layoutY="542.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
-                    <image>
-                        <Image url="@imagens/Xbox.png" />
-                    </image>
-                </ImageView>
 
                 <!-- PC -->
                 <Button fx:id="btnPC" layoutX="14.0" layoutY="583.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#filtrarConsole" prefWidth="183.0" styleClass="button, botao-categoria" text="        PC">
@@ -89,11 +74,6 @@
                         <String fx:value="PC" />
                     </userData>
                 </Button>
-                <ImageView fitHeight="26.0" fitWidth="30.0" layoutX="20.0" layoutY="588.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
-                    <image>
-                        <Image url="@imagens/Desktop.png" />
-                    </image>
-                </ImageView>
                 <Button fx:id="btnInicio" layoutX="15.0" layoutY="113.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#filtrarInicio" prefHeight="28.0" prefWidth="172.0" text="Início">
                     <styleClass>
                         <String fx:value="botao-categoria" />
@@ -103,6 +83,10 @@
                 <Button fx:id="painelAdm" layoutX="11.0" layoutY="646.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#menuAdm" prefWidth="182.0" styleClass="botao-secundario" text="Painel do administrador" />
                 <SVGPath content="m253.66 133.66l-24 24a8 8 0 0 1-11.32 0l-24-24a8 8 0 0 1 11.32-11.32L216 132.69V128A88 88 0 0 0 56.49 76.67a8 8 0 0 1-13-9.34A104 104 0 0 1 232 128v4.69l10.34-10.35a8 8 0 0 1 11.32 11.32m-41.18 55A104 104 0 0 1 24 128v-4.69l-10.34 10.35a8 8 0 0 1-11.32-11.32l24-24a8 8 0 0 1 11.32 0l24 24a8 8 0 0 1-11.32 11.32L40 123.31V128a87.62 87.62 0 0 0 22.24 58.41a79.66 79.66 0 0 1 36.06-28.75a48 48 0 1 1 59.4 0a79.6 79.6 0 0 1 36.08 28.78a90 90 0 0 0 5.71-7.11a8 8 0 0 1 13 9.34ZM128 152a32 32 0 1 0-32-32a32 32 0 0 0 32 32m0 64a88.2 88.2 0 0 0 53.92-18.49a64 64 0 0 0-107.84 0A87.57 87.57 0 0 0 128 216" fill="WHITE" layoutX="37.0" layoutY="-97.0" managed="false" nodeOrientation="LEFT_TO_RIGHT" scaleX="0.08" scaleY="0.08" stroke="TRANSPARENT" strokeType="INSIDE" />
                 <Button layoutX="144.0" layoutY="12.0" mnemonicParsing="false" onAction="#alternarConta" opacity="0.4" prefHeight="29.0" prefWidth="41.0" styleClass="sidebar-btn" />
+            <SVGPath content="M9.5 4.27c1.38.26 3.4.87 4.5 1.23c2.75.95 3.69 2.13 3.69 4.79c0 2.6-1.6 3.58-3.64 2.6V8.05c0-.55-.1-1.08-.64-1.23c-.41-.13-.65.25-.65.81v12.1L9.5 18.69zm3.87 13.35l5.25-1.87c.6-.21.69-.51.21-.67c-.49-.16-1.36-.11-1.96.1l-3.5 1.23v-1.96l.21-.07s1.01-.38 2.42-.51c1.43-.16 3.17.02 4.53.53c1.54.49 1.72 1.21 1.33 1.7c-.4.5-1.36.85-1.36.85l-7.13 2.55zm-9.87-.2C1.93 17 1.66 16.05 2.38 15.5c.67-.5 1.8-.85 1.8-.85L8.86 13v1.88L5.5 16.09c-.6.21-.69.51-.21.67s1.36.12 1.95-.1l1.62-.58v1.69l-.32.06c-1.62.26-3.34.17-5.04-.41" fill="#8f98a0" layoutX="20.0" layoutY="498.0" managed="false" nodeOrientation="LEFT_TO_RIGHT" stroke="TRANSPARENT" strokeType="INSIDE" />
+            <SVGPath content="M10.04 20.4H7.12c-.93 0-1.82-.4-2.48-1.04C4 18.7 3.6 17.81 3.6 16.88V7.12c0-.93.4-1.82 1.04-2.48C5.3 4 6.19 3.62 7.12 3.62h2.92zM7.12 2A5.12 5.12 0 0 0 2 7.12v9.76C2 19.71 4.29 22 7.12 22h4.53V2zM5.11 8c0 1.04.84 1.88 1.89 1.88c1.03 0 1.87-.84 1.87-1.88S8.03 6.12 7 6.12c-1.05 0-1.89.84-1.89 1.88m12.5 3c1.11 0 2.01.89 2.01 2c0 1.12-.9 2-2.01 2s-2.03-.88-2.03-2c0-1.11.92-2 2.03-2m-.73 11A5.12 5.12 0 0 0 22 16.88V7.12C22 4.29 19.71 2 16.88 2h-3.23v20z" fill="#8f98a0" layoutX="21.0" layoutY="452.0" managed="false" nodeOrientation="LEFT_TO_RIGHT" stroke="TRANSPARENT" strokeType="INSIDE" />
+            <SVGPath content="M6.43 3.72c.07-.06.14-.12.19-.16C8.18 2.55 10 2 12 2c1.88 0 3.64.5 5.14 1.42c.11.08.4.27.56.46C16.25 2.28 12 5.7 12 5.7c-1.5-1.13-2.83-1.9-3.84-2.2c-.85-.21-1.43 0-1.7.2m12.88 1.51c-.05-.05-.1-.1-.14-.15c-.36-.4-.82-.5-1.2-.47c-.39.12-2.1.73-4.2 2.72c0 0 2.37 2.3 3.82 4.65s2.31 4.2 1.78 6.77C21 16.95 22 14.59 22 12c0-2.62-1-5-2.66-6.79m-3.61 7.75c-.65-.72-1.6-1.75-2.87-3.01c-.27-.27-.56-.55-.86-.85c0 0-.47.46-1.07 1.07c-.77.77-1.76 1.78-2.32 2.37c-.98 1.05-3.8 4.35-3.96 6.2c0 0-.65-1.46.75-4.85c.9-2.21 3.6-5.53 4.75-6.61c0 0-1.03-1.14-2.33-1.93l-.05-.03c-.63-.37-1.31-.66-1.97-.7c-.67.05-1.09.54-1.09.54A9.95 9.95 0 0 0 2 12a10 10 0 0 0 10 10c2.93 0 5.57-1.26 7.4-3.27c0 0-.21-1.33-1.56-3.23c-.31-.43-1.47-1.81-2.11-2.54" fill="#8f98a0" layoutX="20.0" layoutY="544.0" managed="false" nodeOrientation="LEFT_TO_RIGHT" stroke="TRANSPARENT" strokeType="INSIDE" />
+            <SVGPath content="M2 6a3 3 0 0 1 3-3h14a3 3 0 0 1 3 3v8a3 3 0 0 1-3 3h-4v2h1a1 1 0 1 1 0 2H8a1 1 0 1 1 0-2h1v-2H5a3 3 0 0 1-3-3V6zm9 11v2h2v-2h-2zM5 5a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1H5z" fill="#8f98a0" layoutX="21.0" layoutY="590.0" managed="false" nodeOrientation="LEFT_TO_RIGHT" stroke="TRANSPARENT" strokeType="INSIDE" />
             </children>
         </AnchorPane>
     </left>

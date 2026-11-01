@@ -58,9 +58,6 @@ public class GerenciamentoJanela extends Application {
             FXMLLoader loader = new FXMLLoader(fxmlUrl);
             Parent root = loader.load();
 
-            if (modoEscuroAtivo) {
-                root.getStyleClass().add("modo-escuro");
-            }
 
             if (primaryStage == null) {
                 primaryStage = new Stage();

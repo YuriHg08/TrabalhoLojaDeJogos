@@ -189,7 +189,7 @@ public class CatalogoJogosController {
         Region spacer = new Region();
         HBox.setHgrow(spacer, Priority.ALWAYS);
 
-        Button btnComprar = new Button("COMPRAR");
+        Button btnComprar = new Button("Comprar");
         btnComprar.getStyleClass().addAll("button", "botao-primario");
 
         rodapeCard.getChildren().addAll(lblPreco, spacer, btnComprar);
@@ -224,12 +224,10 @@ public class CatalogoJogosController {
                 DetalhesJogosController controller = loader.getController();
                 controller.setJogo(jogo);
 
-                Stage stage = (Stage) node.getScene().getWindow();
-                Scene scene = new Scene(root, 1200, 700);
+                Scene scene = ((Stage) node.getScene().getWindow()).getScene();
                 scene.getStylesheets().add(getClass().getResource("/com/senai/javafx/styleMenu.css").toExternalForm());
+                scene.setRoot(root);
 
-                stage.setScene(scene);
-                stage.show();
             } catch (Exception e) {
                 e.printStackTrace();
             }
