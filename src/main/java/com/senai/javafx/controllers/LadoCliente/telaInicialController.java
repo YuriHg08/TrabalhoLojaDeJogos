@@ -1,11 +1,6 @@
 package com.senai.javafx.controllers.LadoCliente;
 
-import com.senai.javafx.entidades.Acessorio;
-import com.senai.javafx.entidades.Carrinho;
-import com.senai.javafx.entidades.CatalogoAcessorios;
-import com.senai.javafx.entidades.FiltroCatalogo;
-import com.senai.javafx.entidades.GerenciamentoJanela;
-import com.senai.javafx.entidades.Sessao;
+import com.senai.javafx.entidades.*;
 import javafx.animation.PauseTransition;
 import javafx.beans.InvalidationListener;
 import javafx.beans.WeakInvalidationListener;

@@ -1,7 +1,5 @@
-package com.senai.javafx.controllers.LadoCliente;
+package com.senai.javafx.entidades;
 
-import com.senai.javafx.entidades.Carrinho;
-import com.senai.javafx.entidades.GerenciamentoJanela;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;

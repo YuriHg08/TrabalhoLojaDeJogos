@@ -3,6 +3,7 @@ package com.senai.javafx.controllers.LadoCliente;
 import com.senai.javafx.entidades.GerenciamentoJanela;
 import com.senai.javafx.entidades.Sessao;
 import com.senai.javafx.entidades.UsuarioCadastro;
+import com.senai.javafx.entidades.Usuario;
 import javafx.event.ActionEvent;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -56,9 +57,23 @@ public class loginUserController {
             return;
         }
 
-        // Login de usuário padrão
+        // 1. Valida nome e senha
         if (!UsuarioCadastro.autenticar(nome, senha)) {
             exibirAlerta("Atenção", "Utilizador ou senha inválidos!", GerenciamentoJanela.TipoAlerta.ALERTA);
+            return;
+        }
+
+        // 2. Busca o objeto do usuário na lista cadastrada
+        Usuario usuario = UsuarioCadastro.listar().stream()
+                .filter(u -> u.getNome().equalsIgnoreCase(nome))
+                .findFirst()
+                .orElse(null);
+
+        // 3. Verifica a Lista Negra / Bloqueio
+        if (usuario != null && usuario.isBloqueado()) {
+            exibirAlerta("Acesso Bloqueado",
+                    "Seu acesso foi bloqueado pela administração da loja.",
+                    GerenciamentoJanela.TipoAlerta.ALERTA);
             return;
         }
 
@@ -68,6 +83,7 @@ public class loginUserController {
         GerenciamentoJanela.exibirAlerta("Sucesso", "Login realizado com sucesso!", GerenciamentoJanela.TipoAlerta.SUCESSO);
         entrarNaLoja(event, "Nexus Store - Página inicial");
     }
+
 
     // Mostra "Entrando..." e só depois carrega a loja, para a tela não parecer congelada
     private void entrarNaLoja(ActionEvent event, String titulo) {
@@ -92,4 +108,4 @@ public class loginUserController {
     private void handleCadastreSe(ActionEvent event) {
         GerenciamentoJanela.abrirJanela("/com/senai/javafx/cadastroClienteUser.fxml", "Cadastrar-se na Nexus");
     }
-}
+}

@@ -10,14 +10,7 @@ import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableCell;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 
 import java.text.NumberFormat;
@@ -76,12 +69,17 @@ public class ConsultarClienteController {
         lblTotal.setText("Total: " + total + (total == 1 ? " cliente" : " clientes"));
     }
 
-    // Botão "Expulsar" em cada linha da tabela de clientes
+    // Configura o CheckBox "Bloquear acesso" e o botão "Expulsar" em cada linha
     private void configurarColunaExpulsar() {
         colAcao.setCellFactory(coluna -> new TableCell<Usuario, Void>() {
+            private final CheckBox chkBloquear = new CheckBox("Bloquear acesso");
             private final Button btnExpulsar = new Button("Expulsar");
+            private final HBox caixa = new HBox(16, chkBloquear, btnExpulsar);
 
             {
+                caixa.setAlignment(Pos.CENTER);
+                chkBloquear.setStyle("-fx-text-fill: #e0e0e0; -fx-cursor: hand; -fx-font-size: 12px;");
+
                 btnExpulsar.getStyleClass().addAll("button", "botao-perigo", "botao-tabela");
                 btnExpulsar.setOnAction(e -> {
                     Usuario cliente = getTableRow().getItem();
@@ -89,13 +87,33 @@ public class ConsultarClienteController {
                         expulsar(cliente);
                     }
                 });
+
+                // Ação ao marcar/desmarcar o bloqueio do cliente
+                chkBloquear.setOnAction(e -> {
+                    Usuario cliente = getTableRow().getItem();
+                    if (cliente != null) {
+                        boolean bloqueado = chkBloquear.isSelected();
+                        cliente.setBloqueado(bloqueado);
+
+                        String status = bloqueado ? "bloqueado" : "desbloqueado";
+                        GerenciamentoJanela.exibirAlerta("Acesso alterado",
+                                "O cliente \"" + cliente.getNome() + "\" foi " + status + " da loja.",
+                                GerenciamentoJanela.TipoAlerta.SUCESSO);
+                    }
+                });
             }
 
             @Override
             protected void updateItem(Void item, boolean vazio) {
                 super.updateItem(item, vazio);
-                setAlignment(Pos.CENTER);
-                setGraphic(vazio || getTableRow() == null || getTableRow().getItem() == null ? null : btnExpulsar);
+                if (vazio || getTableRow() == null || getTableRow().getItem() == null) {
+                    setGraphic(null);
+                } else {
+                    Usuario cliente = getTableRow().getItem();
+                    // Mantém o checkbox marcado se o usuário já estiver na lista negra/bloqueado
+                    chkBloquear.setSelected(cliente.isBloqueado());
+                    setGraphic(caixa);
+                }
             }
         });
     }

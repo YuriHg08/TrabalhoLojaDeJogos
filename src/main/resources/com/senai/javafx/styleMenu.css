@@ -124,6 +124,32 @@
     -fx-border-width: 0 0 0 3px;
 }
 
+/* Botão Filtros no topo direito */
+.botao-filtro-topo {
+    -fx-background-color: #1a1f2c;
+    -fx-border-color: #2b3347;
+    -fx-border-radius: 8px;
+    -fx-background-radius: 8px;
+    -fx-text-fill: #e0e0e0;
+    -fx-font-weight: bold;
+    -fx-font-size: 13px;
+    -fx-cursor: hand;
+}
+.botao-filtro-topo:hover {
+    -fx-background-color: #242b3d;
+    -fx-border-color: #e91e63;
+}
+
+/* Container flutuante que recebe o FXML externo */
+.container-filtro-moderno {
+    -fx-background-color: #141822;
+    -fx-border-color: #252d3d;
+    -fx-border-width: 1.2px;
+    -fx-border-radius: 12px;
+    -fx-background-radius: 12px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.55), 20, 0.2, 0, 8);
+}
+
 /* ==========================================================================
    4. PAINÉIS, CARDS E FORMULÁRIOS
    ========================================================================== */
