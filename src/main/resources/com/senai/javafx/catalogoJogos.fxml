@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 
 <ScrollPane fitToWidth="true" styleClass="custom-scroll-pane" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.senai.javafx.controllers.LadoCliente.CatalogoJogosController">
@@ -14,7 +17,14 @@
             </padding>
             <children>
 
-                <Label fx:id="lblCategoriaAtual" styleClass="subtitulo" text="Catálogo de jogos" />
+                <!-- Título à esquerda; botão da Loja de Acessórios no canto superior direito -->
+                <HBox alignment="CENTER_LEFT" spacing="12.0">
+                    <children>
+                        <Label fx:id="lblCategoriaAtual" styleClass="subtitulo" text="Catálogo de jogos" />
+                        <Region HBox.hgrow="ALWAYS" />
+                        <Button fx:id="btnLojaAcessorios" mnemonicParsing="false" onAction="#abrirLojaAcessorios" styleClass="button, botao-primario" text="Loja de Acessórios  →" />
+                    </children>
+                </HBox>
 
                 <!-- Grelha onde os cards dos jogos vão ser gerados dinamicamente -->
                 <FlowPane fx:id="containerJogos" hgap="15.0" vgap="15.0" />

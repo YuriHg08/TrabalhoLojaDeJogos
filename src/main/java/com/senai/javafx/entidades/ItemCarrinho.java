@@ -1,21 +1,21 @@
 package com.senai.javafx.entidades;
 
 public class ItemCarrinho {
-    private final Jogo jogo;
+    private final Produto produto;
     private int quantidade;
 
-    public ItemCarrinho(Jogo jogo, int quantidade) {
-        this.jogo = jogo;
+    public ItemCarrinho(Produto produto, int quantidade) {
+        this.produto = produto;
         this.quantidade = quantidade;
     }
 
-    public Jogo getJogo() { return jogo; }
+    public Produto getProduto() { return produto; }
 
     public int getQuantidade() { return quantidade; }
 
     public void setQuantidade(int quantidade) { this.quantidade = quantidade; }
 
     public double getSubtotal() {
-        return FormaPagamento.arredondar(jogo.getPrecoJogo() * quantidade);
+        return FormaPagamento.arredondar(produto.getPreco() * quantidade);
     }
 }

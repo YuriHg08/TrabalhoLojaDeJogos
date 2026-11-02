@@ -2,10 +2,15 @@ package com.senai.javafx.controllers.LadoCliente;
 
 import com.senai.javafx.entidades.Carrinho;
 import com.senai.javafx.entidades.GerenciamentoJanela;
-import com.senai.javafx.entidades.Jogo;
+import com.senai.javafx.entidades.Acessorio;
+import com.senai.javafx.entidades.Produto;
 import javafx.animation.PauseTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -14,6 +19,7 @@ import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.text.NumberFormat;
@@ -52,7 +58,8 @@ public class DetalhesJogosController {
     @FXML
     private StackPane rodape;
 
-    private Jogo jogoAtual;
+    // Pode ser um jogo ou um item da Loja de Acessórios
+    private Produto jogoAtual;
 
     // Mostra "✓ ADICIONADO" por um instante e depois volta o botão ao normal
     private final PauseTransition fimDoAviso = new PauseTransition(Duration.millis(1200));
@@ -64,31 +71,58 @@ public class DetalhesJogosController {
         // Registrado uma vez só: atualiza o preço do botão conforme a quantidade escolhida
         spnQuantidade.valueProperty().addListener((obs, antigo, novo) -> {
             if (jogoAtual != null && novo != null && novo > 0 && !btnComprar.isDisable()) {
-                btnComprar.setText("COMPRAR " + FORMATO_PRECO.format(jogoAtual.getPrecoJogo() * novo));
+                btnComprar.setText("COMPRAR " + FORMATO_PRECO.format(jogoAtual.getPreco() * novo));
             }
         });
         fimDoAviso.setOnFinished(e -> atualizarControlesDeEstoque());
     }
 
-    // Chamado pelo catálogo logo depois de carregar a tela
-    public void setJogo(Jogo jogo) {
-        this.jogoAtual = jogo;
+    // Abre a tela de detalhes de um produto (jogo ou acessório), guardando a loja de onde veio
+    public static void abrir(Node origem, Produto produto) {
+        try {
+            FXMLLoader loader = new FXMLLoader(
+                    DetalhesJogosController.class.getResource("/com/senai/javafx/detalhesJogos.fxml"));
+            Parent root = loader.load();
 
-        lblNomeJogo.setText(jogo.getNomeJogo());
+            DetalhesJogosController controller = loader.getController();
+            controller.setProduto(produto);
 
-        String categoria = jogo.getCategoriaJogo() != null ? jogo.getCategoriaJogo() : "GERAL";
-        String console = jogo.getConsoleJogo() != null ? jogo.getConsoleJogo() : "TODAS";
+            Scene scene = ((Stage) origem.getScene().getWindow()).getScene();
+
+            // Só adiciona o CSS se ainda não estiver na cena
+            String css = DetalhesJogosController.class.getResource("/com/senai/javafx/styleMenu.css").toExternalForm();
+            if (!scene.getStylesheets().contains(css)) {
+                scene.getStylesheets().add(css);
+            }
+            GerenciamentoJanela.guardarTela(scene.getRoot());
+            scene.setRoot(root);
+
+        } catch (Exception e) {
+            // O erro não pode ficar só no console: o botão pareceria "morto"
+            e.printStackTrace();
+            GerenciamentoJanela.exibirAlerta("Erro",
+                    "Não foi possível abrir os detalhes de \"" + produto.getNome() + "\".\n" + e,
+                    GerenciamentoJanela.TipoAlerta.ERRO);
+        }
+    }
+
+    // Chamado logo depois de carregar a tela
+    public void setProduto(Produto produto) {
+        this.jogoAtual = produto;
+
+        lblNomeJogo.setText(produto.getNome());
+
         lblInfoExtra.setWrapText(true);
-        lblInfoExtra.setText(categoria.toUpperCase() + " | " + console.toUpperCase());
+        lblInfoExtra.setText(produto.getEtiqueta());
 
         atualizarControlesDeEstoque();
-        carregarImagemComCorte(jogo.getCaminhoImagem());
+        carregarImagemComCorte(produto.getCaminhoImagem());
     }
 
     // Atualiza seletor, texto de estoque e botão conforme o estoque atual do jogo
     private void atualizarControlesDeEstoque() {
-        int estoque = jogoAtual.getEstoqueJogo();
-        int noCarrinho = Carrinho.quantidadeDoJogo(jogoAtual);
+        int estoque = jogoAtual.getEstoque();
+        int noCarrinho = Carrinho.quantidadeDoProduto(jogoAtual);
         // O que ainda dá para adicionar: estoque menos o que já está no carrinho
         int disponivel = Carrinho.disponivelParaAdicionar(jogoAtual);
 
@@ -104,7 +138,7 @@ public class DetalhesJogosController {
         } else if (disponivel <= 0) {
             configurarBotao("TODO O ESTOQUE JÁ ESTÁ NO CARRINHO", "botao-secundario", true);
         } else {
-            configurarBotao("COMPRAR " + FORMATO_PRECO.format(jogoAtual.getPrecoJogo()), "botao-primario", false);
+            configurarBotao("COMPRAR " + FORMATO_PRECO.format(jogoAtual.getPreco()), "botao-primario", false);
         }
     }
 

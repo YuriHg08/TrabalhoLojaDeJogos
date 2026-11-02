@@ -1,7 +1,7 @@
 package com.senai.javafx.controllers.LadoCliente;
 
-import com.senai.javafx.controllers.LadoAdministrador.CadastroJogosController;
 import com.senai.javafx.entidades.Carrinho;
+import com.senai.javafx.entidades.CatalogoProdutos;
 import com.senai.javafx.entidades.Compra;
 import com.senai.javafx.entidades.Cpf;
 import com.senai.javafx.entidades.FormaPagamento;
@@ -167,7 +167,7 @@ public class PagamentoController {
             Compra compra = RegistroCompras.finalizarPagamento(
                     Sessao.getUsuarioLogado(), forma, txtCpf.getText(),
                     txtNomeCartao.getText(), txtSenhaCartao.getText(),
-                    CadastroJogosController.jogosSalvos::contains);
+                    CatalogoProdutos::existe);
 
             GerenciamentoJanela.exibirAlerta("Pagamento realizado",
                     "Obrigado! Sua compra nº " + compra.getNumero() + " ("
@@ -179,7 +179,7 @@ public class PagamentoController {
         } catch (IllegalStateException e) {
             // Normalmente estoque que acabou enquanto o cliente pagava: nada foi cobrado.
             // Ajusta o carrinho e leva o cliente de volta para conferir.
-            Carrinho.ajustarAoEstoque(CadastroJogosController.jogosSalvos::contains);
+            Carrinho.ajustarAoEstoque(CatalogoProdutos::existe);
             GerenciamentoJanela.exibirAlerta("Não foi possível concluir", e.getMessage(),
                     GerenciamentoJanela.TipoAlerta.ALERTA);
             GerenciamentoJanela.abrirJanela("/com/senai/javafx/carrinho.fxml", "Nexus Store - Carrinho");

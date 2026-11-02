@@ -127,11 +127,16 @@ public class ConsultarComprasController {
 
         int linha = 1;
         for (ItemCompra item : compra.getItens()) {
-            Label nome = new Label(item.getNomeJogo());
+            Label nome = new Label(item.getNome());
             nome.getStyleClass().add("subtitulo");
             nome.setWrapText(true);
             nome.setMaxWidth(260);
-            itens.add(nome, 0, linha);
+            // Segunda linha: o que é (Jogo, Console, PC Gamer, Controle) e plataforma/detalhes
+            Label tipo = new Label(item.getResumoTipo());
+            tipo.getStyleClass().add("texto-mutado");
+            tipo.setWrapText(true);
+            tipo.setMaxWidth(260);
+            itens.add(new VBox(2, nome, tipo), 0, linha);
             itens.add(celulaGrade(String.valueOf(item.getQuantidade())), 1, linha);
             itens.add(celulaGrade(FORMATO_PRECO.format(item.getPrecoUnitario())), 2, linha);
             itens.add(celulaGrade(FORMATO_PRECO.format(item.getSubtotal())), 3, linha);

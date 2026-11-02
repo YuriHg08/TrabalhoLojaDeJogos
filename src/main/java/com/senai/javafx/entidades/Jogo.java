@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-public class Jogo {
+public class Jogo implements Produto {
     private final List<String> consoles = new ArrayList<>();
     private final List<String> categorias = new ArrayList<>();
     private String nomeJogo;
@@ -100,4 +100,33 @@ public class Jogo {
     public boolean temConsole(String console) {
         return consoles.stream().anyMatch(c -> c.equalsIgnoreCase(console));
     }
-}
+
+    // --- PRODUTO (permite que o jogo vá para o carrinho e para a nota junto com os acessórios) ---
+
+    @Override
+    public String getNome() { return nomeJogo; }
+
+    @Override
+    public double getPreco() { return precoJogo; }
+
+    @Override
+    public int getEstoque() { return estoqueJogo; }
+
+    @Override
+    public void setEstoque(int estoque) { this.estoqueJogo = estoque; }
+
+    @Override
+    public String getTipo() { return "Jogo"; }
+
+    @Override
+    public String getDescricao() {
+        return getConsoleJogo() != null ? getConsoleJogo() : "";
+    }
+
+    @Override
+    public String getEtiqueta() {
+        String categoria = getCategoriaJogo() != null ? getCategoriaJogo() : "GERAL";
+        String console = getConsoleJogo() != null ? getConsoleJogo() : "TODAS";
+        return categoria.toUpperCase() + " | " + console.toUpperCase();
+    }
+}

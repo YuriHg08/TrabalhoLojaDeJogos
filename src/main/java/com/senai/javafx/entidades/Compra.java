@@ -58,7 +58,7 @@ public class Compra {
     public String getResumoItens() {
         List<String> partes = new ArrayList<>();
         for (ItemCompra item : itens) {
-            partes.add(item.getQuantidade() + "x " + item.getNomeJogo());
+            partes.add(item.getQuantidade() + "x " + item.getNome());
         }
         return String.join(", ", partes);
     }

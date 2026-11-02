@@ -13,8 +13,8 @@ import javafx.scene.layout.VBox;
 import java.text.NumberFormat;
 import java.util.Locale;
 
-// Barra fixa no rodapé da loja e da tela de detalhes: só aparece com itens no carrinho
-// e mostra os jogos, a quantidade e o total, com o botão "Ir para o carrinho".
+// Barra fixa no rodapé das lojas (jogos e acessórios) e da tela de detalhes: só aparece com itens no carrinho
+// e mostra os produtos, a quantidade e o total, com o botão "Ir para o carrinho".
 public class BarraCarrinho extends HBox {
 
     private static final NumberFormat FORMATO_PRECO =
@@ -73,9 +73,9 @@ public class BarraCarrinho extends HBox {
             return;
         }
 
-        int jogos = Carrinho.getQuantidadeItens();
+        int produtos = Carrinho.getQuantidadeItens();
         int unidades = Carrinho.getQuantidadeUnidades();
-        lblTitulo.setText("SEU CARRINHO  •  " + jogos + (jogos == 1 ? " jogo" : " jogos")
+        lblTitulo.setText("SEU CARRINHO  •  " + produtos + (produtos == 1 ? " item" : " itens")
                 + "  •  " + unidades + (unidades == 1 ? " unidade" : " unidades"));
         lblResumo.setText(Carrinho.getResumoItens());
         lblTotal.setText(FORMATO_PRECO.format(Carrinho.getSubtotal()));

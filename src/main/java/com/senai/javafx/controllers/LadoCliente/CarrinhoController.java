@@ -1,10 +1,10 @@
 package com.senai.javafx.controllers.LadoCliente;
 
-import com.senai.javafx.controllers.LadoAdministrador.CadastroJogosController;
 import com.senai.javafx.entidades.Carrinho;
 import com.senai.javafx.entidades.GerenciamentoJanela;
 import com.senai.javafx.entidades.ItemCarrinho;
-import com.senai.javafx.entidades.Jogo;
+import com.senai.javafx.entidades.CatalogoProdutos;
+import com.senai.javafx.entidades.Produto;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -40,8 +40,8 @@ public class CarrinhoController {
 
     @FXML
     public void initialize() {
-        // O estoque pode ter mudado desde que o cliente adicionou o jogo
-        List<String> avisos = Carrinho.ajustarAoEstoque(CadastroJogosController.jogosSalvos::contains);
+        // O estoque pode ter mudado desde que o cliente adicionou o produto
+        List<String> avisos = Carrinho.ajustarAoEstoque(CatalogoProdutos::existe);
 
         montarLista();
 
@@ -69,26 +69,30 @@ public class CarrinhoController {
     }
 
     private HBox criarLinha(ItemCarrinho item) {
-        Jogo jogo = item.getJogo();
+        Produto produto = item.getProduto();
 
-        Label lblNome = new Label(jogo.getNomeJogo());
+        Label lblNome = new Label(produto.getNome());
         lblNome.getStyleClass().add("subtitulo");
 
-        Label lblConsole = new Label(jogo.getConsoleJogo() != null ? jogo.getConsoleJogo() : "");
+        // Jogo: plataformas • Console/Controle/PC: tipo e detalhes
+        String linhaApoio = "Jogo".equals(produto.getTipo())
+                ? produto.getDescricao()
+                : produto.getTipo() + " • " + produto.getDescricao();
+        Label lblConsole = new Label(linhaApoio);
         lblConsole.getStyleClass().add("texto-mutado");
 
         VBox info = new VBox(3, lblNome, lblConsole);
         info.setMinWidth(0);
         HBox.setHgrow(info, Priority.ALWAYS);
 
-        Label lblUnitario = new Label(FORMATO_PRECO.format(jogo.getPrecoJogo()) + " cada");
+        Label lblUnitario = new Label(FORMATO_PRECO.format(produto.getPreco()) + " cada");
         lblUnitario.getStyleClass().add("texto-mutado");
         lblUnitario.setMinWidth(110);
 
         // A quantidade máxima é o estoque disponível
         Spinner<Integer> spnQuantidade = new Spinner<>();
         spnQuantidade.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(
-                1, Math.max(1, jogo.getEstoqueJogo()), item.getQuantidade()));
+                1, Math.max(1, produto.getEstoque()), item.getQuantidade()));
         spnQuantidade.getStyleClass().add("spinner-custom");
         spnQuantidade.setPrefWidth(90);
 
@@ -120,10 +124,10 @@ public class CarrinhoController {
     }
 
     private void atualizarResumo() {
-        int jogos = Carrinho.getQuantidadeItens();
+        int produtos = Carrinho.getQuantidadeItens();
         int unidades = Carrinho.getQuantidadeUnidades();
 
-        lblContagem.setText(jogos + (jogos == 1 ? " jogo" : " jogos")
+        lblContagem.setText(produtos + (produtos == 1 ? " item" : " itens")
                 + "  •  " + unidades + (unidades == 1 ? " unidade" : " unidades"));
         lblTotal.setText(FORMATO_PRECO.format(Carrinho.getSubtotal()));
         btnPagamento.setDisable(Carrinho.isVazio());

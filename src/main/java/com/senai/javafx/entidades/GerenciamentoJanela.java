@@ -98,6 +98,10 @@ public class GerenciamentoJanela extends Application {
         } catch (IOException e) {
             System.err.println("Erro ao carregar a tela: " + fxmlPath);
             e.printStackTrace();
+            // Sem isso o botão que abriu a tela parecia "morto"; só avisa se a janela já está aberta
+            if (primaryStage != null && primaryStage.isShowing()) {
+                exibirAlerta("Erro", "Não foi possível abrir a tela.\n" + e.getMessage(), TipoAlerta.ERRO);
+            }
         }
     }
 
@@ -106,9 +110,11 @@ public class GerenciamentoJanela extends Application {
     }
     // Tela que fica guardada enquanto o usuário vê os detalhes de um jogo
     private static Parent telaGuardada;
+    private static String tituloGuardado; // título da janela daquela tela (loja de jogos x loja de acessórios)
 
     public static void guardarTela(Parent root) {
         telaGuardada = root;
+        tituloGuardado = primaryStage != null ? primaryStage.getTitle() : null;
     }
 
     public static boolean temTelaGuardada() {
@@ -121,8 +127,9 @@ public class GerenciamentoJanela extends Application {
             return false;
         }
         primaryStage.getScene().setRoot(telaGuardada);
-        primaryStage.setTitle(titulo);
+        primaryStage.setTitle(tituloGuardado != null ? tituloGuardado : titulo);
         telaGuardada = null;
+        tituloGuardado = null;
         return true;
     }
     /**
@@ -221,4 +228,4 @@ public class GerenciamentoJanela extends Application {
 
         modalStage.showAndWait();
     }
-}
+}

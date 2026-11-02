@@ -28,8 +28,10 @@
             <!-- Ações principais do sistema -->
             <Button maxWidth="Infinity" mnemonicParsing="false" onAction="#cadastroCategoria" prefHeight="40.0" styleClass="botao-secundario" text="Cadastrar categorias" />
             <Button maxWidth="Infinity" mnemonicParsing="false" onAction="#cadastroJogos" prefHeight="40.0" styleClass="botao-secundario" text="Cadastrar jogos" />
+            <Button maxWidth="Infinity" mnemonicParsing="false" onAction="#cadastroAcessorios" prefHeight="40.0" styleClass="botao-secundario" text="Cadastrar acessórios" />
             <Button fx:id="btnConsultarClientes" maxWidth="Infinity" mnemonicParsing="false" onAction="#consultarClientes" prefHeight="40.0" styleClass="botao-secundario" text="Consultar clientes" />
             <Button maxWidth="Infinity" mnemonicParsing="false" onAction="#consultarJogos" prefHeight="40.0" styleClass="botao-secundario" text="Consultar jogos" />
+            <Button maxWidth="Infinity" mnemonicParsing="false" onAction="#consultarAcessorios" prefHeight="40.0" styleClass="botao-secundario" text="Consultar acessórios" />
             <Button maxWidth="Infinity" mnemonicParsing="false" onAction="#historicoCompras" prefHeight="40.0" styleClass="botao-secundario" text="Histórico de compras" />
             <Button maxWidth="Infinity" mnemonicParsing="false" onAction="#voltarPaginaInicial" prefHeight="40.0" styleClass="botao-primario" text="Voltar a loja" />
          </children>

@@ -46,7 +46,7 @@ public final class RegistroCompras {
      */
     public static Compra finalizarPagamento(String nomeCliente, FormaPagamento forma, String cpf,
                                             String nomeTitular, String senhaCartao,
-                                            Predicate<Jogo> aindaExiste) {
+                                            Predicate<Produto> aindaExiste) {
         if (Carrinho.isVazio()) {
             throw new IllegalStateException("O carrinho está vazio.");
         }
@@ -77,21 +77,21 @@ public final class RegistroCompras {
         // Confere tudo ANTES de mexer no estoque, para não deixar a compra pela metade
         List<ItemCarrinho> itensCarrinho = Carrinho.getItens();
         for (ItemCarrinho item : itensCarrinho) {
-            Jogo jogo = item.getJogo();
-            if (!aindaExiste.test(jogo)) {
-                throw new IllegalStateException("\"" + jogo.getNomeJogo() + "\" não está mais no catálogo.");
+            Produto produto = item.getProduto();
+            if (!aindaExiste.test(produto)) {
+                throw new IllegalStateException("\"" + produto.getNome() + "\" não está mais no catálogo.");
             }
-            if (item.getQuantidade() > jogo.getEstoqueJogo()) {
-                throw new IllegalStateException("Estoque insuficiente de \"" + jogo.getNomeJogo()
-                        + "\" (disponível: " + jogo.getEstoqueJogo() + ").");
+            if (item.getQuantidade() > produto.getEstoque()) {
+                throw new IllegalStateException("Estoque insuficiente de \"" + produto.getNome()
+                        + "\" (disponível: " + produto.getEstoque() + ").");
             }
         }
 
         List<ItemCompra> itensCompra = new ArrayList<>();
         for (ItemCarrinho item : itensCarrinho) {
-            Jogo jogo = item.getJogo();
-            jogo.setEstoqueJogo(jogo.getEstoqueJogo() - item.getQuantidade());
-            itensCompra.add(new ItemCompra(jogo, item.getQuantidade()));
+            Produto produto = item.getProduto();
+            produto.setEstoque(produto.getEstoque() - item.getQuantidade());
+            itensCompra.add(new ItemCompra(produto, item.getQuantidade()));
         }
 
         Compra compra = new Compra(proximoNumero++, nomeCliente, cpfRegistrado, itensCompra, forma);
@@ -100,7 +100,7 @@ public final class RegistroCompras {
         return compra;
     }
 
-    // Recusa todas as compras pendentes do cliente (os jogos voltam ao estoque). Devolve quantas foram.
+    // Recusa todas as compras pendentes do cliente (os produtos voltam ao estoque). Devolve quantas foram.
     public static int cancelarPendentesDoCliente(String nome) {
         List<Compra> doCliente = pendentesDoCliente(nome); // já é uma cópia: pode recusar enquanto percorre
         doCliente.forEach(RegistroCompras::recusar);
@@ -122,14 +122,14 @@ public final class RegistroCompras {
         historico.add(compra);
     }
 
-    // Admin recusa: os jogos voltam para o estoque
+    // Admin recusa: os produtos voltam para o estoque
     public static void recusar(Compra compra) {
         if (compra == null || !pendentes.remove(compra)) {
             return;
         }
         for (ItemCompra item : compra.getItens()) {
-            Jogo jogo = item.getJogo();
-            jogo.setEstoqueJogo(jogo.getEstoqueJogo() + item.getQuantidade());
+            Produto produto = item.getProduto();
+            produto.setEstoque(produto.getEstoque() + item.getQuantidade());
         }
         compra.setStatus(Compra.Status.RECUSADA);
     }

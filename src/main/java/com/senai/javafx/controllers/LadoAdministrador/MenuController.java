@@ -44,6 +44,16 @@ public class MenuController {
     }
 
     @FXML
+    private void cadastroAcessorios(ActionEvent event) {
+        GerenciamentoJanela.abrirJanela("/com/senai/javafx/cadastroAcessorios.fxml", "Cadastrar Acessório");
+    }
+
+    @FXML
+    private void consultarAcessorios(ActionEvent event) {
+        GerenciamentoJanela.abrirJanela("/com/senai/javafx/consultarAcessorios.fxml", "Consultar Acessórios");
+    }
+
+    @FXML
     private void cadastroCategoria(ActionEvent event) {
         GerenciamentoJanela.abrirJanela("/com/senai/javafx/cadastroCategoria.fxml", "Cadastrar Categoria");
     }

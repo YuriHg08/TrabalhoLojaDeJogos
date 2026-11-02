@@ -9,6 +9,7 @@ import javafx.beans.InvalidationListener;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ListChangeListener;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
@@ -55,6 +56,9 @@ public class CatalogoJogosController {
     @FXML
     private Label lblCategoriaAtual;
 
+    @FXML
+    private Button btnLojaAcessorios;
+
     // Cards já montados: ao filtrar, só reaproveitamos os que já existem
     private final Map<Jogo, VBox> cacheCards = new HashMap<>();
 
@@ -69,6 +73,11 @@ public class CatalogoJogosController {
 
     @FXML
     public void initialize() {
+
+        // A Loja de Acessórios é só para o cliente; o administrador gerencia os jogos
+        boolean admin = Sessao.isAdmin();
+        btnLojaAcessorios.setVisible(!admin);
+        btnLojaAcessorios.setManaged(!admin);
 
         ligarListeners();
 
@@ -165,7 +174,7 @@ public class CatalogoJogosController {
     }
 
     // Carrega a capa uma única vez, em segundo plano, com tamanho limitado
-    private static Image obterCapa(String caminho) {
+    public static Image obterCapa(String caminho) {
         try {
             return CACHE_IMAGENS.computeIfAbsent(caminho,
                     c -> new Image(c, LIMITE_CAPA, LIMITE_CAPA, true, true, true));
@@ -184,7 +193,7 @@ public class CatalogoJogosController {
     }
 
     // Coloca a capa no card assim que ela estiver pronta (sem travar a tela)
-    private void aplicarCapa(Image imagem, StackPane imgHolder) {
+    public static void aplicarCapa(Image imagem, StackPane imgHolder) {
 
         if (imagem.getProgress() >= 1.0) {
             montarCapa(imagem, imgHolder);
@@ -202,7 +211,7 @@ public class CatalogoJogosController {
         });
     }
 
-    private void montarCapa(Image imagem, StackPane imgHolder) {
+    public static void montarCapa(Image imagem, StackPane imgHolder) {
 
         if (imagem.isError() || imagem.getWidth() <= 0 || imagem.getHeight() <= 0) {
             return;
@@ -367,32 +376,12 @@ public class CatalogoJogosController {
     }
 
     private void abrirDetalhesJogo(Node node, Jogo jogo) {
-        try {
-            FXMLLoader loader = new FXMLLoader(
-                    getClass().getResource("/com/senai/javafx/detalhesJogos.fxml")
-            );
-            Parent root = loader.load();
-
-            // Passa o objeto Jogo completo para a nova tela
-            DetalhesJogosController controller = loader.getController();
-            controller.setJogo(jogo);
-
-            Scene scene = ((Stage) node.getScene().getWindow()).getScene();
-
-            // Só adiciona o CSS se ainda não estiver na cena
-            String css = getClass().getResource("/com/senai/javafx/styleMenu.css").toExternalForm();
-            if (!scene.getStylesheets().contains(css)) {
-                scene.getStylesheets().add(css);
-            }
-            GerenciamentoJanela.guardarTela(scene.getRoot());
-            scene.setRoot(root);
-
-        } catch (Exception e) {
-            // Antes o erro só aparecia no console e o botão parecia "morto"; agora o cliente é avisado
-            e.printStackTrace();
-            GerenciamentoJanela.exibirAlerta("Erro",
-                    "Não foi possível abrir os detalhes de \"" + jogo.getNomeJogo() + "\".\n" + e,
-                    GerenciamentoJanela.TipoAlerta.ERRO);
-        }
+        DetalhesJogosController.abrir(node, jogo);
     }
-}
+
+    // Botão do canto superior direito: abre a Loja de Acessórios (consoles, PCs e controles)
+    @FXML
+    private void abrirLojaAcessorios(ActionEvent event) {
+        GerenciamentoJanela.abrirJanela("/com/senai/javafx/lojaAcessorios.fxml", "Nexus Store - Acessórios");
+    }
+}

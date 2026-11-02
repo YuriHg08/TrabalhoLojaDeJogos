@@ -41,12 +41,12 @@ public final class Carrinho {
         return itens.isEmpty();
     }
 
-    // Quantos jogos diferentes
+    // Quantos produtos diferentes (jogos, consoles, controles...)
     public static int getQuantidadeItens() {
         return itens.size();
     }
 
-    // Soma das unidades de todos os jogos
+    // Soma das unidades de todos os produtos
     public static int getQuantidadeUnidades() {
         return itens.stream().mapToInt(ItemCarrinho::getQuantidade).sum();
     }
@@ -55,21 +55,21 @@ public final class Carrinho {
         return FormaPagamento.arredondar(itens.stream().mapToDouble(ItemCarrinho::getSubtotal).sum());
     }
 
-    public static int quantidadeDoJogo(Jogo jogo) {
-        ItemCarrinho item = buscar(jogo);
+    public static int quantidadeDoProduto(Produto produto) {
+        ItemCarrinho item = buscar(produto);
         return item == null ? 0 : item.getQuantidade();
     }
 
     // Quantas unidades ainda podem ser colocadas no carrinho (estoque - o que já está nele)
-    public static int disponivelParaAdicionar(Jogo jogo) {
-        return Math.max(0, jogo.getEstoqueJogo() - quantidadeDoJogo(jogo));
+    public static int disponivelParaAdicionar(Produto produto) {
+        return Math.max(0, produto.getEstoque() - quantidadeDoProduto(produto));
     }
 
     // Ex.: "2x Elden Ring, 1x GTA VI"
     public static String getResumoItens() {
         List<String> partes = new ArrayList<>();
         for (ItemCarrinho item : itens) {
-            partes.add(item.getQuantidade() + "x " + item.getJogo().getNomeJogo());
+            partes.add(item.getQuantidade() + "x " + item.getProduto().getNome());
         }
         return String.join(", ", partes);
     }
@@ -77,13 +77,13 @@ public final class Carrinho {
     // --- ALTERAÇÕES ---
 
     // Devolve false (e não altera nada) se passar do estoque
-    public static boolean adicionar(Jogo jogo, int quantidade) {
-        if (quantidade < 1 || quantidade > disponivelParaAdicionar(jogo)) {
+    public static boolean adicionar(Produto produto, int quantidade) {
+        if (quantidade < 1 || quantidade > disponivelParaAdicionar(produto)) {
             return false;
         }
-        ItemCarrinho item = buscar(jogo);
+        ItemCarrinho item = buscar(produto);
         if (item == null) {
-            itens.add(new ItemCarrinho(jogo, quantidade));
+            itens.add(new ItemCarrinho(produto, quantidade));
         } else {
             item.setQuantidade(item.getQuantidade() + quantidade);
         }
@@ -96,7 +96,7 @@ public final class Carrinho {
         if (quantidade < 1) {
             itens.remove(item);
         } else {
-            item.setQuantidade(Math.min(quantidade, Math.max(1, item.getJogo().getEstoqueJogo())));
+            item.setQuantidade(Math.min(quantidade, Math.max(1, item.getProduto().getEstoque())));
         }
         avisar();
     }
@@ -116,20 +116,20 @@ public final class Carrinho {
 
     // Corrige o carrinho se o estoque mudou ou o jogo saiu do catálogo.
     // Devolve as mensagens do que foi mudado (lista vazia = nada mudou).
-    public static List<String> ajustarAoEstoque(Predicate<Jogo> aindaExiste) {
+    public static List<String> ajustarAoEstoque(Predicate<Produto> aindaExiste) {
         List<String> avisos = new ArrayList<>();
         for (ItemCarrinho item : new ArrayList<>(itens)) {
-            Jogo jogo = item.getJogo();
-            int estoque = jogo.getEstoqueJogo();
-            if (!aindaExiste.test(jogo)) {
+            Produto produto = item.getProduto();
+            int estoque = produto.getEstoque();
+            if (!aindaExiste.test(produto)) {
                 itens.remove(item);
-                avisos.add("\"" + jogo.getNomeJogo() + "\" saiu do catálogo e foi removido do carrinho.");
+                avisos.add("\"" + produto.getNome() + "\" saiu do catálogo e foi removido do carrinho.");
             } else if (estoque <= 0) {
                 itens.remove(item);
-                avisos.add("\"" + jogo.getNomeJogo() + "\" esgotou e foi removido do carrinho.");
+                avisos.add("\"" + produto.getNome() + "\" esgotou e foi removido do carrinho.");
             } else if (item.getQuantidade() > estoque) {
                 item.setQuantidade(estoque);
-                avisos.add("\"" + jogo.getNomeJogo() + "\": só restam " + estoque
+                avisos.add("\"" + produto.getNome() + "\": só restam " + estoque
                         + " unidade(s); a quantidade foi ajustada.");
             }
         }
@@ -139,9 +139,9 @@ public final class Carrinho {
         return avisos;
     }
 
-    private static ItemCarrinho buscar(Jogo jogo) {
+    private static ItemCarrinho buscar(Produto produto) {
         for (ItemCarrinho item : itens) {
-            if (item.getJogo() == jogo) {
+            if (item.getProduto() == produto) {
                 return item;
             }
         }

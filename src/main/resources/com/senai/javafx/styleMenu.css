@@ -712,3 +712,55 @@
     -fx-font-size: 11px;
     -fx-padding: 6px 10px;
 }
+
+
+/* ==========================================================================
+   LOJA DE ACESSÓRIOS (consoles, PCs e controles)
+   ========================================================================== */
+
+/* Botão "← Loja de jogos" no topo da sidebar da loja de acessórios */
+.botao-voltar-loja {
+    -fx-font-size: 12px;
+    -fx-padding: 8px 12px;
+}
+
+
+/* Banner da Loja de Acessórios (logo em roxo + "LOJA DE JOGOS") */
+.banner-loja {
+    -fx-background-color: radial-gradient(center 50% 40%, radius 70%, rgba(124, 58, 237, 0.28), rgba(23, 29, 42, 0.0)),
+                          -cor-superficie;
+    -fx-background-radius: 12px;
+    -fx-border-color: rgba(167, 139, 250, 0.35);
+    -fx-border-radius: 12px;
+    -fx-border-width: 1px;
+}
+
+.banner-logo-corpo {
+    -fx-fill: linear-gradient(to bottom, #8b5cf6, #4c1d95);
+    -fx-stroke: #c4b5fd;
+    -fx-stroke-width: 1.2;
+    -fx-effect: dropshadow(three-pass-box, rgba(139, 92, 246, 0.65), 14, 0.2, 0, 0);
+}
+
+.banner-logo-direcional {
+    -fx-fill: white;
+}
+
+.banner-logo-onda {
+    -fx-stroke: linear-gradient(to bottom, #e879f9, #7c3aed);
+    -fx-stroke-width: 3;
+}
+
+.banner-loja-titulo {
+    -fx-font-size: 52px;
+    -fx-font-weight: 900;
+    -fx-font-style: italic;
+    -fx-fill: linear-gradient(to right, #ddd6fe 0%, #a78bfa 40%, #7c3aed 100%);
+    -fx-effect: dropshadow(three-pass-box, rgba(124, 58, 237, 0.55), 12, 0.1, 0, 0);
+}
+
+.banner-loja-slogan {
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #a78bfa;
+}

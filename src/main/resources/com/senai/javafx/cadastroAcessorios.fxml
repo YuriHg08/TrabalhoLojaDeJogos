@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane prefHeight="700.0" prefWidth="1000.0" stylesheets="@styleMenu.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.senai.javafx.controllers.LadoAdministrador.CadastroAcessoriosController">
+    <left>
+        <fx:include source="sideBar.fxml" />
+    </left>
+
+    <center>
+        <StackPane style="-fx-background-color: -cor-fundo;">
+            <padding>
+                <Insets bottom="24.0" left="24.0" right="24.0" top="24.0" />
+            </padding>
+            <children>
+                <VBox maxWidth="520.0" spacing="14.0" styleClass="painel-principal">
+                    <children>
+                        <Label styleClass="titulo-tela" text="Cadastrar um acessório" />
+
+                        <TextField fx:id="txtNomeAcessorio" prefHeight="38.0" promptText="Nome (Ex: PlayStation 5 Slim)" styleClass="campo-texto" />
+                        <TextField fx:id="txtPrecoAcessorio" prefHeight="38.0" promptText="Preço (Ex: 599.90)" styleClass="campo-texto" />
+                        <TextField fx:id="txtEstoqueAcessorio" prefHeight="38.0" promptText="Estoque (Ex: 5)" styleClass="campo-texto" />
+
+                        <ComboBox fx:id="cmbTipo" maxWidth="Infinity" prefHeight="38.0" promptText="Tipo (console, PC ou controle)" />
+                        <ComboBox fx:id="cmbPlataforma" maxWidth="Infinity" prefHeight="38.0" promptText="Plataforma" />
+
+                        <TextField fx:id="txtDetalheAcessorio" prefHeight="38.0" promptText="Detalhes (opcional, Ex: 1 TB • com leitor de disco)" styleClass="campo-texto" />
+
+                        <HBox alignment="CENTER_LEFT" spacing="16.0">
+                            <children>
+                                <Pane prefHeight="110.0" prefWidth="110.0" styleClass="imagem-placeholder">
+                                    <children>
+                                        <ImageView fx:id="imgPreview" fitHeight="110.0" fitWidth="110.0" pickOnBounds="true" preserveRatio="true" />
+                                    </children>
+                                </Pane>
+                                <Button maxWidth="Infinity" mnemonicParsing="false" onAction="#selecionarImagem" prefHeight="40.0" styleClass="botao-secundario" text="Escolher Foto..." HBox.hgrow="ALWAYS" />
+                            </children>
+                        </HBox>
+
+                        <Label fx:id="respostaAcessorio" alignment="CENTER" maxWidth="Infinity" prefHeight="24.0" styleClass="subtitulo" />
+
+                        <Button maxWidth="Infinity" mnemonicParsing="false" onAction="#cadastrarAcessorio" prefHeight="42.0" styleClass="botao-primario" text="Cadastrar" />
+                    </children>
+                </VBox>
+            </children>
+        </StackPane>
+    </center>
+</BorderPane>
