@@ -81,7 +81,7 @@ public final class CatalogoAcessorios {
 
     // Devolve null se o arquivo não existir (o card mostra o texto "FOTO" no lugar)
     private static String caminhoImagem(String arquivo) {
-        URL url = CatalogoAcessorios.class.getResource("/com/senai/javafx/imagens/acessorios/" + arquivo);
+        URL url = CatalogoAcessorios.class.getResource("/com/senai/javafx/imagens/consoles_e_acessorios/" + arquivo);
         return url != null ? url.toExternalForm() : null;
     }
 }

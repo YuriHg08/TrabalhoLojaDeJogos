@@ -1,15 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Spinner?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
 
-<BorderPane prefHeight="700.0" prefWidth="1200.0" styleClass="root" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.senai.javafx.controllers.LadoCliente.DetalhesJogosController">
+<BorderPane prefHeight="700.0" prefWidth="1200.0" styleClass="root" stylesheets="@styleMenu.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.senai.javafx.controllers.LadoCliente.DetalhesJogosController">
     <center>
     <StackPane alignment="CENTER">
     <children>
-        <VBox alignment="TOP_CENTER" maxWidth="700.0" spacing="20.0" styleClass="card">
+        <VBox alignment="TOP_CENTER" maxWidth="700.0" prefHeight="700.0" prefWidth="634.0" spacing="20.0" styleClass="card">
             <padding>
                 <Insets bottom="30.0" left="40.0" right="40.0" top="25.0" />
             </padding>
@@ -18,7 +24,7 @@
                 <!-- Botão Voltar -->
                 <HBox alignment="CENTER_LEFT">
                     <children>
-                        <Button fx:id="btnVoltar" mnemonicParsing="false" onAction="#handleVoltar" styleClass="button, botao-secundario" text="← VOLTAR A EXPLORAR" />
+                        <Button fx:id="btnVoltar" mnemonicParsing="false" onAction="#handleVoltar" prefWidth="166.0" styleClass="button, botao-secundario" text="Voltar ao Início" />
                     </children>
                 </HBox>
 
@@ -28,30 +34,28 @@
                 <!-- Area da Imagem com Moldura Neon -->
                 <StackPane maxWidth="400.0" minHeight="260.0" prefHeight="280.0" styleClass="imagem-placeholder">
                     <children>
-                        <ImageView fx:id="imgJogo" fitHeight="270.0" fitWidth="390.0" preserveRatio="true" />
+                        <ImageView fx:id="imgJogo" fitHeight="270.0" fitWidth="379.0" preserveRatio="true" />
                     </children>
                 </StackPane>
 
                 <!-- Badge Dinâmica: CATEGORIA | CONSOLE -->
-                <HBox alignment="CENTER" maxWidth="380.0" style="-fx-background-color: -cor-superficie-alt; -fx-background-radius: 20px; -fx-padding: 8px 16px; -fx-border-color: -cor-borda; -fx-border-radius: 20px;">
+                <HBox alignment="CENTER" maxWidth="380.0" prefHeight="14.0" prefWidth="380.0" style="-fx-background-color: -cor-superficie-alt; -fx-background-radius: 8; -fx-padding: 8px 16px; -fx-border-color: -cor-borda; -fx-border-radius: 8px;">
                     <children>
                         <Label fx:id="lblInfoExtra" style="-fx-font-size: 13px; -fx-text-fill: -cor-texto-secundario;" styleClass="label-campo" text="" />
                     </children>
                 </HBox>
-
-                <!-- Seletor de Quantidade -->
-                <HBox alignment="CENTER" maxWidth="400.0" prefHeight="48.0" spacing="15.0" styleClass="capsula-quantidade">
-                    <children>
-                        <Label styleClass="label-quantidade" text="QUANTIDADE:" />
-                        <Spinner fx:id="spnQuantidade" prefWidth="100.0" styleClass="spinner-custom" />
-                    </children>
-                </HBox>
+                  <AnchorPane>
+                     <children>
+                        <Label layoutX="226.0" layoutY="10.0" styleClass="texto-ajuda" stylesheets="@styleMenu.css" text="Quantidade" textFill="WHITE" />
+                        <Spinner fx:id="spnQuantidade" layoutX="218.0" layoutY="32.0" prefHeight="40.0" prefWidth="215.0" styleClass="spinner-custom" />
+                     </children>
+                  </AnchorPane>
 
                 <!-- Estoque disponível -->
                 <Label fx:id="lblEstoque" style="-fx-font-size: 13px; -fx-font-weight: bold;" text="" />
 
                 <!-- Botão Dinâmico: COMPRAR R$ XXX,XX -->
-                <Button fx:id="btnComprar" maxWidth="400.0" mnemonicParsing="false" onAction="#handleComprar" style="-fx-font-size: 16px; -fx-pref-height: 48px; -fx-background-radius: 24px;" styleClass="button, botao-primario" stylesheets="@styleMenu.css" text="COMPRAR" />
+                <Button fx:id="btnComprar" maxWidth="400.0" mnemonicParsing="false" onAction="#handleComprar" prefWidth="721.0" style="-fx-font-size: 16px; -fx-pref-height: 48px; -fx-background-radius: 10px;" styleClass="button, botao-primario" stylesheets="@styleMenu.css" text="Comprar" />
 
             </children>
         </VBox>
