@@ -120,7 +120,7 @@ public class ConsultarClienteController {
 
     // Pede confirmação, remove a conta e cancela as compras que o cliente ainda tinha em análise
     private void expulsar(Usuario cliente) {
-        int pendentes = RegistroCompras.pendentesDoCliente(cliente.getNome()).size();
+        int pendentes = RegistroCompras.pendentesDoCliente(cliente.getId()).size();
 
         String mensagem = "Expulsar o cliente \"" + cliente.getNome() + "\"? A conta será removida e ele não poderá mais entrar.";
         if (pendentes > 0) {
@@ -132,7 +132,7 @@ public class ConsultarClienteController {
         }
 
         UsuarioCadastro.remover(cliente.getNome());
-        RegistroCompras.cancelarPendentesDoCliente(cliente.getNome());
+        RegistroCompras.cancelarPendentesDoCliente(cliente.getId());
 
         tabela.getItems().remove(cliente);
         atualizarTotal();

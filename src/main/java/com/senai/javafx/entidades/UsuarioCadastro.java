@@ -13,6 +13,17 @@ public class UsuarioCadastro {
         return usuarios.stream().anyMatch(u -> u.getNome().equalsIgnoreCase(nome));
     }
 
+    public static final int SEM_CONTA = -1;
+
+    // Id da conta com esse nome (SEM_CONTA se não existir)
+    public static int buscarId(String nome) {
+        return usuarios.stream()
+                .filter(u -> u.getNome().equalsIgnoreCase(nome))
+                .mapToInt(Usuario::getId)
+                .findFirst()
+                .orElse(SEM_CONTA);
+    }
+
     public static boolean cadastrar(String nome, String senha) {
         if (existe(nome)) return false;
         usuarios.add(new Usuario(nome, senha));

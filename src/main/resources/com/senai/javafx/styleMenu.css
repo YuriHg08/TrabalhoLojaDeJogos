@@ -268,6 +268,21 @@
     -fx-background-color: -cor-perigo-hover;
 }
 
+/* Letra sempre branca e em negrito (inclusive dentro de tabelas, linha selecionada e hover) */
+.botao-perigo,
+.botao-perigo:hover,
+.botao-perigo:focused,
+.botao-perigo:pressed,
+.table-row-cell .botao-perigo,
+.table-row-cell:selected .botao-perigo {
+    -fx-text-fill: #ffffff;
+    -fx-font-weight: bold;
+}
+
+.botao-perigo .text {
+    -fx-fill: #ffffff;
+}
+
 /* Botão "Sem estoque": vermelho, mantém a cor mesmo desabilitado */
 .botao-sem-estoque,
 .botao-sem-estoque:disabled {
@@ -770,6 +785,22 @@
     -fx-border-width: 1px 0 0 0;
     -fx-padding: 10px 0 0 0;
 }
+
+/* Status da compra (tabela do histórico e nota) */
+.status-aprovada { -fx-text-fill: #00ff88; -fx-font-weight: bold; }
+.status-pendente { -fx-text-fill: #ffc700; -fx-font-weight: bold; }
+.status-recusada { -fx-text-fill: #e53935; -fx-font-weight: bold; }
+
+.nota-status {
+    -fx-padding: 8px 12px;
+    -fx-background-radius: 6px;
+    -fx-border-radius: 6px;
+    -fx-border-width: 1px;
+    -fx-background-color: rgba(255, 255, 255, 0.04);
+}
+.nota-status.status-aprovada { -fx-border-color: #00ff88; }
+.nota-status.status-pendente { -fx-border-color: #ffc700; }
+.nota-status.status-recusada { -fx-border-color: #e53935; }
 
 /* Botão "Sem estoque" menor dentro dos cards da loja (não encosta no preço) */
 .card-jogo .botao-sem-estoque {

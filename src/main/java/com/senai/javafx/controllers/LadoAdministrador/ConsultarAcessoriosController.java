@@ -5,12 +5,10 @@ import com.senai.javafx.entidades.CatalogoAcessorios;
 import com.senai.javafx.entidades.GerenciamentoJanela;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
@@ -22,7 +20,8 @@ import javafx.scene.layout.HBox;
 import java.text.NumberFormat;
 import java.util.Locale;
 
-// Lista os acessórios cadastrados; o administrador edita nome, preço e estoque por aqui
+// Lista os acessórios cadastrados (só consulta). A edição é feita pelo admin na própria loja,
+// clicando no acessório, como acontece com os jogos.
 public class ConsultarAcessoriosController {
 
     private static final NumberFormat FORMATO_PRECO =
@@ -40,8 +39,6 @@ public class ConsultarAcessoriosController {
     private TableColumn<Acessorio, String> colPlataforma;
     @FXML
     private TableColumn<Acessorio, Double> colPreco;
-    @FXML
-    private TableColumn<Acessorio, Acessorio> colAcoes;
 
     @FXML
     private void initialize() {
@@ -52,7 +49,6 @@ public class ConsultarAcessoriosController {
         colNome.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getNome()));
         colTipo.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getTipo()));
         colPlataforma.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getPlataforma()));
-        colAcoes.setCellValueFactory(c -> new SimpleObjectProperty<>(c.getValue()));
 
         colPreco.setCellFactory(coluna -> new TableCell<>() {
             @Override
@@ -63,25 +59,8 @@ public class ConsultarAcessoriosController {
         });
 
         adicionarImagemETextoNaColuna(colNome);
-        adicionarBotaoEditar(colAcoes);
-
-        // Duplo clique na linha também abre a edição
-        tabelaAcessorios.setRowFactory(tv -> {
-            javafx.scene.control.TableRow<Acessorio> linha = new javafx.scene.control.TableRow<>();
-            linha.setOnMouseClicked(e -> {
-                if (e.getClickCount() == 2 && !linha.isEmpty()) {
-                    abrirEdicao(linha.getItem());
-                }
-            });
-            return linha;
-        });
 
         tabelaAcessorios.setItems(CatalogoAcessorios.TODOS);
-    }
-
-    private void abrirEdicao(Acessorio acessorio) {
-        EditarAcessorioController.abrir(acessorio, tabelaAcessorios.getScene().getWindow());
-        tabelaAcessorios.refresh();
     }
 
     // Miniatura ao lado do nome, como na tabela de jogos
@@ -112,28 +91,6 @@ public class ConsultarAcessoriosController {
                 imageView.setImage(caminho != null && !caminho.isBlank() ? new Image(caminho, 64, 64, true, true, true) : null);
                 label.setText(item);
                 setGraphic(container);
-            }
-        });
-    }
-
-    private void adicionarBotaoEditar(TableColumn<Acessorio, Acessorio> coluna) {
-        coluna.setCellFactory(param -> new TableCell<>() {
-            private final Button botao = new Button("Editar");
-
-            {
-                botao.getStyleClass().addAll("button", "botao-primario");
-                setAlignment(Pos.CENTER);
-            }
-
-            @Override
-            protected void updateItem(Acessorio acessorio, boolean empty) {
-                super.updateItem(acessorio, empty);
-                if (empty || acessorio == null) {
-                    setGraphic(null);
-                    return;
-                }
-                botao.setOnAction(e -> abrirEdicao(acessorio));
-                setGraphic(botao);
             }
         });
     }

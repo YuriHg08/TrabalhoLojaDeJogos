@@ -28,6 +28,7 @@
                         <TableColumn fx:id="colItens" prefWidth="240.0" text="Itens" />
                         <TableColumn fx:id="colQuantidade" maxWidth="90.0" minWidth="60.0" prefWidth="70.0" text="Qtd." />
                         <TableColumn fx:id="colPagamento" prefWidth="100.0" text="Pagamento" />
+                        <TableColumn fx:id="colStatus" prefWidth="110.0" text="Status" />
                         <TableColumn fx:id="colTotal" prefWidth="110.0" text="Valor total" />
                         <TableColumn fx:id="colNotaDetalhe" minWidth="110.0" prefWidth="120.0" text="Nota" />
                     </columns>

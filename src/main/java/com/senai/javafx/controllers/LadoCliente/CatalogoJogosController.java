@@ -56,9 +56,6 @@ public class CatalogoJogosController {
     @FXML
     private Label lblCategoriaAtual;
 
-    @FXML
-    private Button btnLojaAcessorios;
-
     // Cards já montados: ao filtrar, só reaproveitamos os que já existem
     private final Map<Jogo, VBox> cacheCards = new HashMap<>();
 
@@ -73,11 +70,6 @@ public class CatalogoJogosController {
 
     @FXML
     public void initialize() {
-
-        // A Loja de Acessórios é só para o cliente; o administrador gerencia os jogos
-        boolean admin = Sessao.isAdmin();
-        btnLojaAcessorios.setVisible(!admin);
-        btnLojaAcessorios.setManaged(!admin);
 
         ligarListeners();
 
@@ -379,9 +371,4 @@ public class CatalogoJogosController {
         DetalhesJogosController.abrir(node, jogo);
     }
 
-    // Botão do canto superior direito: abre a Loja de Acessórios (consoles, PCs e controles)
-    @FXML
-    private void abrirLojaAcessorios(ActionEvent event) {
-        GerenciamentoJanela.abrirJanela("/com/senai/javafx/lojaAcessorios.fxml", "Nexus Store - Acessórios");
-    }
 }

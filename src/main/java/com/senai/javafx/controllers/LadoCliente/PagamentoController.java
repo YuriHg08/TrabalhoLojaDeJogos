@@ -165,7 +165,7 @@ public class PagamentoController {
 
         try {
             Compra compra = RegistroCompras.finalizarPagamento(
-                    Sessao.getUsuarioLogado(), forma, txtCpf.getText(),
+                    Sessao.getIdUsuarioLogado(), Sessao.getUsuarioLogado(), forma, txtCpf.getText(),
                     txtNomeCartao.getText(), txtSenhaCartao.getText(),
                     CatalogoProdutos::existe);
 

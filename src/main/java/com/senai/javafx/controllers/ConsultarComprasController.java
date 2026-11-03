@@ -2,7 +2,9 @@ package com.senai.javafx.controllers;
 
 import com.senai.javafx.entidades.Compra;
 import com.senai.javafx.entidades.ItemCompra;
+import com.senai.javafx.entidades.GerenciamentoJanela;
 import com.senai.javafx.entidades.RegistroCompras;
+import com.senai.javafx.entidades.Sessao;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
@@ -29,7 +31,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Locale;
 
-// Histórico de compras do administrador (compras que ele já permitiu)
+// Histórico de compras: o administrador vê todas as compras que já permitiu;
+// o cliente vê somente as da própria conta
 public class ConsultarComprasController {
 
     private static final NumberFormat FORMATO_PRECO =
@@ -40,7 +43,7 @@ public class ConsultarComprasController {
     private TableView<Compra> tabelaCompras;
     @FXML
     private TableColumn<Compra, String> colNota, colData, colCliente, colItens,
-            colQuantidade, colPagamento, colTotal;
+            colQuantidade, colPagamento, colStatus, colTotal;
     @FXML
     private TableColumn<Compra, Void> colNotaDetalhe;
     @FXML
@@ -49,13 +52,28 @@ public class ConsultarComprasController {
     @FXML
     private void initialize() {
         colNota.setCellValueFactory(c -> new SimpleStringProperty(numeroNota(c.getValue())));
-        colData.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getDataCompra().format(FORMATO_DATA)));
+        colData.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getDataExibicao().format(FORMATO_DATA)));
         colCliente.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getNomeCliente()));
         colItens.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getResumoItens()));
         colQuantidade.setCellValueFactory(c ->
                 new SimpleStringProperty(String.valueOf(c.getValue().getQuantidadeTotal())));
         colPagamento.setCellValueFactory(c ->
                 new SimpleStringProperty(c.getValue().getFormaPagamento().getRotulo()));
+        colStatus.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getRotuloStatus()));
+        colStatus.setCellFactory(coluna -> new TableCell<Compra, String>() {
+            @Override
+            protected void updateItem(String texto, boolean vazio) {
+                super.updateItem(texto, vazio);
+                getStyleClass().removeAll("status-aprovada", "status-pendente", "status-recusada");
+                Compra compra = vazio || getTableRow() == null ? null : getTableRow().getItem();
+                if (compra == null) {
+                    setText(null);
+                    return;
+                }
+                setText(texto);
+                getStyleClass().add(classeStatus(compra.getStatus()));
+            }
+        });
         colTotal.setCellValueFactory(c ->
                 new SimpleStringProperty(FORMATO_PRECO.format(c.getValue().getTotal())));
 
@@ -83,12 +101,55 @@ public class ConsultarComprasController {
         vazio.getStyleClass().add("texto-mutado");
         tabelaCompras.setPlaceholder(vazio);
 
-        List<Compra> compras = RegistroCompras.listarHistorico();
+        boolean admin = Sessao.isAdmin();
+
+        // Cliente: só as compras da conta logada (pelo id, não pelo nome)
+        // (o cliente também vê as em andamento e as recusadas; o admin só as aprovadas)
+        List<Compra> compras = admin
+                ? RegistroCompras.listarHistorico()
+                : RegistroCompras.notasDoCliente(Sessao.getIdUsuarioLogado());
         tabelaCompras.setItems(FXCollections.observableArrayList(compras));
 
-        double faturamento = compras.stream().mapToDouble(Compra::getTotal).sum();
+        // O cliente só vê as próprias compras, então a coluna "Cliente" não faz sentido para ele
+        colCliente.setVisible(admin);
+        // Para o admin só existem compras aprovadas, então o status só interessa ao cliente
+        colStatus.setVisible(!admin);
+
+        // Só conta o que foi aprovado: compra recusada ou em andamento não foi cobrada ainda
+        double total = compras.stream().filter(c -> c.getStatus() == Compra.Status.APROVADA)
+                .mapToDouble(Compra::getTotal).sum();
+        long emAndamento = compras.stream().filter(c -> c.getStatus() == Compra.Status.PENDENTE).count();
         lblResumo.setText(compras.size() + (compras.size() == 1 ? " compra" : " compras")
-                + "  •  Total vendido: " + FORMATO_PRECO.format(faturamento));
+                + (admin ? "  •  Total vendido: " : "  •  Total gasto: ") + FORMATO_PRECO.format(total)
+                + (!admin && emAndamento > 0 ? "  •  " + emAndamento + " em andamento" : ""));
+    }
+
+    // Botão "Voltar" da versão do cliente
+    @FXML
+    private void voltarLoja() {
+        GerenciamentoJanela.abrirJanela("/com/senai/javafx/telaInicial.fxml", "Nexus Store");
+    }
+
+    private static String classeStatus(Compra.Status status) {
+        return switch (status) {
+            case PENDENTE -> "status-pendente";
+            case APROVADA -> "status-aprovada";
+            case RECUSADA -> "status-recusada";
+        };
+    }
+
+    // Aviso colorido no topo da nota explicando o que o status significa para o cliente
+    private Label avisoStatus(Compra compra) {
+        String texto = switch (compra.getStatus()) {
+            case APROVADA -> "✔ Compra aprovada";
+            case PENDENTE -> "⏳ Em andamento: pagamento registrado, aguardando a loja aprovar a compra.";
+            case RECUSADA -> "✖ Compra recusada: o valor não foi cobrado e os itens voltaram para o estoque.";
+        };
+        Label aviso = new Label(texto);
+        aviso.setWrapText(true);
+        aviso.setMaxWidth(440);
+        aviso.getStyleClass().addAll("nota-status", classeStatus(compra.getStatus()));
+        return aviso;
     }
 
     private static String numeroNota(Compra compra) {
@@ -109,7 +170,9 @@ public class ConsultarComprasController {
         VBox cabecalho = new VBox(4,
                 linhaTexto("Cliente: ", compra.getNomeCliente()),
                 linhaTexto("CPF: ", compra.getCpf()),
-                linhaTexto("Data da compra: ", compra.getDataCompra().format(FORMATO_DATA)),
+                linhaTexto(compra.getStatus() == Compra.Status.APROVADA ? "Data da compra: " : "Data do pedido: ",
+                        compra.getDataExibicao().format(FORMATO_DATA)),
+                linhaTexto("Situação: ", compra.getRotuloStatus()),
                 linhaTexto("Forma de pagamento: ", compra.getFormaPagamento().getRotulo()));
 
         // Tabela de itens: nome | qtd | unitário | subtotal
@@ -150,7 +213,11 @@ public class ConsultarComprasController {
                                 : "Desconto " + compra.getFormaPagamento().getRotulo()
                                 + " (" + compra.getFormaPagamento().getPercentualDesconto() + "%)",
                         compra.getDesconto() == 0 ? "—" : "- " + FORMATO_PRECO.format(compra.getDesconto()), false),
-                linhaValor("TOTAL PAGO", FORMATO_PRECO.format(compra.getTotal()), true));
+                linhaValor(switch (compra.getStatus()) {
+                            case APROVADA -> "TOTAL PAGO";
+                            case PENDENTE -> "TOTAL A PAGAR (em análise)";
+                            case RECUSADA -> "TOTAL (não cobrado)";
+                        }, FORMATO_PRECO.format(compra.getTotal()), true));
         totais.getStyleClass().add("nota-linha-total");
 
         Label qtdTotal = new Label(compra.getQuantidadeTotal()
@@ -163,7 +230,7 @@ public class ConsultarComprasController {
         HBox rodape = new HBox(btnFechar);
         rodape.setAlignment(Pos.CENTER_RIGHT);
 
-        VBox layout = new VBox(14, titulo, cabecalho, itens, qtdTotal, totais, rodape);
+        VBox layout = new VBox(14, titulo, avisoStatus(compra), cabecalho, itens, qtdTotal, totais, rodape);
         layout.getStyleClass().add("nota-compra");
         layout.setPadding(new Insets(24));
         layout.setMinWidth(480);

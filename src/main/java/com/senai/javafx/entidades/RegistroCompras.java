@@ -12,6 +12,7 @@ public final class RegistroCompras {
 
     private static final List<Compra> pendentes = new ArrayList<>();
     private static final List<Compra> historico = new ArrayList<>();
+    private static final List<Compra> recusadas = new ArrayList<>();
     private static int proximoNumero = 1;
 
     private RegistroCompras() {}
@@ -27,11 +28,37 @@ public final class RegistroCompras {
         return copia;
     }
 
-    // Compras pendentes de um cliente (para saber se ele ainda tem algo em análise)
-    public static List<Compra> pendentesDoCliente(String nome) {
+    // Histórico (aprovadas) só da conta informada, mais recentes primeiro.
+    // Compara pelo id da conta: outra conta com o mesmo nome não enxerga estas compras.
+    public static List<Compra> historicoDoCliente(int idCliente) {
+        List<Compra> lista = new ArrayList<>();
+        for (Compra c : listarHistorico()) {
+            if (c.getIdCliente() == idCliente) {
+                lista.add(c);
+            }
+        }
+        return lista;
+    }
+
+    // Todas as notas da conta (em andamento, aprovadas e recusadas), mais recentes primeiro
+    public static List<Compra> notasDoCliente(int idCliente) {
+        List<Compra> lista = new ArrayList<>();
+        for (List<Compra> origem : List.of(pendentes, historico, recusadas)) {
+            for (Compra c : origem) {
+                if (c.getIdCliente() == idCliente) {
+                    lista.add(c);
+                }
+            }
+        }
+        lista.sort(Comparator.comparing(Compra::getCriadaEm).thenComparing(Compra::getNumero).reversed());
+        return lista;
+    }
+
+    // Compras pendentes de uma conta (para saber se ela ainda tem algo em análise)
+    public static List<Compra> pendentesDoCliente(int idCliente) {
         List<Compra> lista = new ArrayList<>();
         for (Compra c : pendentes) {
-            if (c.getNomeCliente().equalsIgnoreCase(nome)) {
+            if (c.getIdCliente() == idCliente) {
                 lista.add(c);
             }
         }
@@ -44,7 +71,7 @@ public final class RegistroCompras {
      *
      * @throws IllegalStateException com a mensagem para o cliente, se algo estiver errado
      */
-    public static Compra finalizarPagamento(String nomeCliente, FormaPagamento forma, String cpf,
+    public static Compra finalizarPagamento(int idCliente, String nomeCliente, FormaPagamento forma, String cpf,
                                             String nomeTitular, String senhaCartao,
                                             Predicate<Produto> aindaExiste) {
         if (Carrinho.isVazio()) {
@@ -94,15 +121,15 @@ public final class RegistroCompras {
             itensCompra.add(new ItemCompra(produto, item.getQuantidade()));
         }
 
-        Compra compra = new Compra(proximoNumero++, nomeCliente, cpfRegistrado, itensCompra, forma);
+        Compra compra = new Compra(proximoNumero++, idCliente, nomeCliente, cpfRegistrado, itensCompra, forma);
         pendentes.add(compra);
         Carrinho.limpar();
         return compra;
     }
 
     // Recusa todas as compras pendentes do cliente (os produtos voltam ao estoque). Devolve quantas foram.
-    public static int cancelarPendentesDoCliente(String nome) {
-        List<Compra> doCliente = pendentesDoCliente(nome); // já é uma cópia: pode recusar enquanto percorre
+    public static int cancelarPendentesDoCliente(int idCliente) {
+        List<Compra> doCliente = pendentesDoCliente(idCliente); // já é uma cópia: pode recusar enquanto percorre
         doCliente.forEach(RegistroCompras::recusar);
         return doCliente.size();
     }
@@ -132,5 +159,6 @@ public final class RegistroCompras {
             produto.setEstoque(produto.getEstoque() + item.getQuantidade());
         }
         compra.setStatus(Compra.Status.RECUSADA);
+        recusadas.add(compra);
     }
 }

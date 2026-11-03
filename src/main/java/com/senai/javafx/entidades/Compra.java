@@ -12,6 +12,7 @@ public class Compra {
     public enum Status { PENDENTE, APROVADA, RECUSADA }
 
     private final int numero;
+    private final int idCliente; // conta que fez a compra (o nome pode ser reaproveitado por outra conta)
     private final String nomeCliente;
     private final String cpf;
     private final List<ItemCompra> itens;
@@ -24,8 +25,9 @@ public class Compra {
     private Status status = Status.PENDENTE;
     private LocalDate dataCompra; // escolhida pelo admin ao aprovar
 
-    public Compra(int numero, String nomeCliente, String cpf, List<ItemCompra> itens, FormaPagamento formaPagamento) {
+    public Compra(int numero, int idCliente, String nomeCliente, String cpf, List<ItemCompra> itens, FormaPagamento formaPagamento) {
         this.numero = numero;
+        this.idCliente = idCliente;
         this.nomeCliente = nomeCliente;
         this.cpf = cpf;
         this.itens = Collections.unmodifiableList(new ArrayList<>(itens));
@@ -36,6 +38,7 @@ public class Compra {
     }
 
     public int getNumero() { return numero; }
+    public int getIdCliente() { return idCliente; }
     public String getNomeCliente() { return nomeCliente; }
     public String getCpf() { return cpf; }
     public List<ItemCompra> getItens() { return itens; }
@@ -45,6 +48,20 @@ public class Compra {
     public double getTotal() { return total; }
     public LocalDateTime getCriadaEm() { return criadaEm; }
     public Status getStatus() { return status; }
+
+    // Texto do status para telas e notas
+    public String getRotuloStatus() {
+        return switch (status) {
+            case PENDENTE -> "Em andamento";
+            case APROVADA -> "Aprovada";
+            case RECUSADA -> "Recusada";
+        };
+    }
+
+    // Data mostrada ao cliente: a escolhida pelo admin (aprovada) ou a do pedido (em andamento/recusada)
+    public LocalDate getDataExibicao() {
+        return dataCompra != null ? dataCompra : criadaEm.toLocalDate();
+    }
     public LocalDate getDataCompra() { return dataCompra; }
 
     void setStatus(Status status) { this.status = status; }

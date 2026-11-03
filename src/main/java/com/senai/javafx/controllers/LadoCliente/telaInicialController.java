@@ -1,5 +1,6 @@
 package com.senai.javafx.controllers.LadoCliente;
 
+import com.senai.javafx.controllers.LadoAdministrador.EditarAcessorioController;
 import com.senai.javafx.entidades.*;
 import javafx.animation.PauseTransition;
 import javafx.beans.InvalidationListener;
@@ -63,6 +64,10 @@ public class telaInicialController {
     @FXML
     private Button painelAdm;
 
+    // Ocupa o lugar do painel do admin quando quem entrou é um cliente
+    @FXML
+    private Button btnHistoricoCompras;
+
     @FXML
     private VBox boxCategorias;
 
@@ -86,6 +91,9 @@ public class telaInicialController {
         if (nome.equals("admin") && senha.equals("admin")) {
             painelAdm.setVisible(true);
         }
+
+        // Admin vê o painel; cliente vê o histórico das próprias compras (mesmo lugar na tela)
+        btnHistoricoCompras.setVisible(!Sessao.isAdmin());
 
         FiltroCatalogo.limpar();
         configurarBusca();
@@ -308,23 +316,39 @@ public class telaInicialController {
         Region espaco = new Region();
         HBox.setHgrow(espaco, Priority.ALWAYS);
 
+        // Administrador vê "Editar" (como nos jogos); cliente vê "Comprar" (ou "Sem estoque")
+        boolean admin = Sessao.isAdmin();
         boolean semEstoque = produto.getEstoque() <= 0;
-        Button btnComprar = new Button(semEstoque ? "Sem estoque" : "Comprar");
-        btnComprar.getStyleClass().addAll("button", semEstoque ? "botao-sem-estoque" : "botao-primario");
+        Button btnComprar = new Button(admin ? "Editar" : semEstoque ? "Sem estoque" : "Comprar");
+        btnComprar.getStyleClass().addAll("button", admin || !semEstoque ? "botao-primario" : "botao-sem-estoque");
 
         HBox rodape = new HBox(8, lblPreco, espaco, btnComprar);
         rodape.setAlignment(Pos.CENTER_LEFT);
 
         card.getChildren().addAll(imgHolder, lblNome, lblDescricao, rodape);
 
-        btnComprar.setOnAction(e -> DetalhesJogosController.abrir(btnComprar, produto));
+        btnComprar.setOnAction(e -> abrirAcessorio(btnComprar, produto, admin));
         card.setOnMouseClicked(e -> {
             if (!(e.getTarget() instanceof Node alvo) || !estaDentro(alvo, btnComprar)) {
-                DetalhesJogosController.abrir(card, produto);
+                abrirAcessorio(card, produto, admin);
             }
         });
 
         return card;
+    }
+
+    // Admin abre a janela de edição; cliente abre a tela de detalhes/compra
+    private void abrirAcessorio(Node origem, Acessorio produto, boolean admin) {
+        if (!admin) {
+            DetalhesJogosController.abrir(origem, produto);
+            return;
+        }
+        EditarAcessorioController.abrir(produto, origem.getScene().getWindow());
+        // O card guarda nome/preço/estoque antigos: refaz o card e redesenha a lista
+        cacheCardsAcessorios.remove(produto);
+        if (plataformaSelecionada != null) {
+            carregarAcessorios(plataformaSelecionada);
+        }
     }
 
     private static boolean estaDentro(Node alvo, Node ancestral) {
@@ -332,6 +356,11 @@ public class telaInicialController {
             if (n == ancestral) return true;
         }
         return false;
+    }
+
+    @FXML
+    void abrirHistoricoCompras(ActionEvent event) {
+        GerenciamentoJanela.abrirJanela("/com/senai/javafx/historicoComprasCliente.fxml", "Meu histórico de compras");
     }
 
     @FXML

@@ -18,7 +18,6 @@
             </padding>
             <children>
                 <Label styleClass="titulo-tela" text="Acessórios cadastrados" />
-                <Label styleClass="texto-mutado" text="Use o botão Editar (ou dê dois cliques na linha) para alterar nome, preço e estoque." />
 
                 <TableView fx:id="tabelaAcessorios" VBox.vgrow="ALWAYS">
                     <columns>
@@ -27,7 +26,6 @@
                         <TableColumn fx:id="colTipo" prefWidth="100.0" text="Tipo" />
                         <TableColumn fx:id="colPlataforma" prefWidth="120.0" text="Plataforma" />
                         <TableColumn fx:id="colPreco" prefWidth="120.0" text="Preço" />
-                        <TableColumn fx:id="colAcoes" prefWidth="110.0" sortable="false" text="Ações" />
                     </columns>
                     <columnResizePolicy>
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

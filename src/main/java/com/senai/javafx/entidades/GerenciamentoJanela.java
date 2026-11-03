@@ -11,6 +11,9 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCombination;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
@@ -133,6 +136,14 @@ public class GerenciamentoJanela extends Application {
                     System.err.println("Aviso: /com/senai/javafx/styleMenu.css não encontrado.");
                 }
 
+                // F11 liga/desliga a tela cheia (ESC não sai dela, igual a um F11 de navegador)
+                scene.addEventFilter(KeyEvent.KEY_PRESSED, e -> {
+                    if (e.getCode() == KeyCode.F11) {
+                        primaryStage.setFullScreen(!primaryStage.isFullScreen());
+                        e.consume();
+                    }
+                });
+
                 primaryStage.setScene(scene);
             } else {
                 scene.setRoot(root);
@@ -141,13 +152,17 @@ public class GerenciamentoJanela extends Application {
             primaryStage.setTitle(titulo);
             primaryStage.setResizable(true);
 
+            // Todas as telas abrem em tela cheia (como F11); sem aviso de "pressione ESC"
+            primaryStage.setFullScreenExitHint("");
+            primaryStage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
+
             if (!primaryStage.isShowing()) {
-                primaryStage.setMaximized(true);
+                primaryStage.setFullScreen(true);
                 primaryStage.show();
             } else {
                 Platform.runLater(() -> {
-                    if (!primaryStage.isMaximized()) {
-                        primaryStage.setMaximized(true);
+                    if (!primaryStage.isFullScreen()) {
+                        primaryStage.setFullScreen(true);
                     }
                 });
             }
