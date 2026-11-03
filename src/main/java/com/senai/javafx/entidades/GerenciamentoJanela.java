@@ -1,5 +1,7 @@
 package com.senai.javafx.entidades;
 
+import javafx.animation.FadeTransition;
+import javafx.animation.PauseTransition;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
@@ -16,6 +18,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javafx.util.Duration;
 
 import java.io.IOException;
 import java.net.URL;
@@ -24,6 +27,14 @@ public class GerenciamentoJanela extends Application {
 
     private static Stage primaryStage;
     private static boolean modoEscuroAtivo = false;
+    private static PauseTransition delayNotificacaoAtual;
+
+    public enum TipoNotificacao {
+        SUCESSO,
+        ERRO,
+        ALERTA,
+        INFO
+    }
 
     public enum TipoAlerta {
         INFO("Aviso", "#00f0ff"),
@@ -46,6 +57,53 @@ public class GerenciamentoJanela extends Application {
         abrirJanela("/com/senai/javafx/opcaoUser.fxml", "Nexus");
     }
 
+    /**
+     * Exibe uma barra de notificação animada (Toast) no Label da tela sem interromper o fluxo do usuário.
+     */
+    public static void mostrarNotificacao(Label lblNotificacao, String mensagem, TipoNotificacao tipo) {
+        if (lblNotificacao == null) return;
+
+        // Interrompe animação anterior se uma nova notificação for chamada rapidamente
+        if (delayNotificacaoAtual != null) {
+            delayNotificacaoAtual.stop();
+        }
+
+        // Reseta classes de estilo e aplica a classe correspondente ao tipo
+        lblNotificacao.getStyleClass().removeAll(
+                "barra-notificacao",
+                "barra-notificacao-sucesso",
+                "barra-notificacao-erro",
+                "barra-notificacao-alerta"
+        );
+        lblNotificacao.getStyleClass().add("barra-notificacao");
+
+        switch (tipo) {
+            case SUCESSO -> lblNotificacao.getStyleClass().add("barra-notificacao-sucesso");
+            case ERRO -> lblNotificacao.getStyleClass().add("barra-notificacao-erro");
+            case ALERTA -> lblNotificacao.getStyleClass().add("barra-notificacao-alerta");
+            default -> lblNotificacao.getStyleClass().add("barra-notificacao-info");
+        }
+
+        lblNotificacao.setText(mensagem);
+        lblNotificacao.setOpacity(1.0);
+        lblNotificacao.setVisible(true);
+        lblNotificacao.setManaged(true);
+
+        // Exibe por 2.5 segundos e faz o Fade Out suave em 0.5s
+        delayNotificacaoAtual = new PauseTransition(Duration.seconds(2.5));
+        delayNotificacaoAtual.setOnFinished(event -> {
+            FadeTransition fadeOut = new FadeTransition(Duration.seconds(0.5), lblNotificacao);
+            fadeOut.setFromValue(1.0);
+            fadeOut.setToValue(0.0);
+            fadeOut.setOnFinished(e -> {
+                lblNotificacao.setVisible(false);
+                lblNotificacao.setManaged(false);
+            });
+            fadeOut.play();
+        });
+
+        delayNotificacaoAtual.play();
+    }
 
     public static void abrirJanela(String fxmlPath, String titulo) {
         try {
@@ -57,7 +115,6 @@ public class GerenciamentoJanela extends Application {
 
             FXMLLoader loader = new FXMLLoader(fxmlUrl);
             Parent root = loader.load();
-
 
             if (primaryStage == null) {
                 primaryStage = new Stage();
@@ -98,7 +155,6 @@ public class GerenciamentoJanela extends Application {
         } catch (IOException e) {
             System.err.println("Erro ao carregar a tela: " + fxmlPath);
             e.printStackTrace();
-            // Sem isso o botão que abriu a tela parecia "morto"; só avisa se a janela já está aberta
             if (primaryStage != null && primaryStage.isShowing()) {
                 exibirAlerta("Erro", "Não foi possível abrir a tela.\n" + e.getMessage(), TipoAlerta.ERRO);
             }
@@ -108,9 +164,10 @@ public class GerenciamentoJanela extends Application {
     public static void voltarTela() {
         abrirJanela("/com/senai/javafx/opcao.fxml", "Menu de opções");
     }
+
     // Tela que fica guardada enquanto o usuário vê os detalhes de um jogo
     private static Parent telaGuardada;
-    private static String tituloGuardado; // título da janela daquela tela (loja de jogos x loja de acessórios)
+    private static String tituloGuardado;
 
     public static void guardarTela(Parent root) {
         telaGuardada = root;
@@ -121,7 +178,6 @@ public class GerenciamentoJanela extends Application {
         return telaGuardada != null;
     }
 
-    // Devolve true se conseguiu restaurar; false se não havia tela guardada
     public static boolean restaurarTelaGuardada(String titulo) {
         if (telaGuardada == null || primaryStage == null || primaryStage.getScene() == null) {
             return false;
@@ -132,6 +188,7 @@ public class GerenciamentoJanela extends Application {
         tituloGuardado = null;
         return true;
     }
+
     /**
      * Exibe um modal customizado integrado ao tema visual da aplicação.
      */
@@ -197,12 +254,10 @@ public class GerenciamentoJanela extends Application {
         VBox layout = new VBox(barraSuperior, corpo, rodape);
         layout.getStyleClass().add("dialogo-custom");
 
-        // Ajusta classe do tema claro/escuro
         if (!modoEscuroAtivo) {
             layout.getStyleClass().add("modo-claro");
         }
 
-        // Permite arrastar a janela sem bordas
         final double[] arrasto = new double[2];
         barraSuperior.setOnMousePressed(e -> {
             arrasto[0] = modalStage.getX() - e.getScreenX();
@@ -221,7 +276,6 @@ public class GerenciamentoJanela extends Application {
 
         modalStage.setScene(scene);
 
-        // Garante a centralização correta logo após o modal ser desenhado na tela
         modalStage.setOnShown(e -> {
             modalStage.centerOnScreen();
         });

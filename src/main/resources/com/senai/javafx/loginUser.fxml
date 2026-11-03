@@ -37,6 +37,10 @@
                             <!-- Mensagem de Boas-Vindas -->
                 <Label styleClass="subtitulo" text="Entre na sua conta" />
 
+                <Label fx:id="lblNotificacao" visible="false" managed="false"
+                       maxWidth="360.0" alignment="CENTER" textAlignment="CENTER" wrapText="true"
+                       styleClass="barra-notificacao-erro" />
+
                             <!-- Formulário -->
                 <VBox alignment="CENTER_LEFT" spacing="12.0">
                     <children>

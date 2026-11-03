@@ -3,16 +3,16 @@ package com.senai.javafx.controllers.LadoCliente;
 import com.senai.javafx.entidades.GerenciamentoJanela;
 import com.senai.javafx.entidades.Sessao;
 import com.senai.javafx.entidades.UsuarioCadastro;
-import javafx.event.ActionEvent;
+import javafx.animation.FadeTransition;
+import javafx.animation.PauseTransition;
 import javafx.application.Platform;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.animation.PauseTransition;
-import javafx.scene.control.Button;
 import javafx.util.Duration;
-
-import static com.senai.javafx.entidades.GerenciamentoJanela.exibirAlerta;
 
 public class loginUserController {
 
@@ -21,6 +21,11 @@ public class loginUserController {
 
     @FXML
     private PasswordField txtSenha;
+
+    @FXML
+    private Label lblNotificacao;
+
+    private PauseTransition delayNotificacao;
 
     @FXML
     public void initialize() {
@@ -45,7 +50,7 @@ public class loginUserController {
         String senha = txtSenha.getText().trim();
 
         if (nome.isEmpty() || senha.isEmpty()) {
-            exibirAlerta("Atenção", "Por favor, preencha todos os campos!", GerenciamentoJanela.TipoAlerta.ALERTA);
+            mostrarNotificacao("Por favor, preencha todos os campos!");
             return;
         }
 
@@ -58,15 +63,43 @@ public class loginUserController {
 
         // Login de usuário padrão
         if (!UsuarioCadastro.autenticar(nome, senha)) {
-            exibirAlerta("Atenção", "Utilizador ou senha inválidos!", GerenciamentoJanela.TipoAlerta.ALERTA);
+            mostrarNotificacao("Utilizador ou senha inválidos!");
             return;
         }
 
         // Salva as credenciais validadas na sessão global
         Sessao.iniciarSessao(nome, senha);
 
-        GerenciamentoJanela.exibirAlerta("Sucesso", "Login realizado com sucesso!", GerenciamentoJanela.TipoAlerta.SUCESSO);
         entrarNaLoja(event, "Nexus Store - Página inicial");
+    }
+
+    // Exibe a barra de notificação animada (Toast)
+    private void mostrarNotificacao(String mensagem) {
+        if (lblNotificacao == null) return;
+
+        if (delayNotificacao != null) {
+            delayNotificacao.stop();
+        }
+
+        lblNotificacao.setText(mensagem);
+        lblNotificacao.setOpacity(1.0);
+        lblNotificacao.setVisible(true);
+        lblNotificacao.setManaged(true);
+
+        // Permanece visível por 3 segundos antes do fade-out
+        delayNotificacao = new PauseTransition(Duration.seconds(3));
+        delayNotificacao.setOnFinished(event -> {
+            FadeTransition fadeOut = new FadeTransition(Duration.seconds(0.5), lblNotificacao);
+            fadeOut.setFromValue(1.0);
+            fadeOut.setToValue(0.0);
+            fadeOut.setOnFinished(e -> {
+                lblNotificacao.setVisible(false);
+                lblNotificacao.setManaged(false);
+            });
+            fadeOut.play();
+        });
+
+        delayNotificacao.play();
     }
 
     // Mostra "Entrando..." e só depois carrega a loja, para a tela não parecer congelada
@@ -92,4 +125,4 @@ public class loginUserController {
     private void handleCadastreSe(ActionEvent event) {
         GerenciamentoJanela.abrirJanela("/com/senai/javafx/cadastroClienteUser.fxml", "Cadastrar-se na Nexus");
     }
-}
+}

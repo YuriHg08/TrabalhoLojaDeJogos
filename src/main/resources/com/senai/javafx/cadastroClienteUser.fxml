@@ -29,6 +29,9 @@
                 <!-- Subtítulo -->
                 <Label styleClass="subtitulo" text="Crie sua conta!" />
 
+                <Label fx:id="lblNotificacao" visible="false" managed="false"
+                       maxWidth="360.0" alignment="CENTER" textAlignment="CENTER" wrapText="true" />
+
                 <!-- Formulário -->
                 <VBox alignment="CENTER_LEFT" spacing="10.0">
                     <children>
