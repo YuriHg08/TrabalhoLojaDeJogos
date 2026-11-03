@@ -28,4 +28,4 @@ public class UsuarioCadastro {
         return usuarios.stream().anyMatch(u ->
                 u.getNome().equalsIgnoreCase(nome) && u.getSenha().equals(senha));
     }
-}
+}

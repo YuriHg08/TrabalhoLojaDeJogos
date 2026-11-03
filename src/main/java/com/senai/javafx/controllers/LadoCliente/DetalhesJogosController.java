@@ -1,9 +1,6 @@
 package com.senai.javafx.controllers.LadoCliente;
 
-import com.senai.javafx.entidades.Carrinho;
-import com.senai.javafx.entidades.GerenciamentoJanela;
-import com.senai.javafx.entidades.Acessorio;
-import com.senai.javafx.entidades.Produto;
+import com.senai.javafx.entidades.*;
 import javafx.animation.PauseTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;

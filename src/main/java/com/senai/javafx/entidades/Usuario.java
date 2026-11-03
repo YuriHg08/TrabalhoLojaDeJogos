@@ -12,4 +12,14 @@ public class Usuario {
 
     public String getNome() { return nome; }
     public String getSenha() { return senha; }
+
+    private boolean bloqueado = false;
+
+    public boolean isBloqueado() {
+        return bloqueado;
+    }
+
+    public void setBloqueado(boolean bloqueado) {
+        this.bloqueado = bloqueado;
+    }
 }

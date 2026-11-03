@@ -124,6 +124,32 @@
     -fx-border-width: 0 0 0 3px;
 }
 
+/* Botão Filtros no topo direito */
+.botao-filtro-topo {
+    -fx-background-color: #1a1f2c;
+    -fx-border-color: #2b3347;
+    -fx-border-radius: 8px;
+    -fx-background-radius: 8px;
+    -fx-text-fill: #e0e0e0;
+    -fx-font-weight: bold;
+    -fx-font-size: 13px;
+    -fx-cursor: hand;
+}
+.botao-filtro-topo:hover {
+    -fx-background-color: #242b3d;
+    -fx-border-color: #e91e63;
+}
+
+/* Container flutuante que recebe o FXML externo */
+.container-filtro-moderno {
+    -fx-background-color: #141822;
+    -fx-border-color: #252d3d;
+    -fx-border-width: 1.2px;
+    -fx-border-radius: 12px;
+    -fx-background-radius: 12px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.55), 20, 0.2, 0, 8);
+}
+
 /* ==========================================================================
    4. PAINÉIS, CARDS E FORMULÁRIOS
    ========================================================================== */
@@ -373,14 +399,52 @@
 /* ==========================================================================
    10. COMPONENTES DA VITRINE / LOJA (BANNER HERO E CARDS)
    ========================================================================== */
-.custom-scroll-pane {
+
+.scroll-pane {
     -fx-background-color: transparent;
-    -fx-background: -cor-fundo;
+}
+.scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar:vertical {
+    -fx-background-color: transparent;
+    -fx-pref-width: 6px;
+    -fx-padding: 0;
+}
+
+.scroll-bar:vertical .track {
+    -fx-background-color: transparent;
     -fx-border-color: transparent;
 }
 
-.custom-scroll-pane > .viewport {
+
+.scroll-bar:vertical .thumb {
+    -fx-background-color: rgba(255, 255, 255, 0.2);
+    -fx-background-radius: 4px;
+}
+
+
+.scroll-bar:vertical .thumb:hover {
+    -fx-background-color: rgba(255, 255, 255, 0.4);
+}
+
+.scroll-bar:vertical .thumb:pressed {
+    -fx-background-color: #e91e63;
+}
+
+.scroll-bar .increment-button,
+.scroll-bar .decrement-button {
     -fx-background-color: transparent;
+    -fx-padding: 0;
+    -fx-pref-height: 0;
+    -fx-pref-width: 0;
+}
+
+.scroll-bar .increment-arrow,
+.scroll-bar .decrement-arrow {
+    -fx-shape: " ";
+    -fx-padding: 0;
 }
 
 .banner-hero {
