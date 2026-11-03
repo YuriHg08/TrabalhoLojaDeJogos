@@ -37,10 +37,6 @@
                             <!-- Mensagem de Boas-Vindas -->
                 <Label styleClass="subtitulo" text="Entre na sua conta" />
 
-                <Label fx:id="lblNotificacao" visible="false" managed="false"
-                       maxWidth="360.0" alignment="CENTER" textAlignment="CENTER" wrapText="true"
-                       styleClass="barra-notificacao-erro" />
-
                             <!-- Formulário -->
                 <VBox alignment="CENTER_LEFT" spacing="12.0">
                     <children>
@@ -84,6 +80,8 @@
                <children>
                   <Button contentDisplay="CENTER" defaultButton="true" graphicTextGap="300.0" layoutX="4.0" layoutY="55.0" mnemonicParsing="false" onAction="#voltarTela" prefHeight="46.0" prefWidth="400.0" styleClass="botao-secundario" text="Voltar" />
                         <Button fx:id="btnLogar" layoutX="4.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleLogar" prefWidth="400.0" styleClass="button, botao-primario" text="Entrar" />
+                   <Label fx:id="lblNotificacao" visible="false" managed="false"
+                          maxWidth="360.0" alignment="CENTER" textAlignment="CENTER" wrapText="true" />
                </children>
             </AnchorPane>
 
