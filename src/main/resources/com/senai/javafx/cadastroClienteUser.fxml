@@ -29,8 +29,6 @@
                 <!-- Subtítulo -->
                 <Label styleClass="subtitulo" text="Crie sua conta!" />
 
-                <Label fx:id="lblNotificacao" visible="false" managed="false"
-                       maxWidth="360.0" alignment="CENTER" textAlignment="CENTER" wrapText="true" />
 
                 <!-- Formulário -->
                 <VBox alignment="CENTER_LEFT" spacing="10.0">
@@ -82,6 +80,8 @@
                 </VBox>
                   <Button fx:id="btnVoltar" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#voltarTela" styleClass="botao-secundario" text="Voltar" />
             <AnchorPane prefHeight="66.0" prefWidth="400.0" />
+                <Label fx:id="lblNotificacao" visible="false" managed="false"
+                       maxWidth="360.0" alignment="CENTER" textAlignment="CENTER" wrapText="true" />
 
             </children>
         </VBox>
