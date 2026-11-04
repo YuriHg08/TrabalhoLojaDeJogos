@@ -1,15 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ListView?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.StackPane?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 
-<BorderPane prefHeight="700.0" prefWidth="1000.0" stylesheets="@styleMenu.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.senai.javafx.controllers.LadoAdministrador.CadastroCategoriasController">
+<BorderPane prefHeight="700.0" prefWidth="1000.0" stylesheets="@styleMenu.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.senai.javafx.controllers.LadoAdministrador.CadastroCategoriasController">
    <left>
       <fx:include source="sideBar.fxml" />
    </left>
@@ -30,7 +25,7 @@
                   <ListView fx:id="exibicaoCategorias" prefHeight="180.0" />
 
                   <TextField fx:id="nomeCategoria" prefHeight="38.0" promptText="Nome da nova categoria" styleClass="campo-texto" />
-                  <Label fx:id="resposta" alignment="CENTER" maxWidth="Infinity" textFill="RED" />
+                  <Label fx:id="resposta" alignment="CENTER" maxWidth="Infinity" textFill="WHITE" />
 
                   <Button maxWidth="Infinity" mnemonicParsing="false" onAction="#botaoCadastrarCategoria" prefHeight="40.0" styleClass="botao-primario" text="Cadastrar" />
                </children>

@@ -39,12 +39,12 @@
 
         <HBox alignment="CENTER_LEFT" spacing="16.0">
             <children>
-                <Pane maxHeight="110.0" maxWidth="110.0" minHeight="110.0" minWidth="110.0" prefHeight="110.0" prefWidth="110.0" styleClass="imagem-placeholder">
+                <Pane maxHeight="110.0" maxWidth="159.0" minHeight="110.0" minWidth="110.0" prefHeight="110.0" prefWidth="152.0" styleClass="imagem-placeholder">
                     <children>
-                        <ImageView fx:id="imgPreview" fitHeight="110.0" fitWidth="110.0" pickOnBounds="true" preserveRatio="true" />
+                        <ImageView fx:id="imgPreview" fitHeight="110.0" fitWidth="152.0" pickOnBounds="true" />
                     </children>
                 </Pane>
-                <Button maxWidth="Infinity" mnemonicParsing="false" onAction="#trocarCapa" prefHeight="40.0" styleClass="botao-secundario" text="Trocar capa..." HBox.hgrow="ALWAYS" />
+                <Button maxWidth="Infinity" mnemonicParsing="false" onAction="#trocarCapa" prefHeight="40.0" prefWidth="249.0" styleClass="botao-secundario" text="Trocar capa..." HBox.hgrow="ALWAYS" />
             </children>
         </HBox>
 
