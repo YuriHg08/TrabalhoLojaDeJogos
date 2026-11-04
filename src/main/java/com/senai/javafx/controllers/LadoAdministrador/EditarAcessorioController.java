@@ -11,6 +11,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.stage.Window;
 
 import java.util.Locale;
@@ -44,8 +45,22 @@ public class EditarAcessorioController {
             Stage janela = new Stage();
             janela.initOwner(dono);
             janela.initModality(Modality.APPLICATION_MODAL);
-            janela.setTitle("Editar acessório");
+
+            // 1. Remove a barra padrão do Windows
+            janela.initStyle(StageStyle.UNDECORATED);
             janela.setResizable(false);
+
+            // 2. Permite movimentar a janela clicando e arrastando pelo ecrã
+            final double[] arrasto = new double[2];
+            root.setOnMousePressed(e -> {
+                arrasto[0] = janela.getX() - e.getScreenX();
+                arrasto[1] = janela.getY() - e.getScreenY();
+            });
+            root.setOnMouseDragged(e -> {
+                janela.setX(e.getScreenX() + arrasto[0]);
+                janela.setY(e.getScreenY() + arrasto[1]);
+            });
+
             Scene cena = new Scene(root);
             cena.getStylesheets().add(
                     EditarAcessorioController.class.getResource("/com/senai/javafx/styleMenu.css").toExternalForm());
