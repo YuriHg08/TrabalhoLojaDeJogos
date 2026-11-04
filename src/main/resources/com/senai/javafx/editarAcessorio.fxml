@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 
-<VBox prefWidth="440.0" spacing="14.0" styleClass="painel-principal" stylesheets="@styleMenu.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.senai.javafx.controllers.LadoAdministrador.EditarAcessorioController">
+<VBox prefWidth="440.0" spacing="14.0" styleClass="painel-principal" stylesheets="@styleMenu.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.senai.javafx.controllers.LadoAdministrador.EditarAcessorioController">
+
     <padding>
+
         <Insets bottom="24.0" left="24.0" right="24.0" top="24.0" />
     </padding>
     <children>
         <Label styleClass="titulo-tela" text="Editar acessório" />
         <Label fx:id="lblInfo" styleClass="texto-mutado" wrapText="true" />
+
 
         <TextField fx:id="txtNomeAcessorio" prefHeight="38.0" promptText="Nome do acessório" styleClass="campo-texto" />
         <TextField fx:id="txtPrecoAcessorio" prefHeight="38.0" promptText="Preço (Ex: 599.90)" styleClass="campo-texto" />
@@ -27,5 +27,6 @@
                 <Button maxWidth="Infinity" mnemonicParsing="false" onAction="#salvar" prefHeight="42.0" styleClass="botao-primario" text="Salvar" HBox.hgrow="ALWAYS" />
             </children>
         </HBox>
+      <BorderPane prefHeight="200.0" prefWidth="200.0" />
     </children>
 </VBox>

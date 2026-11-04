@@ -10,6 +10,10 @@
 
 <BorderPane prefHeight="700.0" prefWidth="1200.0" stylesheets="@styleMenu.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.senai.javafx.controllers.LadoCliente.telaInicialController">
 
+    <top>
+        <fx:include source="titleBar.fxml" />
+    </top>
+
     <!-- MENU ESQUERDO: SIDEBAR -->
     <left>
         <AnchorPane prefHeight="700.0" prefWidth="210.0" styleClass="sidebar-cliente" BorderPane.alignment="CENTER">

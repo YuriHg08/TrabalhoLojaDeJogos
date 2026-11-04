@@ -16,6 +16,9 @@
     <left>
         <fx:include source="sideBar.fxml" />
     </left>
+    <top>
+        <fx:include source="titleBar.fxml" />
+    </top>
 
     <center>
         <StackPane style="-fx-background-color: -cor-fundo;">

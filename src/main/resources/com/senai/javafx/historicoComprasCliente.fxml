@@ -11,6 +11,9 @@
 <?import javafx.scene.layout.VBox?>
 
 <BorderPane prefHeight="700.0" prefWidth="1000.0" stylesheets="@styleMenu.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.senai.javafx.controllers.ConsultarComprasController">
+    <top>
+        <fx:include source="titleBar.fxml" />
+    </top>
     <center>
         <VBox spacing="16.0" style="-fx-background-color: -cor-fundo;">
             <padding>

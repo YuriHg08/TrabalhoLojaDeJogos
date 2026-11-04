@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.shape.SVGPath?>
+
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
@@ -8,13 +7,13 @@
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.shape.SVGPath?>
 
-<HBox fx:id="barraTitulo" alignment="CENTER_LEFT" prefHeight="32.0" styleClass="custom-titlebar" stylesheets="@styleMenu.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.senai.javafx.controllers.TitleBarController">
+<HBox fx:id="barraTitulo" alignment="CENTER_LEFT" prefHeight="32.0" styleClass="custom-titlebar" stylesheets="@styleMenu.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.senai.javafx.controllers.TitleBarController">
     <children>
         <!-- LOGO E NOME -->
-        <HBox alignment="CENTER_LEFT" spacing="8.0">
+        <HBox alignment="CENTER_LEFT" spacing="8.0" stylesheets="@styleMenu.css">
             <children>
-                <Label styleClass="titlebar-logo" text="nexus" />
-                <Label fx:id="lblTituloJanela" styleClass="titlebar-subtitulo" text="• Store" />
+                <Label styleClass="titlebar-logo" text="Nexus" textFill="#8a8a8a" />
+                <Label fx:id="lblTituloJanela" styleClass="titlebar-subtitulo" />
             </children>
             <padding>
                 <Insets left="14.0" />
@@ -25,10 +24,10 @@
         <Region fx:id="areaArrasto" HBox.hgrow="ALWAYS" />
 
         <!-- BOTÕES DA JANELA -->
-        <HBox alignment="CENTER_RIGHT" prefHeight="32.0">
+        <HBox alignment="CENTER_RIGHT" prefHeight="32.0" stylesheets="@styleMenu.css">
             <children>
                 <!-- MINIMIZAR -->
-                <Button fx:id="btnMinimizar" focusTraversable="false" mnemonicParsing="false" onAction="#minimizar" prefHeight="32.0" prefWidth="44.0" styleClass="titlebar-btn">
+                <Button fx:id="btnMinimizar" focusTraversable="false" mnemonicParsing="false" onAction="#minimizar" prefHeight="32.0" prefWidth="44.0" styleClass="titlebar-btn" stylesheets="@styleMenu.css">
                     <graphic>
                         <SVGPath content="M 0 0 L 10 0" stroke="#a0aec0" strokeWidth="1.5" />
                     </graphic>
