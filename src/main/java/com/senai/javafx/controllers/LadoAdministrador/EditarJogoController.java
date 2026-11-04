@@ -17,10 +17,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.stage.FileChooser;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
-import javafx.stage.Window;
+import javafx.stage.*;
 
 import java.io.File;
 import java.util.List;
@@ -56,6 +53,7 @@ public class EditarJogoController {
     private SeletorMultiplo seletorConsoles;
 
     // Abre a janela de edição (modal) para o jogo escolhido
+    // Abre a janela de edição (modal) para o jogo escolhido
     public static void abrir(Jogo jogo, Window dono) {
         try {
             FXMLLoader loader = new FXMLLoader(
@@ -67,8 +65,22 @@ public class EditarJogoController {
             Stage janela = new Stage();
             janela.initOwner(dono);
             janela.initModality(Modality.APPLICATION_MODAL);
-            janela.setTitle("Editar jogo");
+
+            // 1. Remove a barra padrão do Windows
+            janela.initStyle(StageStyle.UNDECORATED);
             janela.setResizable(false);
+
+            // 2. Permite mover a janela clicando e arrastando pelo cabeçalho/fundo
+            final double[] arrasto = new double[2];
+            root.setOnMousePressed(e -> {
+                arrasto[0] = janela.getX() - e.getScreenX();
+                arrasto[1] = janela.getY() - e.getScreenY();
+            });
+            root.setOnMouseDragged(e -> {
+                janela.setX(e.getScreenX() + arrasto[0]);
+                janela.setY(e.getScreenY() + arrasto[1]);
+            });
+
             Scene cena = new Scene(root);
             cena.getStylesheets().add(
                     EditarJogoController.class.getResource("/com/senai/javafx/styleMenu.css").toExternalForm());
@@ -80,12 +92,12 @@ public class EditarJogoController {
             janela.showAndWait();
         } catch (Exception e) {
             e.printStackTrace();
-            // Mostra o erro em vez de o botão "não fazer nada"
             Throwable causa = e.getCause() != null ? e.getCause() : e;
             GerenciamentoJanela.exibirAlerta("Erro",
                     "Não foi possível abrir a edição: " + causa,
                     GerenciamentoJanela.TipoAlerta.ERRO);
         }
+
     }
 
     @FXML

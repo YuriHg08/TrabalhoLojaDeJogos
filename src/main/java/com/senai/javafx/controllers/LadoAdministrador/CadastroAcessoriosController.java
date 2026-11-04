@@ -55,6 +55,19 @@ public class CadastroAcessoriosController {
             }
         });
         cmbPlataforma.setItems(FXCollections.observableArrayList(CatalogoAcessorios.PLATAFORMAS));
+
+        // Quando o tipo for PC Gamer, a plataforma é sempre "PC": preenche e bloqueia o menu
+        cmbTipo.valueProperty().addListener((obs, tipoAnterior, tipoNovo) -> {
+            if (tipoNovo == Acessorio.Tipo.COMPUTADOR) {
+                cmbPlataforma.setValue("PC");
+                cmbPlataforma.setDisable(true);
+            } else {
+                cmbPlataforma.setDisable(false);
+                if (tipoAnterior == Acessorio.Tipo.COMPUTADOR) {
+                    cmbPlataforma.setValue(null);
+                }
+            }
+        });
     }
 
     @FXML

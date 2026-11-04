@@ -11,6 +11,9 @@
     <left>
         <fx:include source="sideBar.fxml" />
     </left>
+    <top>
+        <fx:include source="titleBar.fxml" />
+    </top>
     <center>
         <VBox spacing="16.0" style="-fx-background-color: -cor-fundo;" stylesheets="@styleMenu.css">
             <padding>

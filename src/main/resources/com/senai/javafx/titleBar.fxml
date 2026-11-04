@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.shape.SVGPath?>
+
+<HBox fx:id="barraTitulo" alignment="CENTER_LEFT" prefHeight="32.0" styleClass="custom-titlebar" stylesheets="@styleMenu.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.senai.javafx.controllers.TitleBarController">
+    <children>
+        <!-- LOGO E NOME -->
+        <HBox alignment="CENTER_LEFT" spacing="8.0" stylesheets="@styleMenu.css">
+            <children>
+                <Label styleClass="titlebar-logo" text="Nexus" textFill="#8a8a8a" />
+                <Label fx:id="lblTituloJanela" styleClass="titlebar-subtitulo" />
+            </children>
+            <padding>
+                <Insets left="14.0" />
+            </padding>
+        </HBox>
+
+        <!-- ÁREA PARA ARRASTAR A JANELA -->
+        <Region fx:id="areaArrasto" HBox.hgrow="ALWAYS" />
+
+        <!-- BOTÕES DA JANELA -->
+        <HBox alignment="CENTER_RIGHT" prefHeight="32.0" stylesheets="@styleMenu.css">
+            <children>
+                <!-- MINIMIZAR -->
+                <Button fx:id="btnMinimizar" focusTraversable="false" mnemonicParsing="false" onAction="#minimizar" prefHeight="32.0" prefWidth="44.0" styleClass="titlebar-btn" stylesheets="@styleMenu.css">
+                    <graphic>
+                        <SVGPath content="M 0 0 L 10 0" stroke="#a0aec0" strokeWidth="1.5" />
+                    </graphic>
+                </Button>
+
+                <!-- MAXIMIZAR -->
+                <Button fx:id="btnMaximizar" focusTraversable="false" mnemonicParsing="false" onAction="#maximizar" prefHeight="32.0" prefWidth="44.0" styleClass="titlebar-btn">
+                    <graphic>
+                        <SVGPath content="M 0 0 L 9 0 L 9 9 L 0 9 Z" fill="TRANSPARENT" stroke="#a0aec0" strokeWidth="1.2" />
+                    </graphic>
+                </Button>
+
+                <!-- FECHAR -->
+                <Button fx:id="btnFechar" focusTraversable="false" mnemonicParsing="false" onAction="#fechar" prefHeight="32.0" prefWidth="44.0" styleClass="titlebar-btn, titlebar-btn-close">
+                    <graphic>
+                        <SVGPath content="M 0 0 L 9 9 M 9 0 L 0 9" stroke="#a0aec0" strokeWidth="1.5" />
+                    </graphic>
+                </Button>
+            </children>
+        </HBox>
+    </children>
+</HBox>

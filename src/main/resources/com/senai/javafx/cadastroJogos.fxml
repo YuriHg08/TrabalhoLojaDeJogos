@@ -17,7 +17,9 @@
     <left>
         <fx:include source="sideBar.fxml" />
     </left>
-
+    <top>
+        <fx:include source="titleBar.fxml" />
+    </top>
     <!-- ÁREA CENTRAL RESPONSIVA E CENTRALIZADA -->
     <center>
         <StackPane style="-fx-background-color: -cor-fundo;">

@@ -3,38 +3,51 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<StackPane prefHeight="700.0" prefWidth="1000.0" stylesheets="@styleMenu.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.senai.javafx.controllers.LadoAdministrador.MenuController">
-   <children>
-      <VBox alignment="CENTER" maxWidth="420.0" spacing="14.0" styleClass="painel-principal" StackPane.alignment="CENTER">
-         <padding>
-            <Insets bottom="36.0" left="32.0" right="32.0" top="36.0" />
-         </padding>
+<BorderPane prefHeight="700.0" prefWidth="1200.0" stylesheets="@styleMenu.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.senai.javafx.controllers.LadoAdministrador.MenuController">
+
+   <!-- 1. BARRA DE TÍTULO CUSTOMIZADA NO TOPO -->
+   <top>
+      <fx:include source="titleBar.fxml" />
+   </top>
+
+   <!-- 2. CONTEÚDO DO PAINEL CENTRALIZADO -->
+   <center>
+      <StackPane alignment="CENTER">
          <children>
-            <Label alignment="CENTER" maxWidth="Infinity" styleClass="titulo-tela" text="Painel do administrador">
-               <VBox.margin>
-                  <Insets bottom="4.0" />
-               </VBox.margin>
-            </Label>
+            <VBox alignment="CENTER" maxWidth="420.0" spacing="14.0" styleClass="painel-principal">
+               <padding>
+                  <Insets bottom="36.0" left="32.0" right="32.0" top="36.0" />
+               </padding>
+               <children>
+                  <Label alignment="CENTER" maxWidth="Infinity" styleClass="titulo-tela" text="Painel do administrador">
+                     <VBox.margin>
+                        <Insets bottom="4.0" />
+                     </VBox.margin>
+                  </Label>
 
-            <Label alignment="CENTER" maxWidth="Infinity" styleClass="subtitulo" text="Olá, selecione uma opção abaixo:">
-               <VBox.margin>
-                  <Insets bottom="12.0" />
-               </VBox.margin>
-            </Label>
+                  <Label alignment="CENTER" maxWidth="Infinity" styleClass="subtitulo" text="Olá, selecione uma opção abaixo:">
+                     <VBox.margin>
+                        <Insets bottom="12.0" />
+                     </VBox.margin>
+                  </Label>
 
-            <!-- Ações principais do sistema -->
-            <Button maxWidth="Infinity" mnemonicParsing="false" onAction="#cadastroCategoria" prefHeight="40.0" styleClass="botao-secundario" text="Cadastrar categorias" />
-            <Button maxWidth="Infinity" mnemonicParsing="false" onAction="#cadastroJogos" prefHeight="40.0" styleClass="botao-secundario" text="Cadastrar jogos" />
-            <Button maxWidth="Infinity" mnemonicParsing="false" onAction="#cadastroAcessorios" prefHeight="40.0" styleClass="botao-secundario" text="Cadastrar acessórios" />
-            <Button fx:id="btnConsultarClientes" maxWidth="Infinity" mnemonicParsing="false" onAction="#consultarClientes" prefHeight="40.0" styleClass="botao-secundario" text="Consultar clientes" />
-            <Button maxWidth="Infinity" mnemonicParsing="false" onAction="#consultarJogos" prefHeight="40.0" styleClass="botao-secundario" text="Consultar jogos" />
-            <Button maxWidth="Infinity" mnemonicParsing="false" onAction="#consultarAcessorios" prefHeight="40.0" styleClass="botao-secundario" text="Consultar acessórios" />
-            <Button maxWidth="Infinity" mnemonicParsing="false" onAction="#historicoCompras" prefHeight="40.0" styleClass="botao-secundario" text="Histórico de compras" />
-            <Button maxWidth="Infinity" mnemonicParsing="false" onAction="#voltarPaginaInicial" prefHeight="40.0" styleClass="botao-primario" text="Voltar a loja" />
+                  <!-- Ações principais do sistema -->
+                  <Button maxWidth="Infinity" mnemonicParsing="false" onAction="#cadastroCategoria" prefHeight="40.0" styleClass="botao-secundario" text="Cadastrar categorias" />
+                  <Button maxWidth="Infinity" mnemonicParsing="false" onAction="#cadastroJogos" prefHeight="40.0" styleClass="botao-secundario" text="Cadastrar jogos" />
+                  <Button maxWidth="Infinity" mnemonicParsing="false" onAction="#cadastroAcessorios" prefHeight="40.0" styleClass="botao-secundario" text="Cadastrar acessórios" />
+                  <Button fx:id="btnConsultarClientes" maxWidth="Infinity" mnemonicParsing="false" onAction="#consultarClientes" prefHeight="40.0" styleClass="botao-secundario" text="Consultar clientes" />
+                  <Button maxWidth="Infinity" mnemonicParsing="false" onAction="#consultarJogos" prefHeight="40.0" styleClass="botao-secundario" text="Consultar jogos" />
+                  <Button maxWidth="Infinity" mnemonicParsing="false" onAction="#consultarAcessorios" prefHeight="40.0" styleClass="botao-secundario" text="Consultar acessórios" />
+                  <Button maxWidth="Infinity" mnemonicParsing="false" onAction="#historicoCompras" prefHeight="40.0" styleClass="botao-secundario" text="Histórico de compras" />
+                  <Button maxWidth="Infinity" mnemonicParsing="false" onAction="#voltarPaginaInicial" prefHeight="40.0" styleClass="botao-primario" text="Voltar a loja" />
+               </children>
+            </VBox>
          </children>
-      </VBox>
-   </children>
-</StackPane>
+      </StackPane>
+   </center>
+
+</BorderPane>
