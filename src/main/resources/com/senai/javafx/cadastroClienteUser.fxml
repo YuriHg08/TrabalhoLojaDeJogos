@@ -37,23 +37,21 @@
                         <VBox spacing="4.0">
                             <children>
                                 <Label styleClass="label-campo" text="Nome / Usuário" />
-                                <TextField fx:id="txtNome" promptText="Digite seu nome ou usuário" styleClass="campo-texto" />
+                                <TextField fx:id="txtNome" onAction="#handleCadastrar" promptText="Digite seu nome de usuário" />
                             </children>
                         </VBox>
 
-                        <!-- Senha -->
                         <VBox spacing="4.0">
                             <children>
                                 <Label styleClass="label-campo" text="Senha" />
-                                <PasswordField fx:id="txtSenha" promptText="Digite sua senha" styleClass="campo-texto" />
+                                <PasswordField fx:id="txtSenha" onAction="#handleCadastrar" promptText="Digite sua senha (mín. 8 dígitos)" />
                             </children>
                         </VBox>
 
-                        <!-- Confirmar senha -->
                         <VBox spacing="4.0">
                             <children>
                                 <Label styleClass="label-campo" text="Confirmar senha" />
-                                <PasswordField fx:id="txtConfirmarSenha" promptText="Digite a senha novamente" styleClass="campo-texto" />
+                                <PasswordField fx:id="txtConfirmarSenha" onAction="#handleCadastrar" promptText="Confirme sua senha" />
                             </children>
                         </VBox>
 
@@ -78,12 +76,24 @@
                         <Insets top="4.0" />
                     </VBox.margin>
                 </VBox>
+
+
+
+
                   <Button fx:id="btnVoltar" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#voltarTela" styleClass="botao-secundario" text="Voltar" />
             <AnchorPane prefHeight="66.0" prefWidth="400.0" />
-                <Label fx:id="lblNotificacao" visible="false" managed="false"
-                       maxWidth="360.0" alignment="CENTER" textAlignment="CENTER" wrapText="true" />
+
+             <Label fx:id="lblNotificacao"
+              visible="false"
+              alignment="CENTER"
+              textAlignment="CENTER"
+              wrapText="true"
+              maxWidth="360.0"
+              styleClass="barra-notificacao" />
 
             </children>
         </VBox>
+
     </children>
+
 </StackPane>

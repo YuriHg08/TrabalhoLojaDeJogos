@@ -22,6 +22,7 @@
             </padding>
             <children>
             <ImageView fitHeight="47.0" fitWidth="256.0" pickOnBounds="true" preserveRatio="true">
+
                <image>
                   <Image url="@imagens/nexus.png" />
                </image>
@@ -43,18 +44,18 @@
                         <VBox spacing="4.0">
                             <children>
                                 <Label styleClass="label-campo" text="Nome / Usuário" />
-                                <TextField fx:id="txtNome" promptText="Digite seu nome ou usuário" styleClass="campo-texto" />
+                                <TextField fx:id="txtNome" onAction="#handleLogar" promptText="Digite seu nome ou usuário" styleClass="campo-texto" />
                             </children>
                         </VBox>
 
-                                    <VBox spacing="4.0">
+                        <VBox spacing="4.0">
                             <children>
                                 <Label styleClass="label-campo" text="Senha" />
-                                <PasswordField fx:id="txtSenha" promptText="Digite sua senha" styleClass="campo-texto" />
+                                <PasswordField fx:id="txtSenha" onAction="#handleLogar" promptText="Digite sua senha" styleClass="campo-texto" />
                             </children>
                         </VBox>
 
-                                    <VBox spacing="4.0">
+                        <VBox spacing="4.0">
                             <children>
                                 <HBox alignment="CENTER_LEFT" spacing="6.0" />
                             </children>
@@ -76,16 +77,26 @@
                         <Insets top="10.0" />
                     </VBox.margin>
                 </VBox>
+
+
             <AnchorPane prefHeight="166.0" prefWidth="408.0">
                <children>
                   <Button contentDisplay="CENTER" defaultButton="true" graphicTextGap="300.0" layoutX="4.0" layoutY="55.0" mnemonicParsing="false" onAction="#voltarTela" prefHeight="46.0" prefWidth="400.0" styleClass="botao-secundario" text="Voltar" />
                         <Button fx:id="btnLogar" layoutX="4.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleLogar" prefWidth="400.0" styleClass="button, botao-primario" text="Entrar" />
-                   <Label fx:id="lblNotificacao" visible="false" managed="false"
-                          maxWidth="360.0" alignment="CENTER" textAlignment="CENTER" wrapText="true" />
+
+
                </children>
             </AnchorPane>
 
                   </children>
+
+            <Label fx:id="lblNotificacao"
+                   visible="false"
+                   alignment="CENTER"
+                   textAlignment="CENTER"
+                   wrapText="true"
+                   maxWidth="360.0"
+                   styleClass="barra-notificacao" />
         </VBox>
     </children>
 </StackPane>

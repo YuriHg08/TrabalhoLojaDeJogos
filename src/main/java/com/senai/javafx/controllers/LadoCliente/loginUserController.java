@@ -32,10 +32,12 @@ public class loginUserController {
         aplicarLimiteCaracteres(txtNome, 50);
         aplicarLimiteCaracteres(txtSenha, 30);
 
-        // Enquanto o usuário digita, as capas da loja já vão sendo carregadas
+        // Executa a ação handleLogar ao pressionar ENTER em qualquer um dos campos
+        txtNome.setOnAction(this::handleLogar);
+        txtSenha.setOnAction(this::handleLogar);
+
         Platform.runLater(CatalogoJogosController::preCarregarCapas);
     }
-
     private void aplicarLimiteCaracteres(TextField field, int max) {
         field.textProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null && newValue.length() > max) {
@@ -101,6 +103,8 @@ public class loginUserController {
 
         delayNotificacao.play();
     }
+
+
 
     // Mostra "Entrando..." e só depois carrega a loja, para a tela não parecer congelada
     private void entrarNaLoja(ActionEvent event, String titulo) {

@@ -883,3 +883,33 @@
     -fx-border-color: #00ff88;
     -fx-text-fill: #ffffff;
 }
+.barra-notificacao {
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-padding: 10px 16px;
+    -fx-border-width: 1px;
+    -fx-border-radius: 8px;
+    -fx-background-radius: 8px;
+    -fx-alignment: center;
+}
+
+/* Estado de ERRO / ALERTA (Neon Rosa/Vermelho) */
+.barra-notificacao-erro {
+    -fx-background-color: rgba(255, 0, 85, 0.2);
+    -fx-border-color: #ff0055;
+    -fx-text-fill: #ffffff;
+}
+
+/* Estado de SUCESSO (Neon Verde) */
+.barra-notificacao-sucesso {
+    -fx-background-color: rgba(0, 255, 136, 0.2);
+    -fx-border-color: #00ff88;
+    -fx-text-fill: #ffffff;
+}
+
+/* Estado de AVISO (Neon Amarelo) */
+.barra-notificacao-alerta {
+    -fx-background-color: rgba(255, 199, 0, 0.2);
+    -fx-border-color: #ffc700;
+    -fx-text-fill: #ffffff;
+}

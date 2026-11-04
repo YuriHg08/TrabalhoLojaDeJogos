@@ -66,47 +66,44 @@ public class GerenciamentoJanela extends Application {
     public static void mostrarNotificacao(Label lblNotificacao, String mensagem, TipoNotificacao tipo) {
         if (lblNotificacao == null) return;
 
-        // Interrompe animação anterior se uma nova notificação for chamada rapidamente
         if (delayNotificacaoAtual != null) {
             delayNotificacaoAtual.stop();
         }
 
-        // Reseta classes de estilo e aplica a classe correspondente ao tipo
+        // 1. Limpa todas as classes antigas
         lblNotificacao.getStyleClass().removeAll(
                 "barra-notificacao",
                 "barra-notificacao-sucesso",
                 "barra-notificacao-erro",
                 "barra-notificacao-alerta"
         );
+
+        // 2. Aplica a classe base
         lblNotificacao.getStyleClass().add("barra-notificacao");
 
+        // 3. Aplica a classe de cor conforme o tipo recebido (ESSENCIAL)
         switch (tipo) {
             case SUCESSO -> lblNotificacao.getStyleClass().add("barra-notificacao-sucesso");
             case ERRO -> lblNotificacao.getStyleClass().add("barra-notificacao-erro");
             case ALERTA -> lblNotificacao.getStyleClass().add("barra-notificacao-alerta");
-            default -> lblNotificacao.getStyleClass().add("barra-notificacao-info");
         }
 
         lblNotificacao.setText(mensagem);
         lblNotificacao.setOpacity(1.0);
         lblNotificacao.setVisible(true);
-        lblNotificacao.setManaged(true);
 
-        // Exibe por 2.5 segundos e faz o Fade Out suave em 0.5s
         delayNotificacaoAtual = new PauseTransition(Duration.seconds(2.5));
         delayNotificacaoAtual.setOnFinished(event -> {
             FadeTransition fadeOut = new FadeTransition(Duration.seconds(0.5), lblNotificacao);
             fadeOut.setFromValue(1.0);
             fadeOut.setToValue(0.0);
-            fadeOut.setOnFinished(e -> {
-                lblNotificacao.setVisible(false);
-                lblNotificacao.setManaged(false);
-            });
+            fadeOut.setOnFinished(e -> lblNotificacao.setVisible(false));
             fadeOut.play();
         });
 
         delayNotificacaoAtual.play();
     }
+
 
     public static void abrirJanela(String fxmlPath, String titulo) {
         try {

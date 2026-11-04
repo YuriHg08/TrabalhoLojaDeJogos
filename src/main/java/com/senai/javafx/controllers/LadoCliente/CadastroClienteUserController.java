@@ -32,6 +32,14 @@ public class CadastroClienteUserController {
     }
 
     @FXML
+    public void initialize() {
+        // Executa a ação handleCadastrar ao pressionar ENTER em qualquer um dos campos
+        txtNome.setOnAction(this::handleCadastrar);
+        txtSenha.setOnAction(this::handleCadastrar);
+        txtConfirmarSenha.setOnAction(this::handleCadastrar);
+    }
+
+    @FXML
     private void handleCadastrar(ActionEvent event) {
         String nome = txtNome.getText().trim();
         String senha = txtSenha.getText().trim();
