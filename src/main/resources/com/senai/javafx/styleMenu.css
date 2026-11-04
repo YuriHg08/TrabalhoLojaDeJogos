@@ -820,54 +820,56 @@
 }
 
 
-/* Banner da Loja de Acessórios (logo em roxo + "LOJA DE JOGOS") */
-.banner-loja {
-    -fx-background-color: radial-gradient(center 50% 40%, radius 70%, rgba(124, 58, 237, 0.28), rgba(23, 29, 42, 0.0)),
-                          -cor-superficie;
-    -fx-background-radius: 12px;
-    -fx-border-color: rgba(167, 139, 250, 0.35);
-    -fx-border-radius: 12px;
-    -fx-border-width: 1px;
+/* ==========================================================================
+   BARRA DE TÍTULO CUSTOMIZADA (MODERNA)
+   ========================================================================== */
+
+.custom-titlebar {
+    -fx-background-color: #0c0f17;
+    -fx-border-color: #1a202c;
+    -fx-border-width: 0 0 1px 0;
 }
 
-.banner-logo-corpo {
-    -fx-fill: linear-gradient(to bottom, #8b5cf6, #4c1d95);
-    -fx-stroke: #c4b5fd;
-    -fx-stroke-width: 1.2;
-    -fx-effect: dropshadow(three-pass-box, rgba(139, 92, 246, 0.65), 14, 0.2, 0, 0);
-}
-
-.banner-logo-direcional {
-    -fx-fill: white;
-}
-
-.banner-logo-onda {
-    -fx-stroke: linear-gradient(to bottom, #e879f9, #7c3aed);
-    -fx-stroke-width: 3;
-}
-
-.banner-loja-titulo {
-    -fx-font-size: 52px;
-    -fx-font-weight: 900;
-    -fx-font-style: italic;
-    -fx-fill: linear-gradient(to right, #ddd6fe 0%, #a78bfa 40%, #7c3aed 100%);
-    -fx-effect: dropshadow(three-pass-box, rgba(124, 58, 237, 0.55), 12, 0.1, 0, 0);
-}
-
-.banner-loja-slogan {
+.titlebar-logo {
+    -fx-text-fill: #e91e63;
     -fx-font-size: 13px;
     -fx-font-weight: bold;
-    -fx-text-fill: #a78bfa;
+    -fx-font-family: "Segoe UI", sans-serif;
 }
-/* Notificação base */
-.barra-notificacao {
-    -fx-font-size: 13px;
-    -fx-font-weight: bold;
-    -fx-padding: 10px 16px;
-    -fx-border-width: 1px;
-    -fx-border-radius: 8px;
-    -fx-background-radius: 8px;
-    -fx-alignment: center;
+
+.titlebar-subtitulo {
+    -fx-text-fill: #718096;
+    -fx-font-size: 11px;
+    -fx-font-family: "Segoe UI", sans-serif;
+}
+
+/* Botões da barra */
+.titlebar-btn {
+    -fx-background-color: transparent;
+    -fx-background-radius: 0;
+    -fx-padding: 0;
+    -fx-cursor: hand;
+}
+
+.titlebar-btn:hover {
+    -fx-background-color: #1a2130;
+}
+
+.titlebar-btn:pressed {
+    -fx-background-color: #242d40;
+}
+
+/* Botão Fechar com destaque vermelho/magenta suave */
+.titlebar-btn-close:hover {
+    -fx-background-color: #e53e3e;
+}
+
+.titlebar-btn-close:hover SVGPath {
+    -fx-stroke: #ffffff;
+}
+
+.titlebar-btn-close:pressed {
+    -fx-background-color: #c53030;
 }
 
 /* Notificação de ERRO / ALERTA (Vermelho/Neon) */

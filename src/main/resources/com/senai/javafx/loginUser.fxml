@@ -9,94 +9,91 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.paint.Color?>
 
-<StackPane alignment="CENTER" prefHeight="700.0" prefWidth="1200.0" stylesheets="@styleMenu.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.senai.javafx.controllers.LadoCliente.loginUserController">
-    <children>
-        <VBox alignment="CENTER" maxWidth="454.0" prefHeight="679.0" prefWidth="454.0" spacing="18.0" styleClass="card">
-            <padding>
-                <Insets bottom="35.0" left="35.0" right="35.0" top="35.0" />
-            </padding>
+<BorderPane prefHeight="700.0" prefWidth="1200.0" stylesheets="@styleMenu.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.senai.javafx.controllers.LadoCliente.loginUserController">
+
+    <!-- 1. BARRA DE TÍTULO CUSTOMIZADA NO TOPO -->
+    <top>
+        <fx:include source="titleBar.fxml" />
+    </top>
+
+    <!-- 2. CONTEÚDO CENTRALIZADO -->
+    <center>
+        <StackPane alignment="CENTER">
             <children>
-            <ImageView fitHeight="47.0" fitWidth="256.0" pickOnBounds="true" preserveRatio="true">
-
-               <image>
-                  <Image url="@imagens/nexus.png" />
-               </image>
-               <effect>
-                  <DropShadow>
-                     <color>
-                        <Color opacity="0.6374045610427856" />
-                     </color>
-                  </DropShadow>
-               </effect>
-            </ImageView>
-
-                            <!-- Mensagem de Boas-Vindas -->
-                <Label styleClass="subtitulo" text="Entre na sua conta" />
-
-                            <!-- Formulário -->
-                <VBox alignment="CENTER_LEFT" spacing="12.0">
+                <VBox alignment="CENTER" maxWidth="454.0" prefHeight="679.0" prefWidth="454.0" spacing="18.0" styleClass="card">
+                    <padding>
+                        <Insets bottom="35.0" left="35.0" right="35.0" top="35.0" />
+                    </padding>
                     <children>
-                        <VBox spacing="4.0">
+                        <ImageView fitHeight="47.0" fitWidth="256.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@imagens/nexus.png" />
+                            </image>
+                            <effect>
+                                <DropShadow>
+                                    <color>
+                                        <Color opacity="0.6374045610427856" />
+                                    </color>
+                                </DropShadow>
+                            </effect>
+                        </ImageView>
+
+                        <!-- Mensagem de Boas-Vindas -->
+                        <Label styleClass="subtitulo" text="Entre na sua conta" />
+
+                        <!-- Formulário -->
+                        <VBox alignment="CENTER_LEFT" spacing="12.0">
                             <children>
-                                <Label styleClass="label-campo" text="Nome / Usuário" />
-                                <TextField fx:id="txtNome" onAction="#handleLogar" promptText="Digite seu nome ou usuário" styleClass="campo-texto" />
+                                <VBox spacing="4.0">
+                                    <children>
+                                        <Label styleClass="label-campo" text="Nome / Usuário" />
+                                        <TextField fx:id="txtNome" onAction="#handleLogar" promptText="Digite seu nome ou usuário" styleClass="campo-texto" />
+                                    </children>
+                                </VBox>
+
+                                <VBox spacing="4.0">
+                                    <children>
+                                        <Label styleClass="label-campo" text="Senha" />
+                                        <PasswordField fx:id="txtSenha" onAction="#handleLogar" promptText="Digite sua senha" styleClass="campo-texto" />
+                                    </children>
+                                </VBox>
+
+                                <VBox spacing="4.0">
+                                    <children>
+                                        <HBox alignment="CENTER_LEFT" spacing="6.0" />
+                                    </children>
+                                </VBox>
+
+                                <!-- Telefone com aviso de 15 chars -->
+                                <VBox spacing="4.0">
+                                    <children>
+                                        <HBox alignment="CENTER_LEFT" spacing="6.0" />
+                                    </children>
+                                </VBox>
                             </children>
                         </VBox>
 
-                        <VBox spacing="4.0">
-                            <children>
-                                <Label styleClass="label-campo" text="Senha" />
-                                <PasswordField fx:id="txtSenha" onAction="#handleLogar" promptText="Digite sua senha" styleClass="campo-texto" />
-                            </children>
-                        </VBox>
+                        <Button onAction="#handleCadastreSe" style="-fx-background-color: transparent; -fx-text-fill: #8a8a8a; -fx-cursor: hand; -fx-font-size: 12px;" text="Não tem uma conta? Cadastre-se aqui" />
 
-                        <VBox spacing="4.0">
+                        <!-- Botões de Ação -->
+                        <AnchorPane prefHeight="166.0" prefWidth="408.0">
                             <children>
-                                <HBox alignment="CENTER_LEFT" spacing="6.0" />
+                                <Button contentDisplay="CENTER" defaultButton="true" graphicTextGap="300.0" layoutX="4.0" layoutY="55.0" mnemonicParsing="false" onAction="#voltarTela" prefHeight="46.0" prefWidth="400.0" styleClass="botao-secundario" text="Voltar" />
+                                <Button fx:id="btnLogar" layoutX="4.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleLogar" prefWidth="400.0" styleClass="button, botao-primario" text="Entrar" />
                             </children>
-                        </VBox>
+                        </AnchorPane>
 
-                                    <!-- Telefone com aviso de 15 chars -->
-                        <VBox spacing="4.0">
-                            <children>
-                                <HBox alignment="CENTER_LEFT" spacing="6.0" />
-                            </children>
-                        </VBox>
+                        <Label fx:id="lblNotificacao" alignment="CENTER" maxWidth="360.0" styleClass="barra-notificacao" textAlignment="CENTER" visible="false" wrapText="true" />
                     </children>
                 </VBox>
-            <Button onAction="#handleCadastreSe" style="-fx-background-color: transparent; -fx-text-fill: #8a8a8a; -fx-cursor: hand; -fx-font-size: 12px;" text="Não tem uma conta? Cadastre-se aqui" />
+            </children>
+        </StackPane>
+    </center>
 
-                            <!-- Botões de Ação -->
-                <VBox alignment="CENTER" spacing="10.0">
-                    <VBox.margin>
-                        <Insets top="10.0" />
-                    </VBox.margin>
-                </VBox>
-
-
-            <AnchorPane prefHeight="166.0" prefWidth="408.0">
-               <children>
-                  <Button contentDisplay="CENTER" defaultButton="true" graphicTextGap="300.0" layoutX="4.0" layoutY="55.0" mnemonicParsing="false" onAction="#voltarTela" prefHeight="46.0" prefWidth="400.0" styleClass="botao-secundario" text="Voltar" />
-                        <Button fx:id="btnLogar" layoutX="4.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleLogar" prefWidth="400.0" styleClass="button, botao-primario" text="Entrar" />
-
-
-               </children>
-            </AnchorPane>
-
-                  </children>
-
-            <Label fx:id="lblNotificacao"
-                   visible="false"
-                   alignment="CENTER"
-                   textAlignment="CENTER"
-                   wrapText="true"
-                   maxWidth="360.0"
-                   styleClass="barra-notificacao" />
-        </VBox>
-    </children>
-</StackPane>
+</BorderPane>
