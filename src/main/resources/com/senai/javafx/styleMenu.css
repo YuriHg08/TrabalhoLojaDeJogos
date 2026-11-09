@@ -254,8 +254,8 @@
 
 .botao-secundario:hover {
     -fx-background-color: -cor-secundaria-hover;
-    -fx-border-color: -cor-neon-ciano;
-    -fx-text-fill: -cor-neon-ciano;
+    -fx-border-color: -cor-primaria;
+    -fx-text-fill: -cor-texto-secundario;
 }
 
 /* Botão de Perigo */
@@ -488,7 +488,7 @@
 }
 
 .card-jogo:hover {
-    -fx-border-color: -cor-neon-ciano;
+    -fx-border-color: -cor-primaria;
     -fx-translate-y: -2px;
 }
 

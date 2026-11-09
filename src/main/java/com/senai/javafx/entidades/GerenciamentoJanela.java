@@ -12,6 +12,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
@@ -27,6 +28,7 @@ import javafx.util.Duration;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Objects;
 
 public class GerenciamentoJanela extends Application {
 
@@ -139,6 +141,9 @@ public class GerenciamentoJanela extends Application {
             }
 
             primaryStage.setTitle(titulo);
+            primaryStage.getIcons().addAll(
+                    new Image(Objects.requireNonNull(GerenciamentoJanela.class.getResourceAsStream("/com/senai/javafx/imagens/nexus_icon.png")))
+            );
 
             // Ajusta a janela ao tamanho exato da tela livre (respeitando a barra de tarefas)
             Rectangle2D visualBounds = Screen.getPrimary().getVisualBounds();
