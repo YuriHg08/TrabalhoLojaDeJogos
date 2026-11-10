@@ -612,7 +612,7 @@
 
 .spinner-custom .text-field {
     -fx-background-color: -cor-superficie;
-    -fx-text-fill: -cor-neon;
+    -fx-text-fill: -cor-texto-primario;
     -fx-font-weight: bold;
     -fx-alignment: center;
     -fx-background-radius: 16px 0 0 16px;

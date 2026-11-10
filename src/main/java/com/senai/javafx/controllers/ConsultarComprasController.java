@@ -1,29 +1,21 @@
 package com.senai.javafx.controllers;
 
 import com.senai.javafx.entidades.Compra;
-import com.senai.javafx.entidades.ItemCompra;
 import com.senai.javafx.entidades.GerenciamentoJanela;
 import com.senai.javafx.entidades.RegistroCompras;
 import com.senai.javafx.entidades.Sessao;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.layout.ColumnConstraints;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
-import javafx.scene.layout.VBox;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
 
 import java.net.URL;
 import java.text.NumberFormat;
@@ -158,90 +150,7 @@ public class ConsultarComprasController {
 
     // Janela com a nota completa: cliente, data, pagamento, item por item e totais
     private void abrirNota(Compra compra) {
-        Stage janela = new Stage();
-        janela.initModality(Modality.APPLICATION_MODAL);
-        janela.initOwner(tabelaCompras.getScene().getWindow());
-        janela.setTitle("Nota nº " + numeroNota(compra));
-        janela.setResizable(false);
-
-        Label titulo = new Label("NOTA Nº " + numeroNota(compra));
-        titulo.getStyleClass().add("titulo-tela");
-
-        VBox cabecalho = new VBox(4,
-                linhaTexto("Cliente: ", compra.getNomeCliente()),
-                linhaTexto("CPF: ", compra.getCpf()),
-                linhaTexto(compra.getStatus() == Compra.Status.APROVADA ? "Data da compra: " : "Data do pedido: ",
-                        compra.getDataExibicao().format(FORMATO_DATA)),
-                linhaTexto("Situação: ", compra.getRotuloStatus()),
-                linhaTexto("Forma de pagamento: ", compra.getFormaPagamento().getRotulo()));
-
-        // Tabela de itens: nome | qtd | unitário | subtotal
-        GridPane itens = new GridPane();
-        itens.setHgap(18);
-        itens.setVgap(6);
-        ColumnConstraints colNome = new ColumnConstraints();
-        colNome.setHgrow(Priority.ALWAYS);
-        itens.getColumnConstraints().add(colNome);
-
-        itens.add(cabecalhoGrade("ITEM"), 0, 0);
-        itens.add(cabecalhoGrade("QTD."), 1, 0);
-        itens.add(cabecalhoGrade("UNITÁRIO"), 2, 0);
-        itens.add(cabecalhoGrade("SUBTOTAL"), 3, 0);
-
-        int linha = 1;
-        for (ItemCompra item : compra.getItens()) {
-            Label nome = new Label(item.getNome());
-            nome.getStyleClass().add("subtitulo");
-            nome.setWrapText(true);
-            nome.setMaxWidth(260);
-            // Segunda linha: o que é (Jogo, Console, PC Gamer, Controle) e plataforma/detalhes
-            Label tipo = new Label(item.getResumoTipo());
-            tipo.getStyleClass().add("texto-mutado");
-            tipo.setWrapText(true);
-            tipo.setMaxWidth(260);
-            itens.add(new VBox(2, nome, tipo), 0, linha);
-            itens.add(celulaGrade(String.valueOf(item.getQuantidade())), 1, linha);
-            itens.add(celulaGrade(FORMATO_PRECO.format(item.getPrecoUnitario())), 2, linha);
-            itens.add(celulaGrade(FORMATO_PRECO.format(item.getSubtotal())), 3, linha);
-            linha++;
-        }
-
-        VBox totais = new VBox(6,
-                linhaValor("Subtotal", FORMATO_PRECO.format(compra.getSubtotal()), false),
-                linhaValor(compra.getFormaPagamento().getPercentualDesconto() == 0
-                                ? "Desconto"
-                                : "Desconto " + compra.getFormaPagamento().getRotulo()
-                                + " (" + compra.getFormaPagamento().getPercentualDesconto() + "%)",
-                        compra.getDesconto() == 0 ? "—" : "- " + FORMATO_PRECO.format(compra.getDesconto()), false),
-                linhaValor(switch (compra.getStatus()) {
-                            case APROVADA -> "TOTAL PAGO";
-                            case PENDENTE -> "TOTAL A PAGAR (em análise)";
-                            case RECUSADA -> "TOTAL (não cobrado)";
-                        }, FORMATO_PRECO.format(compra.getTotal()), true));
-        totais.getStyleClass().add("nota-linha-total");
-
-        Label qtdTotal = new Label(compra.getQuantidadeTotal()
-                + (compra.getQuantidadeTotal() == 1 ? " unidade" : " unidades") + " no total");
-        qtdTotal.getStyleClass().add("texto-mutado");
-
-        Button btnFechar = new Button("Fechar");
-        btnFechar.getStyleClass().addAll("button", "botao-primario");
-        btnFechar.setOnAction(e -> janela.close());
-        HBox rodape = new HBox(btnFechar);
-        rodape.setAlignment(Pos.CENTER_RIGHT);
-
-        VBox layout = new VBox(14, titulo, avisoStatus(compra), cabecalho, itens, qtdTotal, totais, rodape);
-        layout.getStyleClass().add("nota-compra");
-        layout.setPadding(new Insets(24));
-        layout.setMinWidth(480);
-
-        Scene cena = new Scene(layout);
-        URL css = getClass().getResource("/com/senai/javafx/styleMenu.css");
-        if (css != null) {
-            cena.getStylesheets().add(css.toExternalForm());
-        }
-        janela.setScene(cena);
-        janela.showAndWait();
+        NotaCompraController.abrir(compra, tabelaCompras.getScene().getWindow());
     }
 
     private HBox linhaTexto(String rotulo, String valor) {

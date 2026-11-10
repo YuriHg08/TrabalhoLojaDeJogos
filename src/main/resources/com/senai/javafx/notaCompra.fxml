@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<VBox fx:id="rootLayout" minWidth="480.0" prefWidth="520.0" spacing="14.0" styleClass="nota-compra" stylesheets="@styleMenu.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.senai.javafx.controllers.NotaCompraController">
+    <padding>
+        <Insets bottom="24.0" left="24.0" right="24.0" top="20.0" />
+    </padding>
+    <children>
+        <!-- 1. CABEÇALHO PERSONALIZADO (TITLEBAR CUSTOMIZADA) -->
+        <HBox alignment="CENTER_LEFT">
+            <children>
+                <Label fx:id="lblTitulo" styleClass="titulo-tela" text="NOTA Nº 000000" />
+                <Region HBox.hgrow="ALWAYS" />
+                <Button focusTraversable="false" mnemonicParsing="false" onAction="#fechar" style="-fx-text-fill: #ffffff;" text="✕">
+               <styleClass>
+                  <String fx:value="titlebar-btn-close" />
+                  <String fx:value="custom-titlebar" />
+               </styleClass></Button>
+            </children>
+        </HBox>
+
+        <!-- 2. AVISO DE STATUS -->
+        <Label fx:id="lblAvisoStatus" alignment="CENTER" maxWidth="Infinity" styleClass="subtitulo" wrapText="true" />
+
+        <!-- 3. INFORMAÇÕES DA COMPRA / CLIENTE -->
+        <VBox spacing="4.0">
+            <children>
+                <HBox spacing="4.0">
+                    <children>
+                        <Label styleClass="texto-ajuda" text="Cliente: ">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font></Label>
+                        <Label fx:id="lblCliente" styleClass="texto-ajuda" text="Nome do Cliente" />
+                    </children>
+                </HBox>
+                <HBox spacing="4.0">
+                    <children>
+                        <Label styleClass="texto-ajuda" text="CPF: " />
+                        <Label fx:id="lblCpf" styleClass="texto-ajuda" text="000.000.000-00" />
+                    </children>
+                </HBox>
+                <HBox spacing="4.0" styleClass="texto-ajuda">
+                    <children>
+                        <Label fx:id="lblRotuloData" styleClass="texto-ajuda" text="Data da compra: " />
+                        <Label fx:id="lblData" styleClass="texto-ajuda" text="01/01/2026" />
+                    </children>
+                </HBox>
+                <HBox spacing="4.0">
+                    <children>
+                        <Label styleClass="texto-ajuda" text="Situação: " />
+                        <Label fx:id="lblSituacao" styleClass="texto-ajuda" text="Aprovada" />
+                    </children>
+                </HBox>
+                <HBox spacing="4.0">
+                    <children>
+                        <Label styleClass="texto-ajuda" text="Forma de pagamento: " />
+                        <Label fx:id="lblFormaPagamento" styleClass="texto-ajuda" text="Pix" />
+                    </children>
+                </HBox>
+            </children>
+        </VBox>
+
+        <!-- 4. TABELA DE ITENS COM ROLAGEM -->
+        <ScrollPane fitToWidth="true" hbarPolicy="NEVER" maxHeight="200.0" styleClass="custom-scroll-pane">
+            <content>
+                <GridPane fx:id="gridItens" hgap="18.0" vgap="6.0">
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="ALWAYS" minWidth="160.0" />
+                        <ColumnConstraints halignment="CENTER" minWidth="45.0" />
+                        <ColumnConstraints halignment="RIGHT" minWidth="80.0" />
+                        <ColumnConstraints halignment="RIGHT" minWidth="80.0" />
+                    </columnConstraints>
+                    <children>
+                        <Label styleClass="texto-mutado" text="Item" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                        <Label styleClass="texto-mutado" text="Qtd" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                        <Label styleClass="texto-mutado" text="Unitário" GridPane.columnIndex="2" GridPane.rowIndex="0" />
+                        <Label styleClass="texto-mutado" text="Subtotal" GridPane.columnIndex="3" GridPane.rowIndex="0" />
+                    </children>
+               <rowConstraints>
+                  <RowConstraints />
+               </rowConstraints>
+                </GridPane>
+            </content>
+        </ScrollPane>
+
+        <!-- 5. QUANTIDADE TOTAL -->
+        <Label fx:id="lblQtdTotal" styleClass="texto-mutado" text="0 unidades no total" />
+
+        <!-- 6. VALORES TOTAIS -->
+        <VBox spacing="6.0" styleClass="nota-linha-total">
+            <children>
+                <HBox alignment="CENTER_LEFT">
+                    <children>
+                        <Label styleClass="subtitulo" text="Subtotal" />
+                        <Region HBox.hgrow="ALWAYS" />
+                        <Label fx:id="lblSubtotal" styleClass="subtitulo" text="R$ 0,00" />
+                    </children>
+                </HBox>
+                <HBox fx:id="boxDesconto" alignment="CENTER_LEFT">
+                    <children>
+                        <Label fx:id="lblRotuloDesconto" styleClass="subtitulo" text="Desconto" />
+                        <Region HBox.hgrow="ALWAYS" />
+                        <Label fx:id="lblValorDesconto" styleClass="subtitulo" text="—" />
+                    </children>
+                </HBox>
+                <HBox alignment="CENTER_LEFT">
+                    <children>
+                        <Label fx:id="lblRotuloTotal" styleClass="titulo-tela" text="Total pago" />
+                        <Region HBox.hgrow="ALWAYS" />
+                        <Label fx:id="lblValorTotal" styleClass="label-total" text="R$ 0,00" />
+                    </children>
+                </HBox>
+            </children>
+        </VBox>
+
+        <!-- 7. BOTÃO FECHAR -->
+        <HBox alignment="CENTER_RIGHT">
+            <children>
+                <Button defaultButton="true" mnemonicParsing="false" onAction="#fechar" prefHeight="38.0" prefWidth="112.0" styleClass="button, botao-primario" text="Fechar" />
+            </children>
+        </HBox>
+    </children>
+</VBox>
