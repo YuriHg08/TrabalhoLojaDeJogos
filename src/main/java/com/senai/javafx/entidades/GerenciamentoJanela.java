@@ -209,7 +209,7 @@ public class GerenciamentoJanela extends Application {
         // --- BARRA SUPERIOR (TÍTULO E FECHAR) ---
         Label lblTitulo = new Label(titulo != null && !titulo.isBlank() ? titulo : tipo.tituloPadrao);
         lblTitulo.setStyle(
-                "-fx-text-fill: " + tipo.corDestaque + "; " +
+                "-fx-text-fill:" + tipo.corDestaque + "; " +
                         "-fx-font-weight: bold; " +
                         "-fx-font-size: 14px;"
         );

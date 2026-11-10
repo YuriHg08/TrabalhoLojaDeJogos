@@ -148,7 +148,6 @@ public class ConsultarClienteController {
         Alert confirmacao = new Alert(Alert.AlertType.CONFIRMATION, mensagem, ButtonType.YES, ButtonType.NO);
         confirmacao.setTitle(titulo);
         confirmacao.setHeaderText(null);
-
         var css = getClass().getResource("/com/senai/javafx/styleMenu.css");
         if (css != null) {
             confirmacao.getDialogPane().getStylesheets().add(css.toExternalForm());

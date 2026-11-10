@@ -69,7 +69,7 @@ public class loginUserController {
 
         if (nome.isEmpty() || senha.isEmpty()) {
             restaurarBotao();
-            mostrarNotificacao("Por favor, preencha todos os campos!");
+            mostrarNotificacao("Por favor, preencha todos os campos!", "barra-notificacao-alerta");
             return;
         }
 
@@ -83,7 +83,7 @@ public class loginUserController {
         // Login de usuário padrão
         if (!UsuarioCadastro.autenticar(nome, senha)) {
             restaurarBotao();
-            mostrarNotificacao("Utilizador ou senha inválidos!");
+            mostrarNotificacao("Utilizador ou senha inválidos!", "barra-notificacao-erro");
             return;
         }
 
@@ -95,7 +95,7 @@ public class loginUserController {
 
         if (usuario != null && usuario.isBloqueado()) {
             restaurarBotao();
-            mostrarNotificacao("Acesso bloqueado pela administração!");
+            mostrarNotificacao("Acesso bloqueado pela administração!", "barra-notificacao-erro");
             return;
         }
 
@@ -113,7 +113,7 @@ public class loginUserController {
     }
 
     // Exibe a notificação animada (Toast)
-    private void mostrarNotificacao(String mensagem) {
+    private void mostrarNotificacao(String mensagem, String estilo) {
         if (lblNotificacao == null) return;
 
         if (delayNotificacao != null) {
@@ -123,6 +123,7 @@ public class loginUserController {
         lblNotificacao.setText(mensagem);
         lblNotificacao.setOpacity(1.0);
         lblNotificacao.setVisible(true);
+        lblNotificacao.getStyleClass().add(estilo);
         lblNotificacao.setManaged(true);
 
         delayNotificacao = new PauseTransition(Duration.seconds(3));
