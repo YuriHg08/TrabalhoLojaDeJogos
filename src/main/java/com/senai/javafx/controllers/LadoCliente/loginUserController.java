@@ -76,7 +76,7 @@ public class loginUserController {
         // Login do administrador
         if (nome.equals("admin") && senha.equals("admin")) {
             Sessao.iniciarSessao(nome, senha);
-            GerenciamentoJanela.abrirJanela("/com/senai/javafx/telaInicial.fxml", "Menu de ações");
+            GerenciamentoJanela.abrirJanela("/com/senai/javafx/telaInicial.fxml", "Nexus Store - Página inicial");
             return;
         }
 
