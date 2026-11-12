@@ -2,12 +2,10 @@ package com.senai.javafx.controllers;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.geometry.Rectangle2D;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
-import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 public class TitleBarController {
@@ -75,27 +73,21 @@ public class TitleBarController {
         Stage stage = getStage();
         if (stage == null) return;
 
-        Rectangle2D visualBounds = Screen.getPrimary().getVisualBounds();
-
-        if (isMaximizada) {
-            // Restaura para a janela menor
+        if (stage.isFullScreen()) {
+            // Sai da tela cheia e volta para a janela menor
+            stage.setFullScreen(false);
             stage.setX(xAnterior);
             stage.setY(yAnterior);
             stage.setWidth(larguraAnterior);
             stage.setHeight(alturaAnterior);
             isMaximizada = false;
         } else {
-            // Salva antes de maximizar
             xAnterior = stage.getX();
             yAnterior = stage.getY();
             larguraAnterior = stage.getWidth();
             alturaAnterior = stage.getHeight();
 
-            // Maximiza respeitando a barra de tarefas
-            stage.setX(visualBounds.getMinX());
-            stage.setY(visualBounds.getMinY());
-            stage.setWidth(visualBounds.getWidth());
-            stage.setHeight(visualBounds.getHeight());
+            stage.setFullScreen(true);
             isMaximizada = true;
         }
     }

@@ -145,15 +145,13 @@ public class GerenciamentoJanela extends Application {
                     new Image(Objects.requireNonNull(GerenciamentoJanela.class.getResourceAsStream("/com/senai/javafx/imagens/nexus_icon.png")))
             );
 
-            // Ajusta a janela ao tamanho exato da tela livre (respeitando a barra de tarefas)
-            Rectangle2D visualBounds = Screen.getPrimary().getVisualBounds();
-            primaryStage.setX(visualBounds.getMinX());
-            primaryStage.setY(visualBounds.getMinY());
-            primaryStage.setWidth(visualBounds.getWidth());
-            primaryStage.setHeight(visualBounds.getHeight());
+            // Tela cheia de verdade (cobre inclusive a barra de tarefas), sem o aviso de "ESC para sair"
+            primaryStage.setFullScreenExitHint("");
+            primaryStage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
 
             if (!primaryStage.isShowing()) {
                 primaryStage.show();
+                primaryStage.setFullScreen(true);
             }
 
         } catch (IOException e) {
