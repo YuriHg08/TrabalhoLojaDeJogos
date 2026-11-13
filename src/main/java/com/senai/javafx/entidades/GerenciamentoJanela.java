@@ -12,6 +12,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.control.TextFormatter;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCombination;
@@ -29,6 +31,7 @@ import javafx.util.Duration;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Objects;
+import java.util.OptionalInt;
 
 public class GerenciamentoJanela extends Application {
 
@@ -283,5 +286,117 @@ public class GerenciamentoJanela extends Application {
         });
 
         modalStage.showAndWait();
+    }
+
+    /**
+     * Modal no mesmo estilo dos alertas que pede um número inteiro (0 ou mais).
+     * Devolve vazio se a pessoa cancelar (botão, X ou ESC).
+     */
+    public static OptionalInt solicitarNumeroInteiro(String titulo, String mensagem, String textoBotao) {
+        Stage modalStage = new Stage();
+
+        modalStage.initModality(Modality.APPLICATION_MODAL);
+        if (primaryStage != null) {
+            modalStage.initOwner(primaryStage);
+        }
+        modalStage.initStyle(StageStyle.UNDECORATED);
+        modalStage.setResizable(false);
+
+        final int[] resultado = {-1};
+
+        Label lblTitulo = new Label(titulo);
+        lblTitulo.setStyle("-fx-text-fill: " + TipoAlerta.INFO.corDestaque + "; -fx-font-weight: bold; -fx-font-size: 14px;");
+
+        Region espacador = new Region();
+        HBox.setHgrow(espacador, Priority.ALWAYS);
+
+        Button btnFechar = new Button("✕");
+        btnFechar.setStyle("-fx-background-color: transparent; -fx-text-fill: -cor-texto-secundario; "
+                + "-fx-font-size: 13px; -fx-cursor: hand;");
+        btnFechar.setOnAction(e -> modalStage.close());
+
+        HBox barraSuperior = new HBox(lblTitulo, espacador, btnFechar);
+        barraSuperior.setAlignment(Pos.CENTER_LEFT);
+        barraSuperior.setPadding(new Insets(12, 16, 8, 16));
+
+        Label lblMensagem = new Label(mensagem);
+        lblMensagem.setWrapText(true);
+        lblMensagem.setMaxWidth(380);
+        lblMensagem.setStyle("-fx-text-fill: -cor-texto-principal; -fx-font-size: 13px;");
+
+        // Só aceita dígitos (até 6, para não estourar o int)
+        TextField campo = new TextField();
+        campo.setPromptText("Ex.: 10");
+        campo.setMaxWidth(160);
+        campo.setAlignment(Pos.CENTER);
+        campo.setTextFormatter(new TextFormatter<String>(m -> m.getControlNewText().matches("\\d{0,6}") ? m : null));
+
+        Label lblErro = new Label();
+        lblErro.setStyle("-fx-text-fill: " + TipoAlerta.ERRO.corDestaque + "; -fx-font-size: 12px;");
+
+        VBox corpo = new VBox(12, lblMensagem, campo, lblErro);
+        corpo.setPadding(new Insets(12, 20, 8, 20));
+        corpo.setAlignment(Pos.CENTER);
+
+        Runnable confirmar = () -> {
+            String texto = campo.getText().trim();
+            if (texto.isEmpty()) {
+                lblErro.setText("Digite um número.");
+                return;
+            }
+            resultado[0] = Integer.parseInt(texto);
+            modalStage.close();
+        };
+
+        Button btnCancelar = new Button("Cancelar");
+        btnCancelar.getStyleClass().add("botao-secundario");
+        btnCancelar.setPrefWidth(110);
+        btnCancelar.setOnAction(e -> modalStage.close());
+
+        Button btnOk = new Button(textoBotao != null ? textoBotao : "OK");
+        btnOk.getStyleClass().add("botao-primario");
+        btnOk.setPrefWidth(110);
+        btnOk.setDefaultButton(true);
+        btnOk.setOnAction(e -> confirmar.run());
+
+        HBox rodape = new HBox(10, btnCancelar, btnOk);
+        rodape.setAlignment(Pos.CENTER_RIGHT);
+        rodape.setPadding(new Insets(8, 20, 16, 20));
+
+        VBox layout = new VBox(barraSuperior, corpo, rodape);
+        layout.getStyleClass().add("dialogo-custom");
+        if (!modoEscuroAtivo) {
+            layout.getStyleClass().add("modo-claro");
+        }
+
+        final double[] arrasto = new double[2];
+        barraSuperior.setOnMousePressed(e -> {
+            arrasto[0] = modalStage.getX() - e.getScreenX();
+            arrasto[1] = modalStage.getY() - e.getScreenY();
+        });
+        barraSuperior.setOnMouseDragged(e -> {
+            modalStage.setX(e.getScreenX() + arrasto[0]);
+            modalStage.setY(e.getScreenY() + arrasto[1]);
+        });
+
+        Scene scene = new Scene(layout);
+        URL cssUrl = GerenciamentoJanela.class.getResource("/com/senai/javafx/styleMenu.css");
+        if (cssUrl != null) {
+            scene.getStylesheets().add(cssUrl.toExternalForm());
+        }
+        scene.addEventFilter(KeyEvent.KEY_PRESSED, e -> {
+            if (e.getCode() == KeyCode.ESCAPE) {
+                modalStage.close();
+            }
+        });
+
+        modalStage.setScene(scene);
+        modalStage.setOnShown(e -> {
+            modalStage.centerOnScreen();
+            campo.requestFocus();
+        });
+        modalStage.showAndWait();
+
+        return resultado[0] >= 0 ? OptionalInt.of(resultado[0]) : OptionalInt.empty();
     }
 }

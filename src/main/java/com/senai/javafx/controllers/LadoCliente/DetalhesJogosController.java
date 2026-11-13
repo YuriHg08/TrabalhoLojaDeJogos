@@ -13,11 +13,13 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
+import javafx.scene.control.TextFormatter;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import javafx.util.StringConverter;
 
 import java.text.NumberFormat;
 import java.util.Locale;
@@ -65,6 +67,8 @@ public class DetalhesJogosController {
     public void initialize() {
         rodape.getChildren().add(new BarraCarrinho());
 
+        configurarCampoQuantidade();
+
         // Registrado uma vez só: atualiza o preço do botão conforme a quantidade escolhida
         spnQuantidade.valueProperty().addListener((obs, antigo, novo) -> {
             if (jogoAtual != null && novo != null && novo > 0 && !btnComprar.isDisable()) {
@@ -103,6 +107,58 @@ public class DetalhesJogosController {
         }
     }
 
+    // Deixa o cliente escolher a quantidade pelas setas OU digitando no campo
+    private void configurarCampoQuantidade() {
+        spnQuantidade.setEditable(true);
+
+        // Só aceita dígitos (e campo vazio enquanto a pessoa apaga para digitar outro número)
+        spnQuantidade.getEditor().setTextFormatter(
+                new TextFormatter<String>(mudanca -> mudanca.getControlNewText().matches("\\d{0,4}") ? mudanca : null));
+
+        // Confirma o que foi digitado ao apertar Enter ou ao sair do campo (ex.: clicar em Comprar)
+        spnQuantidade.getEditor().addEventHandler(ActionEvent.ACTION, e -> confirmarQuantidadeDigitada());
+        spnQuantidade.getEditor().focusedProperty().addListener((obs, tinhaFoco, temFoco) -> {
+            if (!temFoco) {
+                confirmarQuantidadeDigitada();
+            }
+        });
+    }
+
+    // Transforma o texto do campo em valor do seletor (ajustado ao mínimo/máximo) e reescreve o texto certo
+    private void confirmarQuantidadeDigitada() {
+        if (spnQuantidade.getValueFactory() == null) {
+            return;
+        }
+        spnQuantidade.commitValue();
+        Integer valor = spnQuantidade.getValue();
+        spnQuantidade.getEditor().setText(valor == null ? "" : String.valueOf(valor));
+    }
+
+    // Seletor de quantidade entre minimo e maximo: setas e digitação respeitam os mesmos limites
+    private SpinnerValueFactory.IntegerSpinnerValueFactory criarFabricaQuantidade(int minimo, int maximo) {
+        SpinnerValueFactory.IntegerSpinnerValueFactory fabrica =
+                new SpinnerValueFactory.IntegerSpinnerValueFactory(minimo, maximo, minimo);
+        fabrica.setConverter(new StringConverter<Integer>() {
+            @Override
+            public String toString(Integer valor) {
+                return valor == null ? "" : String.valueOf(valor);
+            }
+
+            @Override
+            public Integer fromString(String texto) {
+                try {
+                    int digitado = Integer.parseInt(texto.trim());
+                    // Passou do estoque disponível? Fica no máximo. Zero ou menos? Fica no mínimo.
+                    return Math.max(minimo, Math.min(maximo, digitado));
+                } catch (NumberFormatException e) {
+                    // Campo vazio: mantém a quantidade que já estava escolhida
+                    return fabrica.getValue();
+                }
+            }
+        });
+        return fabrica;
+    }
+
     // Chamado logo depois de carregar a tela
     public void setProduto(Produto produto) {
         this.jogoAtual = produto;
@@ -124,8 +180,8 @@ public class DetalhesJogosController {
         int disponivel = Carrinho.disponivelParaAdicionar(jogoAtual);
 
         spnQuantidade.setValueFactory(disponivel <= 0
-                ? new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 0, 0)
-                : new SpinnerValueFactory.IntegerSpinnerValueFactory(1, disponivel, 1));
+                ? criarFabricaQuantidade(0, 0)
+                : criarFabricaQuantidade(1, disponivel));
         spnQuantidade.setDisable(disponivel <= 0);
 
         atualizarTextoEstoque(estoque, noCarrinho);
@@ -215,6 +271,7 @@ public class DetalhesJogosController {
     private void handleComprar(ActionEvent event) {
         // Comprar = colocar no carrinho. O estoque só é descontado quando o pagamento é concluído.
         // Carrinho.adicionar já recusa quantidade acima do estoque disponível.
+        confirmarQuantidadeDigitada();
         Integer quantidade = spnQuantidade.getValue();
 
         if (jogoAtual == null || quantidade == null || !Carrinho.adicionar(jogoAtual, quantidade)) {

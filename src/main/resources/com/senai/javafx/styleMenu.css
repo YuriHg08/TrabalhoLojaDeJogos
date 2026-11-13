@@ -599,7 +599,7 @@
 
 /* Rótulo "QUANTIDADE:" */
 .label-quantidade {
-    -fx-text-fill: -cor-texto-primario;
+    -fx-text-fill: -cor-texto-principal;
     -fx-font-size: 13px;
     -fx-font-weight: bold;
 }
@@ -612,12 +612,16 @@
 
 .spinner-custom .text-field {
     -fx-background-color: -cor-superficie;
-    -fx-text-fill: -cor-texto-primario;
+    -fx-text-fill: -cor-texto-principal;
     -fx-font-weight: bold;
     -fx-alignment: center;
     -fx-background-radius: 16px 0 0 16px;
     -fx-border-color: -cor-borda;
     -fx-border-radius: 16px 0 0 16px;
+}
+
+.spinner-custom .text-field:focused {
+    -fx-border-color: -cor-neon-rosa;
 }
 
 .spinner-custom .increment-arrow-button,
