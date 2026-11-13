@@ -19,6 +19,7 @@ import javafx.scene.layout.HBox;
 
 import java.text.NumberFormat;
 import java.util.Locale;
+import java.util.OptionalInt;
 
 // Lista os acessórios cadastrados (só consulta). A edição é feita pelo admin na própria loja,
 // clicando no acessório, como acontece com os jogos.
@@ -93,6 +94,37 @@ public class ConsultarAcessoriosController {
                 setGraphic(container);
             }
         });
+    }
+
+    // Define o mesmo estoque para todos os acessórios cadastrados, no número que o administrador escolher
+    @FXML
+    private void definirEstoqueDeTodos() {
+        int total = CatalogoAcessorios.TODOS.size();
+        if (total == 0) {
+            GerenciamentoJanela.exibirAlerta("Atenção", "Não há acessórios cadastrados.",
+                    GerenciamentoJanela.TipoAlerta.ALERTA);
+            return;
+        }
+
+        OptionalInt novoEstoque = GerenciamentoJanela.solicitarNumeroInteiro(
+                "Definir estoque de todos",
+                "Digite o estoque que TODOS os " + total + " acessórios vão passar a ter.",
+                "Aplicar");
+
+        if (novoEstoque.isEmpty()) {
+            return; // cancelou
+        }
+
+        for (Acessorio acessorio : CatalogoAcessorios.TODOS) {
+            acessorio.setEstoque(novoEstoque.getAsInt());
+        }
+
+        // A coluna de estoque lê o valor na hora de criar a célula; refresh() força reler
+        tabelaAcessorios.refresh();
+
+        GerenciamentoJanela.exibirAlerta("Sucesso",
+                "O estoque de " + total + " acessórios foi definido para " + novoEstoque.getAsInt() + ".",
+                GerenciamentoJanela.TipoAlerta.SUCESSO);
     }
 
     @FXML

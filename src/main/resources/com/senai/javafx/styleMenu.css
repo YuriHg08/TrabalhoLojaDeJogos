@@ -919,3 +919,39 @@
     -fx-border-color: #ffc700;
     -fx-text-fill: #ffffff;
 }
+
+/* ==========================================================================
+   VITRINE (tela de jogos girando - apenas estética)
+   ========================================================================== */
+.vitrine-fundo {
+    -fx-background-color: radial-gradient(center 50% 55%, radius 70%, #1b2437 0%, #0d121d 100%);
+}
+
+.vitrine-titulo {
+    -fx-font-size: 26px;
+    -fx-font-weight: bold;
+    -fx-text-fill: -cor-neon-rosa;
+    -fx-effect: -glow-titulo;
+}
+
+.vitrine-card {
+    -fx-background-color: -cor-superficie;
+    -fx-background-radius: 12px;
+    -fx-border-color: -cor-borda;
+    -fx-border-radius: 12px;
+    -fx-padding: 12px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.55), 14, 0, 0, 4);
+}
+
+.vitrine-foto {
+    -fx-background-color: -cor-campo;
+    -fx-background-radius: 8px;
+    -fx-alignment: CENTER;
+}
+
+.vitrine-nome {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: -cor-texto-principal;
+    -fx-text-alignment: center;
+}

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane prefHeight="700.0" prefWidth="1200.0" stylesheets="@styleMenu.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.senai.javafx.controllers.LadoAdministrador.VitrineController">
+
+   <top>
+      <fx:include source="titleBar.fxml" />
+   </top>
+
+   <center>
+      <StackPane fx:id="raiz" styleClass="vitrine-fundo">
+         <children>
+            <!-- Os cards giratórios são criados no controller -->
+            <StackPane fx:id="palco" />
+
+            <VBox alignment="TOP_CENTER" mouseTransparent="true" spacing="4.0" StackPane.alignment="TOP_CENTER">
+               <padding>
+                  <Insets top="28.0" />
+               </padding>
+               <children>
+                  <ImageView fitHeight="58.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@imagens/nexus.png" />
+                     </image>
+                  </ImageView>
+                  <Label styleClass="texto-mutado" text="Todos os jogos da Loja" />
+               </children>
+            </VBox>
+
+            <Button mnemonicParsing="false" onAction="#sair" prefWidth="180.0" styleClass="botao-primario" text="Sair da vitrine" StackPane.alignment="BOTTOM_CENTER">
+               <StackPane.margin>
+                  <Insets bottom="32.0" />
+               </StackPane.margin>
+            </Button>
+         </children>
+      </StackPane>
+   </center>
+
+</BorderPane>

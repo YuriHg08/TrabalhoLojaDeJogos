@@ -1,6 +1,7 @@
 package com.senai.javafx.controllers.LadoCliente;
 
 import com.senai.javafx.controllers.LadoAdministrador.EditarAcessorioController;
+import com.senai.javafx.controllers.LadoAdministrador.VitrineController;
 import com.senai.javafx.entidades.*;
 import javafx.animation.PauseTransition;
 import javafx.beans.InvalidationListener;
@@ -64,6 +65,10 @@ public class telaInicialController {
     @FXML
     private Button painelAdm;
 
+    // Fica logo abaixo do painel do admin (só o admin vê)
+    @FXML
+    private Button btnVitrine;
+
     // Ocupa o lugar do painel do admin quando quem entrou é um cliente
     @FXML
     private Button btnHistoricoCompras;
@@ -87,9 +92,11 @@ public class telaInicialController {
         String nome = Sessao.getUsuarioLogado();
         String senha = Sessao.getSenhaLogada();
         painelAdm.setVisible(false);
+        btnVitrine.setVisible(false);
 
         if (nome.equals("admin") && senha.equals("admin")) {
             painelAdm.setVisible(true);
+            btnVitrine.setVisible(true);
         }
 
         // Admin vê o painel; cliente vê o histórico das próprias compras (mesmo lugar na tela)
@@ -366,6 +373,11 @@ public class telaInicialController {
     @FXML
     void menuAdm(ActionEvent event) {
         GerenciamentoJanela.abrirJanela("/com/senai/javafx/opcao.fxml", "Fazer Login");
+    }
+
+    @FXML
+    void abrirVitrine(ActionEvent event) {
+        VitrineController.abrir(((Node) event.getSource()).getScene().getRoot());
     }
 
     @FXML
