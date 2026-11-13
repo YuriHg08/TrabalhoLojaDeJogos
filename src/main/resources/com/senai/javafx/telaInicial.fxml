@@ -105,11 +105,7 @@
     <center>
         <StackPane fx:id="areaCentral" prefWidth="977.0" stylesheets="@styleMenu.css" BorderPane.alignment="CENTER">
          <children>
-            <AnchorPane prefHeight="514.0" prefWidth="990.0">
-               <children>
-                  <Button layoutX="523.0" layoutY="611.0" mnemonicParsing="false" prefWidth="142.0" styleClass="botao-primario" text="Apoie-nos!" />
-               </children>
-            </AnchorPane>
+            <AnchorPane prefHeight="514.0" prefWidth="990.0" />
          </children></StackPane>
     </center>
 

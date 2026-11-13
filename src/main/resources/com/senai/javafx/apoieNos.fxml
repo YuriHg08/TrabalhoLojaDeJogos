@@ -1,8 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
+<VBox alignment="TOP_CENTER" prefWidth="440.0" spacing="14.0" style="-fx-background-radius: 0;" styleClass="painel-principal" stylesheets="@styleMenu.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.senai.javafx.controllers.apoieNosController">
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" stylesheets="@styleMenu.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.senai.javafx.controllers.apoieNosController">
+    <padding>
+        <Insets bottom="24.0" left="24.0" right="24.0" top="24.0" />
+    </padding>
+    <children>
+        <HBox alignment="CENTER_LEFT">
+            <children>
+                <Label styleClass="titulo-tela" text="Apoie-nos" />
+                <Region HBox.hgrow="ALWAYS" />
+                <Button focusTraversable="false" mnemonicParsing="false" onAction="#fechar" prefHeight="31.0" prefWidth="48.0" style="-fx-text-fill: #ffffff;" stylesheets="@styleMenu.css" text="✕">
+                    <styleClass>
+                        <String fx:value="titlebar-btn-close" />
+                        <String fx:value="custom-titlebar" />
+                    </styleClass>
+                </Button>
+            </children>
+        </HBox>
 
-</AnchorPane>
+        <Label styleClass="texto-mutado" text="Obrigado por apoiar a Nexus Store!" wrapText="true" />
+
+        <!-- Troque o arquivo imagens/apoie_nos.png pela sua imagem (QR Code, banner etc.) -->
+        <ImageView fx:id="imgApoie" fitHeight="344.0" fitWidth="349.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@imagens/qr_code.png" />
+            </image>
+        </ImageView>
+
+        <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#fechar" styleClass="botao-secundario" text="Fechar" />
+    </children>
+</VBox>

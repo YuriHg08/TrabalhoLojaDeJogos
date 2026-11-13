@@ -55,11 +55,14 @@ public class CadastroJogosController {
                         new Jogo("Spider-Man 2", List.of("Ação", "Aventura"), List.of("Playstation", "PC"), 349.90, imagem("spider_man_2.png"), 10),
                         new Jogo("Elden Ring", List.of("RPG", "Ação"), List.of("PC", "Playstation", "Xbox"), 299.90, imagem("elden_ring.png"), 10),
                         new Jogo("Cyberpunk 2077", List.of("RPG", "Ação"), List.of("PC", "Playstation", "Xbox"), 199.90, imagem("cyberpunk_2077.png"), 10),
+                        new Jogo("Forza Horizon 5", List.of("Esporte", "Ação"), List.of("PC", "Playstation", "Xbox"), 67.60, imagem("carro.png"), 10),
                         new Jogo("Call of Duty: MWIII", List.of("Ação"), List.of("PC", "Playstation", "Xbox"), 299.90, imagem("call_of_duty_mwiii.png"), 10),
                         new Jogo("FIFA 27", List.of("Esporte"), List.of("PC", "Playstation", "Xbox", "Nintendo"), 299.90, imagem("fifa_27.png"), 10),
                         new Jogo("Resident Evil Village", List.of("Ação", "Aventura"), List.of("PC", "Playstation", "Xbox"), 149.90, imagem("resident_evil_village.png"), 10),
                         new Jogo("Zelda: Tears of the Kingdom", List.of("Aventura", "Ação"), List.of("Nintendo"), 349.90, imagem("zelda_totk.png"), 10),
+                        new Jogo("Grand Theft Auto V Enchanced", List.of("Ação", "Aventura"), List.of("Playstation", "Xbox"), 249.99, imagem("GTA_V.png"), 10),
                         new Jogo("Grand Theft Auto VI", List.of("Ação", "Aventura"), List.of("Playstation", "Xbox"), 449.90, imagem("GTA_VI.png"), 10),
+                        new Jogo("Grand Theft Auto VII", List.of("Ação", "Aventura"), List.of("Playstation", "Xbox"), 670.42, imagem("GTA_VII.png"), 10),
                         new Jogo("Pokemon Legend Arceus", List.of("RPG", "Aventura"), List.of("Nintendo"), 349.00, imagem("Pokemon_A.png"), 10),
                         new Jogo("The Last of Us Part I", List.of("Ação", "Aventura"), List.of("Playstation", "PC"), 249.90, imagem("the_last_of_us_1.png"), 10),
                         new Jogo("The Last of Us Part II", List.of("Ação", "Aventura"), List.of("Playstation", "PC"), 249.90, imagem("the_last_of_us.png"), 10),
@@ -80,6 +83,7 @@ public class CadastroJogosController {
                         new Jogo("Slime Rancher 2", List.of("Aventura"), List.of("PC", "Playstation", "Xbox", "Nintendo"), 89.99, imagem("slime_rancher2.png"), 10),
                         new Jogo("Stardew Valley", List.of("RPG", "Aventura"), List.of("PC", "Playstation", "Xbox", "Nintendo"), 24.90, imagem("stardew_valley.png"), 10),
                         new Jogo("Minecraft", List.of("Aventura"), List.of("PC", "Playstation", "Xbox", "Nintendo"), 99.90, imagem("minecraft.png"), 10),
+                        new Jogo("Minecraft 2", List.of("Aventura"), List.of("PC", "Playstation", "Xbox", "Nintendo"), 199.90, imagem("minecraft2.png"), 10),
                         new Jogo("Hollow Knight", List.of("Aventura", "Ação"), List.of("PC", "Playstation", "Xbox", "Nintendo"), 46.90, imagem("hollow_knight.png"), 10),
                         new Jogo("Hollow Knight: Silksong", List.of("Aventura", "Ação"), List.of("PC", "Playstation", "Xbox", "Nintendo"), 59.90, imagem("hollow_knight_silksong.png"), 10)
 

@@ -1,6 +1,7 @@
 package com.senai.javafx.controllers.LadoCliente;
 
 import com.senai.javafx.controllers.LadoAdministrador.CadastroJogosController;
+import com.senai.javafx.controllers.apoieNosController;
 import com.senai.javafx.entidades.FiltroCatalogo;
 import com.senai.javafx.entidades.Jogo;
 import com.senai.javafx.entidades.GerenciamentoJanela;
@@ -67,6 +68,12 @@ public class CatalogoJogosController {
         cacheCards.clear(); // jogo novo/removido/editado: refaz os cards
         agendarRecarga();
     };
+
+    // Botão "Apoie-nos": abre a janela com a imagem
+    @FXML
+    private void abrirApoieNos() {
+        apoieNosController.abrir(containerJogos.getScene().getWindow());
+    }
 
     @FXML
     public void initialize() {

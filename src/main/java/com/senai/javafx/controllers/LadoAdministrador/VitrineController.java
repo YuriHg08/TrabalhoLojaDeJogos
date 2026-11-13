@@ -33,10 +33,10 @@ public class VitrineController {
     private static final NumberFormat FORMATO_PRECO =
             NumberFormat.getCurrencyInstance(new Locale("pt", "BR"));
 
-    private static final double LARGURA_CARD = 210;
-    private static final double ALTURA_CARD = 330;
-    private static final double ALTURA_FOTO = 230;
-    private static final double VELOCIDADE_GRAUS_POR_SEGUNDO = 16;
+    private static final double LARGURA_CARD = 240;
+    private static final double ALTURA_CARD = 360;
+    private static final double ALTURA_FOTO = 250;
+    private static final double VELOCIDADE_GRAUS_POR_SEGUNDO = -16;
 
     @FXML
     private StackPane palco;
